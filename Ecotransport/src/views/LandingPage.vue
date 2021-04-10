@@ -11,7 +11,7 @@
 import Header from "@/components/Header";
 
 export default {
-  name: 'App',
+  name: 'landing',
   components: {
     Header
   }
