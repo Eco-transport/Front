@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import LandingPage from "@/views/LandingPage";
 import Mapa from "@/views/Mapa";
 import Terminos from "@/views/Terminos";
+import Registro from "@/views/Registro";
 
 
 
@@ -25,6 +27,12 @@ export default new Router({
       path: '/terminos',
       name: 'terminos',
       component: Terminos
+    },
+    {
+      path: '/registro',
+      name: 'registro',
+      component: Registro
     }
+
   ]
 })

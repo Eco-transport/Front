@@ -30,6 +30,9 @@
             <a class="nav-link" href="terminos">Términos</a>
           </li>
 
+          <li class="nav-item">
+            <a class="nav-link" href="registro">Registrese</a>
+          </li>
         </ul>
       </div>
     </nav>

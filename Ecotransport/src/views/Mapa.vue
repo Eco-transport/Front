@@ -1,5 +1,6 @@
 <template>
-  <div id="contacto"><Header></Header>
+  <div id="contacto">
+      <Header></Header>
 
     <br><br><br><br>
 
