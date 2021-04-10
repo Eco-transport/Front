@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <h1>Bienvenidos a Ecotransport</h1>
+    <img src="./assets/Ecotransport.png" width="200" height="200"><br>
+    <button type="button" class="btn btn-primary">Registrarme</button>
   </div>
 </template>
 
