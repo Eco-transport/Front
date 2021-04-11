@@ -53,7 +53,7 @@ export default new Router({
       name: 'EliminarCuenta1',
       component: EliminarCuenta1
     },
-    
+
     {
       path: '/CuentaEliminada',
       name: 'CuentaEliminada',
@@ -63,6 +63,7 @@ export default new Router({
       path: '/olvpass',
       name: 'olvpass',
       component: OlvPass
+    },
     {
       path: '/iniciar-sesion',
       name: 'IniciarSesion',
