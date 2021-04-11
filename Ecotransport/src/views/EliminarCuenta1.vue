@@ -17,7 +17,7 @@
 import Header from "@/components/Header";
 // import Footer from "@/components/Footer";
 export default {
-  name: "EliminarCuenta",
+  name: "EliminarCuenta1",
   components: {
     Header//, Footer
   }
