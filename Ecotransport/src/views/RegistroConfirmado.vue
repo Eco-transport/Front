@@ -2,7 +2,7 @@
     <div>
         <Header></Header>
         <h1>Bienvenido a EcoTransport, La mejor alternativa de transporte</h1>
-        <h3>Pronto serás redirijido a nuestro menu principal, si esto no ocurre haz click <a href="LandingPage.vue">aqui</a></h3>
+        <h3>Pronto serás redirijido a nuestro menu principal, si esto no ocurre haz click <a href="/#/">aqui</a></h3>
         
     </div>
 </template>
