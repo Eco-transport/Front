@@ -12,16 +12,13 @@
         data-target="#navbarNav"
         aria-controls="navbarNav"
         aria-expanded="false"
-        aria-label="Toggle navigation"      >
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
-      
+
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-md-auto">
-          <li class="nav-item" id="btnPrincipal">
-            <a class="nav-link" href="/">Inicio</a>
-          </li>
-
           <li class="nav-item">
             <a class="nav-link" href="mapa">Mapa</a>
           </li>
@@ -36,6 +33,7 @@
         </ul>
       </div>
     </nav>
+    <br><br>
   </div>
 </template>
 
