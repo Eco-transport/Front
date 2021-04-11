@@ -1,6 +1,7 @@
 <template>
   <div id="contacto">
     <Header></Header>
+    <img src="@/assets/Vamos.png" style="max-width:100%;width:auto;height:auto;" alt="Vamos">
 
     <br /><br />
 
@@ -17,7 +18,7 @@
         <div>
           <h2>Estamos ubicados en:</h2>
         </div>
-        <br /><br />
+        <br />
         <div class="mx-auto">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d63630.807719254124!2d-74.13263037037063!3d4.607362148159379!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1618082800636!5m2!1ses!2sco"
@@ -33,7 +34,7 @@
       <div class="col">
         <h2>Conoce nustros puntos</h2>
         <br /><br />
-        <h3>📍 Soacha</h3>  
+        <h3>📍 Soacha</h3>
         <h4>Kra 2 #38-127</h4>
         <br /><br />
         <h3>📍 Chapinero</h3>
@@ -41,9 +42,8 @@
         <br /><br />
         <h3>📍 Suba</h3>
         <h4>Kra 104 #148-07</h4>
-        <br><br>
-        <button type="button" class="btn btn-secondary">Editar</button>
-        <button type="button" class="btn btn-primary">Agregar</button>
+        <br /><br />
+        <button type="button" class="btn btn-success">Editar</button>
       </div>
     </div>
 

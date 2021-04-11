@@ -1,7 +1,7 @@
 <template>
   <div class="Header">
     <!--Header-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #295135;">
       <a class="navbar-brand" href="/">
         <img src="@/assets/Logo.png" alt="Logo Ecotransport" height="40" />
       </a>
@@ -33,7 +33,6 @@
         </ul>
       </div>
     </nav>
-    <br><br>
   </div>
 </template>
 
