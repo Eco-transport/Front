@@ -7,7 +7,7 @@ import Terminos from "@/views/Terminos";
 import Registro from "@/views/Registro";
 import ConfirmarRegistro from "@/views/ConfirmarRegistro";
 import RegistroConfirmado from "@/views/RegistroConfirmado";
-import EliminarCuenta from "@/views/EliminarCuenta";
+import EliminarCuenta from "@/views/EliminarCuenta1";
 import CuentaEliminada from "@/views/CuentaEliminada";
 
 Vue.use(Router)
@@ -50,6 +50,7 @@ export default new Router({
       name: 'EliminarCuenta',
       component: EliminarCuenta
     },
+    
     {
       path: '/CuentaEliminada',
       name: 'CuentaEliminada',
