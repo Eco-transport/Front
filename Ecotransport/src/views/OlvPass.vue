@@ -25,6 +25,8 @@
 
 <script>
 import Header from "@/components/Header";
+import http from "../http-common";
+
 // import Footer from "@/components/Footer";
 export default {
   name: "OlvPass",
@@ -53,8 +55,14 @@ export default {
   },
   methods: {
     enviarCorreo: function (event) {
+      /*
+      http.get("/loging").then( response => {
+        this.emailValido = response.data.emailValido
+      })
+
+       */
       //Enviar correo para verificación, guardar en "emailValido"
-      if(this.emailValido === "") {
+      if(this.emailValido !== "") {
         this.hideAnswer = true;
         this.hideEmail = false;
         //Se solicita la pregunta de seguridad asociada al correo valido, la respuesta se guarda en "pregunta"
