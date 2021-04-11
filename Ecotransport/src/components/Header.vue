@@ -1,7 +1,7 @@
 <template>
   <div class="Header">
     <!--Header-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #295135;">
       <a class="navbar-brand" href="/">
         <img src="@/assets/Logo.png" alt="Logo Ecotransport" height="40" />
       </a>
@@ -12,16 +12,13 @@
         data-target="#navbarNav"
         aria-controls="navbarNav"
         aria-expanded="false"
-        aria-label="Toggle navigation"      >
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
-      
+
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-md-auto">
-          <li class="nav-item" id="btnPrincipal">
-            <a class="nav-link" href="/">Inicio</a>
-          </li>
-
           <li class="nav-item">
             <a class="nav-link" href="mapa">Mapa</a>
           </li>
@@ -31,7 +28,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="registro">Registrese</a>
+            <a class="nav-link" href="iniciar-sesion">Iniciar sesión</a>
           </li>
         </ul>
       </div>
