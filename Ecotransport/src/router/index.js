@@ -9,11 +9,13 @@ import ConfirmarRegistro from "@/views/ConfirmarRegistro";
 import RegistroConfirmado from "@/views/RegistroConfirmado";
 import EliminarCuenta1 from "@/views/EliminarCuenta1";
 import CuentaEliminada from "@/views/CuentaEliminada";
+import OlvPass from "../views/OlvPass";
 import IniciarSesion from "@/views/IniciarSesion";
+
 
 Vue.use(Router)
 
-export default new Router({ 
+export default new Router({
   mode: 'history',
   routes: [
     {
@@ -57,7 +59,10 @@ export default new Router({
       name: 'CuentaEliminada',
       component: CuentaEliminada
     },
-    
+    {
+      path: '/olvpass',
+      name: 'olvpass',
+      component: OlvPass
     {
       path: '/iniciar-sesion',
       name: 'IniciarSesion',
