@@ -9,6 +9,7 @@ import ConfirmarRegistro from "@/views/ConfirmarRegistro";
 import RegistroConfirmado from "@/views/RegistroConfirmado";
 import EliminarCuenta from "@/views/EliminarCuenta1";
 import CuentaEliminada from "@/views/CuentaEliminada";
+//import Login from "/@views/Login";
 
 Vue.use(Router)
 
@@ -24,7 +25,7 @@ export default new Router({
       path: '/mapa',
       name: 'mapa',
       component: Mapa
-    },
+    },    
     {
       path: '/terminos',
       name: 'terminos',
