@@ -9,6 +9,7 @@ import ConfirmarRegistro from "@/views/ConfirmarRegistro";
 import RegistroConfirmado from "@/views/RegistroConfirmado";
 import EliminarCuenta1 from "@/views/EliminarCuenta1";
 import CuentaEliminada from "@/views/CuentaEliminada";
+import IniciarSesion from "@/views/IniciarSesion";
 
 Vue.use(Router)
 
@@ -55,6 +56,12 @@ export default new Router({
       path: '/CuentaEliminada',
       name: 'CuentaEliminada',
       component: CuentaEliminada
+    },
+    
+    {
+      path: '/iniciar-sesion',
+      name: 'IniciarSesion',
+      component: IniciarSesion
     },
     ]
 })

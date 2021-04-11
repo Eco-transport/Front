@@ -28,7 +28,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="registro">Registrese</a>
+            <a class="nav-link" href="iniciar-sesion">Iniciar sesión</a>
           </li>
         </ul>
       </div>
