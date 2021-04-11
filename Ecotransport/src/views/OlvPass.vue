@@ -54,7 +54,7 @@ export default {
   methods: {
     enviarCorreo: function (event) {
       //Enviar correo para verificación, guardar en "emailValido"
-      if(this.emailValido === "") {
+      if(this.emailValido !== "") {
         this.hideAnswer = true;
         this.hideEmail = false;
         //Se solicita la pregunta de seguridad asociada al correo valido, la respuesta se guarda en "pregunta"
