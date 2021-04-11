@@ -2,6 +2,7 @@
     <div>
         <Header></Header>
         <h1>Esta es la pagina de registro</h1>
+       <a class="nav-link" href="ConfirmarRegistro.vue"> <button type="button" class="btn btn-info">Confirmar Registro</button></a> 
     </div>
 </template>
 

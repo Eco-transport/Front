@@ -5,6 +5,8 @@ import LandingPage from "@/views/LandingPage";
 import Mapa from "@/views/Mapa";
 import Terminos from "@/views/Terminos";
 import Registro from "@/views/Registro";
+import ConfirmarRegistro from "@/views/ConfirmarRegistro";
+import RegistroConfirmado from "@/views/RegistroConfirmado";
 
 
 
@@ -32,7 +34,16 @@ export default new Router({
       path: '/registro',
       name: 'registro',
       component: Registro
-    }
-
+    },
+    {
+      path: '/ConfirmarRegistro',
+      name: 'ConfirmarRegistro',
+      component: ConfirmarRegistro
+    },
+    {
+      path: '/RegistroConfirmado',
+      name: 'RegistroConfirmado',
+      component: RegistroConfirmado
+    },
   ]
 })
