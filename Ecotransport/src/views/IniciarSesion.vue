@@ -10,6 +10,9 @@
           <input class="form-input" type="password" id="password" placeholder="Password">
           <input class="form-submit" type="submit" value="Login">
         </form>
+      <div>
+        <a href="OlvPass.vue"><button type="button" class="btn btn-info">Olvidaste tu contraseña?</button></a>
+      </div>
     </div>
 </template>
 

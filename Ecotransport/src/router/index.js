@@ -28,7 +28,7 @@ export default new Router({
       path: '/mapa',
       name: 'mapa',
       component: Mapa
-    },    
+    },
     {
       path: '/terminos',
       name: 'terminos',
@@ -62,7 +62,7 @@ export default new Router({
     },
     {
       path: '/olvpass',
-      name: 'olvpass',
+      name: 'OlvPass',
       component: OlvPass
     },
     {
