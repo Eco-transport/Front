@@ -7,6 +7,7 @@
     <img src="../assets/Ecotransport.png" width="200" height="200"><br>
     <p>Para probar toda la experiencia sigamos al registro</p>
     <a href="Registro"><button type="button" class="btn btn-info">Registrarme</button></a>
+    <br>
     <a href="OlvPass">Olvidé mi contraseña</a>
   </div>
 </template>
