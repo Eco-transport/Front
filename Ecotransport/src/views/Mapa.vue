@@ -1,5 +1,5 @@
 <template>
-  <div id="contacto">
+  <div>
     <Header></Header>
     <img src="@/assets/Vamos.png" style="max-width:100%;width:auto;height:auto;" alt="Vamos">
 
@@ -32,7 +32,7 @@
       </div>
       <!-- Derecha -->
       <div class="col">
-        <h2>Conoce nustros puntos</h2>
+        <h2>Conozca nuestros puntos</h2>
         <br /><br />
         <h3>📍 Soacha</h3>
         <h4>Kra 2 #38-127</h4>
@@ -43,11 +43,11 @@
         <h3>📍 Suba</h3>
         <h4>Kra 104 #148-07</h4>
         <br /><br />
-        <button type="button" class="btn btn-success">Editar</button>
+        <a type="button" class="btn btn-success" href="/editar-estacion">Editar</a>
       </div>
     </div>
 
-    <br /><br /><br />
+    <br />
     <div class="row justify-content-center">
       <div class="container">
         <a href="https://api.whatsapp.com/send?phone=3195748728" class="mx-2">
@@ -66,16 +66,21 @@
         <h6>¡Escribenos a whatsapp!</h6>
       </div>
     </div>
-    <br /><br /><br /><br /><br /><br />
+    <br /><br />
+    <!-- googleMap -->
+    <div>
+        <GoogleMapLoader></GoogleMapLoader>
+    </div>
+
   </div>
 </template>
 
 <script>
 import Header from "@/components/Header";
 export default {
-  name: "Mapa",
+  name: "mapa",
   components: {
-    Header,
+    Header
   },
 };
 </script>

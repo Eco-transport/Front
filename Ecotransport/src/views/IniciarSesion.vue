@@ -10,6 +10,9 @@
           <input class="form-input" type="password" id="password" placeholder="Password">
           <input class="form-submit" type="submit" value="Login">
         </form>
+      <div>
+        <p><a href="OlvPass">Olvidaste tu contraseña?</a></p>
+      </div>
     </div>
 </template>
 

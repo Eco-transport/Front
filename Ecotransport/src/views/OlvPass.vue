@@ -1,34 +1,38 @@
 <template>
-    <div>
-      <Header></Header>
-      <div>
-        <p v-show="hideEmail">Digite su correo:</p>
-        <input v-show="hideEmail" v-model="email" placeholder="Digite su correo">
-        <button class="btn btn-info" v-show="hideEmail" v-on:click="enviarCorreo">Ingresar correo</button>
-        <p v-show="alertaEmailInvalido">CORREO ELECTRONICO NO VÁLIDO</p>
-      </div>
-      <div>
-        <p v-show="hideAnswer">Responda la pregunta: "{{ pregunta }}"</p>
-        <input v-show="hideAnswer" v-model="respuesta" placeholder="Digite su respuesta">
-        <button class="btn btn-info" v-show="hideAnswer" v-on:click="enviarRespuesta">Ingresar respuesta</button>
-        <p v-show="alertaRespuestaInvalida">RESPUESTA NO VÁLIDA</p>
-      </div>
-      <div>
-        <p v-show="hideCambioPassword">Digite su nueva contraseña:</p>
-        <input v-show="hideCambioPassword" v-model="nuevaPassword" placeholder="Digite su contraseña">
-        <button class="btn btn-info" v-show="hideCambioPassword" v-on:click="cambiarPassword">Cambiar contraseña</button>
-        <p v-show="alertaPasswordInvalido">CONTRASEÑA NO VÁLIDA</p>
-        <p v-show="mensajePasswordCambiada">LA CONTRASEÑA HA SIDO CAMBIADA</p>
+  <div>
+    <Header></Header>
+    <div class="padre">
+      <div class="hijo">
+        <h1>Recuperación de contraseña<br /></h1>
+        <p><br /></p>
+        <div>
+          <p v-show="hideEmail">Digite su correo:</p>
+          <input v-show="hideEmail" v-model="email" placeholder="Digite su correo">
+          <button class="btn btn-info" v-show="hideEmail" v-on:click="enviarCorreo">Ingresar correo</button>
+          <p v-show="alertaEmailInvalido">CORREO ELECTRONICO NO VÁLIDO</p>
+        </div>
+        <div>
+          <p v-show="hideAnswer">Responda la pregunta: "{{ pregunta }}"</p>
+          <input v-show="hideAnswer" v-model="respuesta" placeholder="Digite su respuesta">
+          <button class="btn btn-info" v-show="hideAnswer" v-on:click="enviarRespuesta">Ingresar respuesta</button>
+          <p v-show="alertaRespuestaInvalida">RESPUESTA NO VÁLIDA</p>
+        </div>
+        <div>
+          <p v-show="hideCambioPassword">Digite su nueva contraseña:</p>
+          <input v-show="hideCambioPassword" v-model="nuevaPassword" placeholder="Digite su contraseña">
+          <button class="btn btn-info" v-show="hideCambioPassword" v-on:click="cambiarPassword">Cambiar contraseña</button>
+          <p v-show="alertaPasswordInvalido">CONTRASEÑA NO VÁLIDA</p>
+          <p v-show="mensajePasswordCambiada">LA CONTRASEÑA HA SIDO CAMBIADA</p>
+        </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
 import Header from "@/components/Header";
-// import Footer from "@/components/Footer";
 export default {
   name: "OlvPass",
-
   components: {
     Header//, Footer
   },
@@ -88,6 +92,22 @@ export default {
       }
     }
   }
-
-};
+}
 </script>
+
+<style>
+  .padre {
+    padding: 5% 0;
+  }
+  .hijo {
+    padding: 10% 0;
+  }
+  .form-label {
+    margin-top: 2rem;
+    color: black;
+    margin-bottom: 0.5rem;
+  &:first-of-type {
+     margin-top: 0rem;
+   }
+  }
+</style>
