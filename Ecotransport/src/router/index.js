@@ -11,6 +11,7 @@ import EliminarCuenta1 from "@/views/EliminarCuenta1";
 import CuentaEliminada from "@/views/CuentaEliminada";
 import OlvPass from "../views/OlvPass";
 import IniciarSesion from "@/views/IniciarSesion";
+import EditarEstacion from "@/views/EditarEstacion";
 
 
 Vue.use(Router)
@@ -69,5 +70,10 @@ export default new Router({
       name: 'IniciarSesion',
       component: IniciarSesion
     },
+    {
+      path: '/editar-estacion',
+      name: 'EditarEstcion',
+      component: EditarEstacion
+    }
     ]
 })
