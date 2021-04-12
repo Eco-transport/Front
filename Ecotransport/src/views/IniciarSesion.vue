@@ -2,7 +2,7 @@
     <div>
         <Header></Header>
         <br>
-        <h1>Login in the page</h1>
+        <h1>Bienvenid@ de nuevo</h1>
         <form action class="form">
           <label class="form-label" for="#email">Email:</label>
           <input class="form-input" type="email" id="email" required placeholder="Email">
