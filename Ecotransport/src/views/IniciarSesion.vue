@@ -11,7 +11,7 @@
           <input class="form-submit" type="submit" value="Login">
         </form>
       <div>
-        <a href="OlvPass.vue"><button type="button" class="btn btn-info">Olvidaste tu contraseña?</button></a>
+        <p><a href="OlvPass">Olvidaste tu contraseña?</a></p>
       </div>
     </div>
 </template>

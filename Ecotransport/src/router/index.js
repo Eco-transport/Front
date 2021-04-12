@@ -9,7 +9,7 @@ import ConfirmarRegistro from "@/views/ConfirmarRegistro";
 import RegistroConfirmado from "@/views/RegistroConfirmado";
 import EliminarCuenta1 from "@/views/EliminarCuenta1";
 import CuentaEliminada from "@/views/CuentaEliminada";
-import OlvPass from "../views/OlvPass";
+import OlvPass from "@/views/OlvPass";
 import IniciarSesion from "@/views/IniciarSesion";
 import EditarEstacion from "@/views/EditarEstacion";
 
