@@ -24,8 +24,6 @@
           <input class="form-submit" type="submit" value="Registrate!">
         </form>
 
-       <a class="nav-link" href="ConfirmarRegistro"> <button type="button" class="btn btn-info">Confirmar Registro</button></a>
-       <a class="nav-link" href="EliminarCuenta1"> <button type="button" class="btn btn-info">Eliminar Cuenta</button></a> 
     </div>
 </template>
 

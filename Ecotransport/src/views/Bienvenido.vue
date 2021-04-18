@@ -1,10 +1,10 @@
 <template>
   <div>
     <Header></Header>
-    <h1> [Test] ¡Hola! <span>{{posts[284].nombre}} {{posts[284].apellido}}  </span>  </h1>
-    <div class="post" v-for="post in posts" :key="post.id">
-      <h3>{{post.nombre}}</h3>
-      <p>{{post.telefono}}</p>
+    <h1 class="post">Bienvenido <span>Crlos</span></h1>
+    <div class="post" v-for="post in posts" :key="post.userId">
+      <h3>{{post.title}}</h3>
+      <p>{{post.body}}</p>
     </div>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
   },
   mounted(){
     let vue = this;
-    axios.get('http://www.raydelto.org/agenda.php').then( function(respuesta){
+    axios.get('https://jsonplaceholder.typicode.com/posts').then( function(respuesta){
       vue.posts = (respuesta.data)
       console.log(vue.posts)
     }  )

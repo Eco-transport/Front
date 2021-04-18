@@ -12,7 +12,10 @@ import CuentaEliminada from "@/views/CuentaEliminada";
 import OlvPass from "@/views/OlvPass";
 import IniciarSesion from "@/views/IniciarSesion";
 import EditarEstacion from "@/views/EditarEstacion";
+import Bienvenido from "@/views/Bienvenido";
+import Test from "@/views/Test";
 import Error from "@/views/Error";
+
 
 Vue.use(Router)
 
@@ -40,24 +43,24 @@ export default new Router({
       component: Registro
     },
     {
-      path: '/ConfirmarRegistro',
+      path: '/confirmar-registro',
       name: 'ConfirmarRegistro',
       component: ConfirmarRegistro
     },
     {
-      path: '/RegistroConfirmado',
+      path: '/registro-confirmado',
       name: 'RegistroConfirmado',
       component: RegistroConfirmado
     },
     {
-      path: '/EliminarCuenta1',
-      name: 'EliminarCuenta1',
+      path: '/eliminar-cuenta',
+      name: 'eliminarcuenta',
       component: EliminarCuenta1
     },
 
     {
-      path: '/CuentaEliminada',
-      name: 'CuentaEliminada',
+      path: '/cuenta-eliminada',
+      name: 'cuentaeliminada',
       component: CuentaEliminada
     },
     {
@@ -79,6 +82,17 @@ export default new Router({
       path: '*',
       name: 'error',
       component: Error
+    }
+    ,
+    {
+      path: '/bienvenido',
+      name: 'bienvenido',
+      component: Bienvenido
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: Test
     }
     ]
 })
