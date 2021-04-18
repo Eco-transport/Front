@@ -21,7 +21,6 @@
       <p>Agreguela para realizar el proceso de verificación</p><br>
       <a type="button" class="btn btn-success" href="/editar-estacion">Agregar</a>
     </div>
-  </div>
 </template>
 
 
