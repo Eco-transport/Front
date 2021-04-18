@@ -12,7 +12,7 @@ import CuentaEliminada from "@/views/CuentaEliminada";
 import OlvPass from "@/views/OlvPass";
 import IniciarSesion from "@/views/IniciarSesion";
 import EditarEstacion from "@/views/EditarEstacion";
-
+import Error from "@/views/Error";
 
 Vue.use(Router)
 
@@ -74,6 +74,11 @@ export default new Router({
       path: '/editar-estacion',
       name: 'EditarEstcion',
       component: EditarEstacion
+    },
+    {
+      path: '*',
+      name: 'error',
+      component: Error
     }
     ]
 })
