@@ -1,10 +1,9 @@
 <template>
   <div>
-    <Header></Header>
-    <h1> [Test] ¡Hola! <span>{{posts[284].nombre}} {{posts[284].apellido}}  </span>  </h1>
+    <Header></Header>    
     <div class="post" v-for="post in posts" :key="post.id">
       <h3>{{post.nombre}}</h3>
-      <p>{{post.telefono}}</p>
+      <p>{{post.email}}</p>
     </div>
   </div>
 </template>
@@ -24,7 +23,7 @@ export default {
   },
   mounted(){
     let vue = this;
-    axios.get('http://www.raydelto.org/agenda.php').then( function(respuesta){
+    axios.get('http://localhost:8080/API/usuario').then( function(respuesta){
       vue.posts = (respuesta.data)
       console.log(vue.posts)
     }  )
