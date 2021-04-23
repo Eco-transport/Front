@@ -11,7 +11,8 @@
           <input class="form-submit" type="submit" value="Login">
         </form>
       <div>
-        <p><a href="OlvPass">Olvidaste tu contraseña?</a></p>
+        <p><a href="OlvPass">¿Olvidaste tu contraseña?</a></p>
+        <p><a href="registro">Registrate</a></p>
       </div>
     </div>
 </template>

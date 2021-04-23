@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header></Header>
-    <h1 class="post">Bienvenido <span>Crlos</span></h1>
+    <h1 class="post">Bienvenido <span>Socio</span></h1>
     <div class="post" v-for="post in posts" :key="post.userId">
       <h3>{{post.title}}</h3>
       <p>{{post.body}}</p>
