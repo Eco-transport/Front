@@ -1,6 +1,5 @@
 <template>
   <div>
-<<<<<<< HEAD
     <Header></Header>
     <br />
     <h1>Bienvenid@ de nuevo</h1>
@@ -36,7 +35,7 @@
           <input type="submit" class="fadeIn fourth" value="Log In" />
         </form>
         <div class="alert alert-danger" role="alert" v-if="error">
-         {{error_msg}} 
+          {{ error_msg }}
         </div>
 
         <!-- Remind Passowrd -->
@@ -44,12 +43,6 @@
           <a class="underlineHover" href="#">¿Olvidó su contraseña?</a>
         </div>
       </div>
-=======
-    <Header></Header>    
-    <div class="post" v-for="post in posts" :key="post.id">
-      <h3>{{post.nombre}}</h3>
-      <p>{{post.email}}</p>
->>>>>>> 8caf3711f544a4e7b220ee33fbc69471933053ed
     </div>
   </div>
 </template>
@@ -70,34 +63,24 @@ export default {
       error_msg: "",
     };
   },
-<<<<<<< HEAD
-  methods:{
-    login(){
-      let json ={
-        "usuario" : this.usuario,
-        "password" : this.password   
+  methods: {
+    login() {
+      let json = {
+        usuario: this.usuario,
+        password: this.password,
       };
-      axios.post("https://api.solodata.es/auth",json)
-      .then( data => {
-        if(data.data.status == "ok"){
+      axios.post("https://api.solodata.es/auth", json).then((data) => {
+        if (data.data.status == "ok") {
           localStorage.token = data.data.result.token;
-          console.log(data.data.result.token);
-          this.$router.push('bienvenido');
-        }else{
+          console.log();
+          this.$router.push("bienvenido");
+        } else {
           this.error = true;
           this.error_msg = data.data.result.error_msg;
         }
-      })
-    }
-=======
-  mounted(){
-    let vue = this;
-    axios.get('http://localhost:8080/API/usuario').then( function(respuesta){
-      vue.posts = (respuesta.data)
-      console.log(vue.posts)
-    }  )
->>>>>>> 8caf3711f544a4e7b220ee33fbc69471933053ed
-  }
+      });
+    },
+  },
 };
 </script>
 

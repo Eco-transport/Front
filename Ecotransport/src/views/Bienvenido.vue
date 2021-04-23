@@ -1,42 +1,72 @@
 <template>
-  <div>
-    <Header></Header>
-    <h1 class="post">Bienvenido <span>Socio</span></h1>
-    <div class="post" v-for="post in posts" :key="post.userId">
-      <h3>{{post.title}}</h3>
-      <p>{{post.body}}</p>
+    <div>
+        <Header/>
+
+            <div class="container izquierda">
+
+                <button class="btn btn-primary" v-on:click="nuevo()" >Nuevo usuario</button>
+                <br><br>
+
+
+                <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">DNI</th>
+                        <th scope="col">TELEFONO</th>
+                        <th scope="col">CORREO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="usuario in Listausuarios" :key="usuario.PacienteId" v-on:click="editar(usuario.PacienteId)">
+                        <th scope="row">{{ usuario.PacienteId}}</th>
+                        <td>{{ usuario.Nombre }}</td>
+                        <td>{{ usuario.DNI }}</td>
+                        <td>{{ usuario.Telefono }}</td>
+                        <td>{{ usuario.Correo }}</td>
+                    </tr>
+            
+                </tbody>
+                </table>
+
+            </div>
+
+        <Footer />
     </div>
-  </div>
 </template>
-
 <script>
-import Header from "@/components/Header";
-import axios from 'axios'
+import Header from '@/components/Header.vue';
+import axios from 'axios';
 export default {
-  name: "mapa",
-  components: {
-    Header
-  },
-  data(){
-    return{
-      posts:[]
+    name:"Dashboard",
+    data(){
+        return {
+            Listausuarios:null,
+            pagina:1
+        }
+    },
+    components:{
+        Header
+    },
+    methods:{
+            editar(id){
+                this.$router.push('/editar/' + id);
+            },
+            nuevo(){
+                this.$router.push('/nuevo');
+            }
+    },
+    mounted:function(){
+        let direccion = "http://api.solodata.es/pacientes?page=" + this.pagina;
+        axios.get(direccion).then( data =>{
+            this.Listausuarios = data.data;
+        });
     }
-  },
-  mounted(){
-    let vue = this;
-    axios.get('https://jsonplaceholder.typicode.com/posts').then( function(respuesta){
-      vue.posts = (respuesta.data)
-      console.log(vue.posts)
-    }  )
-  }
-};
+}
 </script>
-
-<style>
-  .post{
-    border: 1px solid #062528;
-    padding: 20px;
-    margin-top: 10px;
-
-  }
+<style  scoped>
+    .izquierda{
+        text-align: left;
+    }
 </style>
