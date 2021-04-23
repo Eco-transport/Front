@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< HEAD
     <Header></Header>
     <br />
     <h1>Bienvenid@ de nuevo</h1>
@@ -43,6 +44,12 @@
           <a class="underlineHover" href="#">¿Olvidó su contraseña?</a>
         </div>
       </div>
+=======
+    <Header></Header>    
+    <div class="post" v-for="post in posts" :key="post.id">
+      <h3>{{post.nombre}}</h3>
+      <p>{{post.email}}</p>
+>>>>>>> 8caf3711f544a4e7b220ee33fbc69471933053ed
     </div>
   </div>
 </template>
@@ -63,6 +70,7 @@ export default {
       error_msg: "",
     };
   },
+<<<<<<< HEAD
   methods:{
     login(){
       let json ={
@@ -81,6 +89,14 @@ export default {
         }
       })
     }
+=======
+  mounted(){
+    let vue = this;
+    axios.get('http://localhost:8080/API/usuario').then( function(respuesta){
+      vue.posts = (respuesta.data)
+      console.log(vue.posts)
+    }  )
+>>>>>>> 8caf3711f544a4e7b220ee33fbc69471933053ed
   }
 };
 </script>
