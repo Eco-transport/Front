@@ -1,6 +1,7 @@
 <template>
     <div>
         <Header/>
+        <br>  
 
             <div class="container izquierda">
 
@@ -12,8 +13,8 @@
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">DNI</th>
+                        <th scope="col">NOMBRE</th>
+                        <th scope="col">CEDULA ID</th>
                         <th scope="col">TELEFONO</th>
                         <th scope="col">CORREO</th>
                     </tr>

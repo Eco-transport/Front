@@ -15,6 +15,8 @@ import EditarEstacion from "@/views/EditarEstacion";
 import Bienvenido from "@/views/Bienvenido";
 import Test from "@/views/Test";
 import Error from "@/views/Error";
+import Editar from "@/views/EditarTest";
+import Nuevo from "@/views/NuevoTest";
 
 
 Vue.use(Router)
@@ -93,6 +95,17 @@ export default new Router({
       path: '/test',
       name: 'test',
       component: Test
+    }
+    ,
+    {
+      path: '/editar/:id',
+      name: 'editar',
+      component: Editar
+    },
+    {
+      path: '/nuevo',
+      name: 'nuevo',
+      component: Nuevo
     }
     ]
 })
