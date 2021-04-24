@@ -1,23 +1,24 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
-import api from '@/Api'
+
+import api from "@/Api";
+
 export default {
-  name: 'App',
-  data(){
-    return{
-      nombres:[]
-    }
+  name: "App",
+  data() {
+    return {
+      nombres: []
+    };
   },
-  created(){
-    api.traerNombre()
-    .then(nombres => (this.nombres=nombres))
+  created() {
+    api.traerNombre().then(nombres => (this.nombres = nombres));
   }
-}
+};
 </script>
 
 <style>

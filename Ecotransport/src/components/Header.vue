@@ -1,7 +1,7 @@
 <template>
   <div class="Header">
     <!--Header-->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #295135;">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: -webkit-linear-gradient(right, #057943, #6ba7be)">
       <a class="navbar-brand" href="/">
         <img src="@/assets/Logo.png" alt="Logo Ecotransport" height="40" />
       </a>
