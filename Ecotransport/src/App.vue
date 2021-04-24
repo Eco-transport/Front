@@ -5,20 +5,9 @@
 </template>
 
 <script>
-
-import api from "@/Api";
-
 export default {
-  name: "App",
-  data() {
-    return {
-      nombres: []
-    };
-  },
-  created() {
-    api.traerNombre().then(nombres => (this.nombres = nombres));
-  }
-};
+  name: 'App'
+}
 </script>
 
 <style>
