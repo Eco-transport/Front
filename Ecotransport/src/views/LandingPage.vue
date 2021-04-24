@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script>
+<script>  
 import UnlogHeader from '../components/UnlogHeader.vue';
 
 export default {
