@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header>  </Header>
+    <unlog-header />
     <img src="@/assets/Hero.png" style="max-width:100%;width:auto;height:auto;" alt="Encabezado">
     <br><br>
     <h1>Bienvenidos a Ecotransport</h1>
@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import Header from "@/components/Header";
+import UnlogHeader from '../components/UnlogHeader.vue';
 
 export default {
   name: 'landing',
   components: {
-    Header
+    UnlogHeader
   }
 }
 </script>

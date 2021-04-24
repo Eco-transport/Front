@@ -20,9 +20,11 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-md-auto">
           <li class="nav-item">
+            <a class="nav-link" href="test">Log In (Test) |</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="mapa">Mapa</a>
           </li>
-
           <li class="nav-item">
             <a class="nav-link" href="terminos">Términos</a>
           </li>

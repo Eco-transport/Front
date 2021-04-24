@@ -40,8 +40,12 @@
 
         <!-- Remind Passowrd -->
         <div id="formFooter">
-          <a class="underlineHover" href="#">¿Olvidó su contraseña?</a>
+          <a class="underlineHover" href="OlvPass">¿Olvidó su contraseña?</a>
+          <div>
+          <a class="underlineHover" href="registro">Registrarme</a>
         </div>
+        </div>
+        
       </div>
     </div>
   </div>
