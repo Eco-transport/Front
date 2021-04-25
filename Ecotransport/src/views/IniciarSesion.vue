@@ -71,13 +71,15 @@ export default {
   methods: {
     login() {
       let json = {
-        usuario: this.usuario,
-        password: this.password,
+        "email": this.usuario,
+        "contrasena": this.password
       };
-      axios.post("https://localhost:8080/API/usuario/checkLogin", json).then((data) => {
-        if (data.data) {
+      axios.post("http://localhost:8080/API/usuario/checkLogin", json)
+      .then(resultado => {
+        if (resultado.data) {          
           this.$router.push("bienvenido");
         } else {
+          this.error = true;
           this.error_msg = "Usuario o contraseña incorrecta";
         }
       });
