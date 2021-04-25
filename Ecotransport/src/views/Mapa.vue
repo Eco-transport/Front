@@ -34,22 +34,20 @@
       <div class="col">
         <h2>Puntos:</h2>
         <br>
-        <ul v-for="estacion in ListaEstaciones" :key="estacion.idEstacion">
-          <li>
-            <h3>📍 {{estacion.idEstacion}}</h3>
-          </li>
+        <ul v-for="estacion in ListaEstaciones" :key="estacion.idEstacion" style="list-style:none">
           <li>
             <h3>📍 {{estacion.nombre}}</h3>
           </li>
           <li>
-            <h3>📍 {{estacion.direccion}}</h3>
+            <h2>{{estacion.direccion}}</h2>
           </li>
           <li>
-            <h3>📍 {{estacion.telefono}}</h3>
+            <h2>📞 {{estacion.telefono}}</h2>
           </li>
           <li>
-            <h3>📍 {{estacion.totalVehiculos}}</h3>
+            <h2>Vehiculos disponibles: {{estacion.totalVehiculos}}</h2>
           </li>
+          <br>
         </ul>
         <a type="button" class="btn btn-success" href="/editar-estacion">Editar</a>
       </div>
@@ -108,3 +106,7 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+</style>
