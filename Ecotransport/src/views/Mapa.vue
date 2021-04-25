@@ -36,18 +36,18 @@
         <br>
         <ul v-for="estacion in ListaEstaciones" :key="estacion.idEstacion" style="list-style:none">
           <li>
-            <h3>📍 {{estacion.nombre}}</h3>
+            <h5>📍 {{estacion.nombre}}</h5>
           </li>
           <li>
-            <h2>{{estacion.direccion}}</h2>
+            <h6>{{estacion.direccion}}</h6>
           </li>
           <li>
-            <h2>📞 {{estacion.telefono}}</h2>
+            <h6>📞 {{estacion.telefono}}</h6>
           </li>
           <li>
-            <h2>Vehiculos disponibles: {{estacion.totalVehiculos}}</h2>
+            <h6>Inventario: {{estacion.totalVehiculos}}</h6>
           </li>
-          <br>
+          <br><br>
         </ul>
         <a type="button" class="btn btn-success" href="/editar-estacion">Editar</a>
       </div>
