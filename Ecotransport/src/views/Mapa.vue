@@ -49,7 +49,7 @@
           </li>
           <br><br>
         </ul>
-        <a type="button" class="btn btn-success" href="/editar-estacion">Editar</a>
+        <!-- <a type="button" class="btn btn-success" href="/editar-estacion">Editar</a> -->
       </div>
     </div>
 

@@ -16,7 +16,7 @@
           <p class="divider-text">
             <span class="bg-light"> ¡Vamos allá! </span>
           </p>
-          <form v-on:submit.prevent>
+          <form >
             <div class="form-group input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">
@@ -148,6 +148,9 @@
                 Crear cuenta
               </button>
             </div>
+            <div class="alert alert-success" role="alert" v-if="state">
+              ¡¡¡Su cuenta ha sido creada con éxito!!!
+            </div>
             <!-- form-group// -->
             <p class="text-center">
               ¿Ya tienes una cuenta? <a href="iniciar-sesion">Acceder</a>
@@ -181,6 +184,7 @@ export default {
       contrasena2: "",
       state: false,
       error: false,
+      
     };
   },
   methods: {
@@ -189,24 +193,26 @@ export default {
         this.error = true;
         console.log("Estan diferentes!");
       } else {
+        
+        this.state = true; //cuando las contraseñas coinciden se manda un usuario
         this.registro();
       }
     },
     registro() {
       let json = {
-        cedula: this.cedula,
-        nombre: this.nombre,
-        email: this.correo,
-        celular: this.celular,
-        pregunta: this.pregunta,
-        respuesta: this.respuesta,
-        contrasena: this.contrasena1,
-        activo: this.state,
+        "cedula": this.cedula,
+        "nombre": this.nombre,
+        "email": this.correo,
+        "celular": this.celular,
+        "pregunta": this.pregunta,
+        "respuesta": this.respuesta,
+        "contrasena": this.contrasena1,
+        "activo": this.state,
       };
       axios
-        .post("http://localhost:8080/API/estacion/guardar")
+        .post("http://localhost:8080/API/usuario/guardar", json)
         .then((respuesta) => {
-          console.log("Todo crema");
+          console.log(respuesta.data);
         });
     },
   },
