@@ -1,7 +1,7 @@
 <template>
   <div class="Header">
     <!--Header-->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background: -webkit-linear-gradient(right, #057943, #6ba7be)">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #295135">
       <a class="navbar-brand" href="/">
         <img src="@/assets/Logo.png" alt="Logo Ecotransport" height="40" />
       </a>
@@ -20,9 +20,6 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-md-auto">
           <li class="nav-item">
-            <a class="nav-link" href="test">Log In (Test) |</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="mapa">Mapa</a>
           </li>
           <li class="nav-item">
@@ -30,7 +27,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="iniciar-sesion">Iniciar sesión</a>
+            <a class="nav-link" href="/">Cerrar sesión</a>
           </li>
           
         </ul>

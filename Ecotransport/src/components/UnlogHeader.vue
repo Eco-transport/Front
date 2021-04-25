@@ -23,9 +23,6 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-md-auto">
           <li class="nav-item">
-            <a class="nav-link" href="terminos">Términos</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="iniciar-sesion">Iniciar sesión</a>
           </li>
         </ul>

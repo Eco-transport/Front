@@ -10,11 +10,10 @@ import CuentaEliminada from "@/views/CuentaEliminada";
 import OlvPass from "@/views/OlvPass";
 import IniciarSesion from "@/views/IniciarSesion";
 import EditarEstacion from "@/views/EditarEstacion";
-import Bienvenido from "@/views/Bienvenido";
 import Error from "@/views/Error";
 import Editar from "@/views/EditarTest";
 import Nuevo from "@/views/NuevoTest";
-
+import EditarEstaciones from "@/views/EditarEstaciones";
 
 Vue.use(Router)
 
@@ -74,12 +73,6 @@ export default new Router({
     }
     ,
     {
-      path: '/bienvenido',
-      name: 'bienvenido',
-      component: Bienvenido
-    }
-    ,
-    {
       path: '/editar/:id',
       name: 'editar',
       component: Editar
@@ -88,6 +81,11 @@ export default new Router({
       path: '/nuevo',
       name: 'nuevo',
       component: Nuevo
+    },
+    {
+      path: '/editar-estaciones',
+      name: 'editarestaciones',
+      component: EditarEstaciones
     }
     ]
 })

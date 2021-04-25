@@ -32,17 +32,25 @@
       </div>
       <!-- Derecha -->
       <div class="col">
-        <h2>Conozca nuestros puntos</h2>
-        <br /><br />
-        <h3>📍 Soacha</h3>
-        <h4>Kra 2 #38-127</h4>
-        <br /><br />
-        <h3>📍 Chapinero</h3>
-        <h4>Calle 52 #13-70</h4>
-        <br /><br />
-        <h3>📍 Suba</h3>
-        <h4>Kra 104 #148-07</h4>
-        <br /><br />
+        <h2>Puntos:</h2>
+        <br>
+        <ul v-for="estacion in ListaEstaciones" :key="estacion.idEstacion">
+          <li>
+            <h3>📍 {{estacion.idEstacion}}</h3>
+          </li>
+          <li>
+            <h3>📍 {{estacion.nombre}}</h3>
+          </li>
+          <li>
+            <h3>📍 {{estacion.direccion}}</h3>
+          </li>
+          <li>
+            <h3>📍 {{estacion.telefono}}</h3>
+          </li>
+          <li>
+            <h3>📍 {{estacion.totalVehiculos}}</h3>
+          </li>
+        </ul>
         <a type="button" class="btn btn-success" href="/editar-estacion">Editar</a>
       </div>
     </div>
@@ -75,12 +83,28 @@
   </div>
 </template>
 
+
 <script>
-import Header from "@/components/Header";
+import Header from '@/components/Header.vue';
+import axios from 'axios';
 export default {
-  name: "mapa",
-  components: {
-    Header
-  },
-};
+    name:"mapa",
+    data(){
+        return {
+            ListaEstaciones:[],
+            idEstacion:1
+        }
+    },
+    components:{
+        Header
+    },
+    methods:{
+      
+    },
+    mounted:function(){
+        axios.get("http://localhost:8080/API/estacion").then( data =>{
+            this.ListaEstaciones = data.data;
+        });
+    }
+}
 </script>

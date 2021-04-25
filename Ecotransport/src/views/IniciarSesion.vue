@@ -77,7 +77,7 @@ export default {
       axios.post("http://localhost:8080/API/usuario/checkLogin", json)
       .then(resultado => {
         if (resultado.data) {          
-          this.$router.push("bienvenido");
+          this.$router.push("mapa");
         } else {
           this.error = true;
           this.error_msg = "Usuario o contraseña incorrecta";
