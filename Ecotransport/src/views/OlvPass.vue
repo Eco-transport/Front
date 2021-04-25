@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header></Header>
+    <unlog-header />
     <div class="padre">
       <div class="hijo">
         <h1>Recuperación de contraseña<br /></h1>
@@ -31,10 +31,12 @@
 
 <script>
 import Header from "@/components/Header";
+import UnlogHeader from '../components/UnlogHeader.vue';
 export default {
   name: "OlvPass",
   components: {
-    Header//, Footer
+    Header, 
+    UnlogHeader//, Footer
   },
   data() {
     return {

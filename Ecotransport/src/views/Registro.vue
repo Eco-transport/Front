@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Header></Header>
+        <unlog-header />
         <h1>Bienvenid@ a EcoTransport, ingresa tus datos para ser parte de la mejor experiencia
           en transporte
         </h1>
@@ -29,11 +29,13 @@
 
 <script>
 import Header from "@/components/Header";
+import UnlogHeader from '../components/UnlogHeader.vue';
 // import Footer from "@/components/Footer";
 export default {
   name: "registro",
   components: {
-    Header//, Footer
+    Header,
+    UnlogHeader//, Footer
   }
 };
 </script>
