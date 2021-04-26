@@ -106,14 +106,14 @@ export default {
                 console.log(data);
                 this.makeToast("Hecho","Paciente creado","success");
                 console.log("entro a la función")
-                this.$router.push("/bienvenido");
+                this.$router.push("/admin-estaciones");
             }).catch( e =>{
                 console.log(e);
                  this.makeToast("Error","Error al guardar","error");
             })
         },
         salir(){
-            this.$router.push("/bienvenido");
+            this.$router.push("/admin-estaciones");
         },
         makeToast(titulo,texto,tipo) {
             this.toastCount++

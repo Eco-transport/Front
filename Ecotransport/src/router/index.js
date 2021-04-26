@@ -9,11 +9,10 @@ import EliminarCuenta1 from "@/views/EliminarCuenta1";
 import CuentaEliminada from "@/views/CuentaEliminada";
 import OlvPass from "@/views/OlvPass";
 import IniciarSesion from "@/views/IniciarSesion";
-import EditarEstacion from "@/views/EditarEstacion";
 import Error from "@/views/Error";
-import Editar from "@/views/EditarTest";
-import Nuevo from "@/views/NuevoTest";
-import EditarEstaciones from "@/views/EditarEstaciones";
+import EditarEstacion from "@/views/EditarEstacion";
+import NuevaEstacion from "@/views/NuevaEstacion";
+import AdminEstaciones from "@/views/AdminEstaciones";
 
 Vue.use(Router)
 
@@ -62,11 +61,6 @@ export default new Router({
       component: IniciarSesion
     },
     {
-      path: '/editar-estacion',
-      name: 'EditarEstcion',
-      component: EditarEstacion
-    },
-    {
       path: '*',
       name: 'error',
       component: Error
@@ -75,17 +69,17 @@ export default new Router({
     {
       path: '/editar/:id',
       name: 'editar',
-      component: Editar
+      component: EditarEstacion
     },
     {
-      path: '/nuevo',
+      path: '/nueva-estacion',
       name: 'nuevo',
-      component: Nuevo
+      component: NuevaEstacion
     },
     {
-      path: '/editar-estaciones',
-      name: 'editarestaciones',
-      component: EditarEstaciones
+      path: '/admin-estaciones',
+      name: 'adminEstaciones',
+      component: AdminEstaciones
     }
     ]
 })

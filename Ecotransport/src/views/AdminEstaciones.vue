@@ -1,6 +1,7 @@
 <template>
     <div>
-        <Header/>
+        <Header/><br><br>
+        <h1>Bienvenido Administrador</h1>
         <br>  
 
             <div class="container izquierda">
@@ -57,7 +58,7 @@ export default {
                 this.$router.push('/editar/' + id);
             },
             nuevo(){
-                this.$router.push('/nuevo');
+                this.$router.push('/nueva-estacion');
             }
     },
     mounted:function(){
