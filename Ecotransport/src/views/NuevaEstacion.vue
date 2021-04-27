@@ -1,135 +1,136 @@
 <template>
-    <div>
-        <Header />
-            <div class="container">
-                
+  <div>
+    <Header />
+    <div class="container">
+      <form action="" class="form-horizontal">
+        <div class="form-group left">
+          <label for="" class="control-label col-sm-2">Nombre</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              name="nombre"
+              id="nombre"
+              v-model="form.nombre"
+            />
+          </div>
+        </div>
+        <div class="form-group left">
+          <label for="" class="control-label col-sm-2">Direccion</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              name="direccion"
+              id="direccion"
+              v-model="form.direccion"
+            />
+          </div>
+        </div>
+        
+        <div class="form-group left">
+          <label for="" class="control-label col-sm-2">Teléfono</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              name="telefono"
+              id="telefono"
+              v-model="form.telefono"
+            />
+          </div>
+        </div>
 
-                <form action="" class="form-horizontal">
-                    <div class="form-group left">
-                       <label for="" class="control-label col-sm-2">Nombre</label>
-                       <div class="col-sm-10">
-                          <input type="text" class="form-control" name="nombre" id="nombre" v-model="form.nombre">
-                       </div>
-                    </div>
-                    <div class="form-group left">
-                       <label for="" class="control-label col-sm-2">Direccion</label>
-                       <div class="col-sm-10">
-                          <input type="text" class="form-control" name="direccion" id="direccion" v-model="form.direccion">
-                       </div>
-                    </div>
-                    <div class="form-group left row">
-                      <div class="col">
-                            <label for="" class="control-label col-sm-3">Correo</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="correo" id="correo" v-model="form.correo">
-                            </div>
-                        </div>
-                        <div class="col">
-                          <label for="" class="control-label col-sm-5">codigo Postal</label>
-                          <div class="col-sm-7">
-                              <input type="text" class="form-control" name="codigopostal" id="codigopostal" v-model="form.codigoPostal">
-                          </div>
-                        </div> 
-                    </div>
-                    <div class="form-group left row">
-                         <div class="col">
-                            <label for="" class="control-label col-sm-2">Genero</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="genero" id="genero" v-model="form.genero">
-                            </div>
-                          </div>
-                         <div class="col">
-                              <label for="" class="control-label col-sm-2">Telefono</label>
-                              <div class="col-sm-7">
-                                  <input type="text" class="form-control" name="telefono" id="telefono" v-model="form.telefono">
-                              </div>
-                        </div>
-                    </div>
-                    <div class="form-group left row ">
-                        <div class="col">
-                              <label for="" class="control-label col-sm-2">Fecha nacimiento</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="fechanacimineto" id="telefono" v-model="form.fechaNacimiento">
-                            </div>
-                        </div>
-                        <div class="col">
-                               <label for="" class="control-label col-sm-2">DNI</label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="dni" id="dni" v-model="form.dni">
-                                </div>
-                        </div>
-                    </div>
+        <div class="form-group left">
+          <label for="" class="control-label col-sm-2">Direccion</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              name="inventario"
+              id="inventario"
+              v-model="form.inventario"
+            />
+          </div>
+        </div>
+  
 
 
-                    <div class="form-group">
-                      <button type="button" class="btn btn-primary" v-on:click="guardar()" >Guardar</button>
-                      <button type="button" class="btn btn-dark margen" v-on:click="salir()"  >Salir</button>
-                    </div> 
-                </form>
-
-
-            </div>
-        <!-- <Footer /> -->
-
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" v-on:click="guardar()">
+            Guardar
+          </button>
+          <button
+            type="button"
+            class="btn btn-dark margen"
+            v-on:click="salir()"
+          >
+            Salir
+          </button>
+        </div>
+      </form>
     </div>
+    <!-- <Footer /> -->
+  </div>
 </template>
 <script>
-import Header from '@/components/Header.vue'
+import Header from "@/components/Header.vue";
 //import Footer from '@/components/Footer.vue'
-import axios from 'axios';
+import axios from "axios";
 export default {
-    name:"Nuevo",
-    data:function(){
-        return {
-            form:{
-                "nombre" : "",
-                "direccion": "", 
-                "dni" : "",
-                "correo":"",
-                "codigoPostal" :"",
-                "genero" : "",
-                "telefono" : "",
-                "fechaNacimiento" : "",
-                "token" : "" 
-            }
-        }
+  name: "Nuevo",
+  data: function() {
+    return {
+      form: {
+        nombre: "",
+        direccion: "",
+        telefono: "",
+        inventario: ""        
+      }
+    };
+  },
+  components: {
+    Header    
+  },
+  methods: {
+    guardar() {
+      let json = {        
+        "nombre": this.form.nombre,
+        "direccion": this.form.direccion,
+        "telefono": this.form.telefono,
+        "totalVehiculos": this.form.inventario
+      };     
+
+      axios
+        .post("http://localhost:8080/API/estacion/guardar", json)
+        .then(data => {
+          console.log(data);
+          this.makeToast("Hecho", "Paciente creado", "success");
+          console.log("entro a la función");
+          this.$router.push("/admin-estaciones");
+        })
+        .catch(e => {
+          console.log(e);
+          this.makeToast("Error", "Error al guardar", "error");
+        });
     },
-    components:{
-        Header,
-        //Footer
+    salir() {
+      this.$router.push("/admin-estaciones");
     },
-    methods:{
-        guardar(){
-            this.form.token = localStorage.getItem("token");
-            axios.post("http://api.solodata.es/pacientes",this.form)
-            .then(data =>{
-                console.log(data);
-                this.makeToast("Hecho","Paciente creado","success");
-                console.log("entro a la función")
-                this.$router.push("/admin-estaciones");
-            }).catch( e =>{
-                console.log(e);
-                 this.makeToast("Error","Error al guardar","error");
-            })
-        },
-        salir(){
-            this.$router.push("/admin-estaciones");
-        },
-        makeToast(titulo,texto,tipo) {
-            this.toastCount++
-            this.$bvToast.toast(texto, {
-            title: titulo,
-            variant: tipo,
-            autoHideDelay: 5000,
-            appendToast: true
-            })
-        }
-        
+    makeToast(titulo, texto, tipo) {
+      this.toastCount++;
+      this.$bvToast.toast(texto, {
+        title: titulo,
+        variant: tipo,
+        autoHideDelay: 5000,
+        appendToast: true
+      });
     }
-}
+  }
+};
 </script>
 <style scoped>
-.left{
-    text-align:  left;
+.left {
+  text-align: left;
 }
 </style>

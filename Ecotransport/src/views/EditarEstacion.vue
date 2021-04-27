@@ -1,142 +1,177 @@
 <template>
-        <div>
-          <Header />
-          <br><br>
-            <div class="container">
-                <form action="" class="form-horizontal">
-                    <div class="form-group left">
-                       <label for="" class="control-label col-sm-2">Nombre</label>
-                       <div class="col-sm-10">
-                          <input type="text" class="form-control" name="nombre" id="nombre" v-model="form.nombre">
-                       </div>
-                    </div>
-                    <div class="form-group left">
-                       <label for="" class="control-label col-sm-2">Direccion</label>
-                       <div class="col-sm-10">
-                          <input type="text" class="form-control" name="direccion" id="direccion" v-model="form.direccion">
-                       </div>
-                    </div>
-                    <div class="form-group left row">
-                      <div class="col">
-                            <label for="" class="control-label col-sm-3">Correo</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="correo" id="correo" v-model="form.correo">
-                            </div>
-                        </div>
-                        <div class="col">
-                          <label for="" class="control-label col-sm-5">codigo Postal</label>
-                          <div class="col-sm-7">
-                              <input type="text" class="form-control" name="codigopostal" id="codigopostal" v-model="form.codigoPostal">
-                          </div>
-                        </div> 
-                    </div>
-                    <div class="form-group left row">
-                         <div class="col">
-                            <label for="" class="control-label col-sm-2">Genero</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="genero" id="genero" v-model="form.genero">
-                            </div>
-                          </div>
-                         <div class="col">
-                              <label for="" class="control-label col-sm-2">Telefono</label>
-                              <div class="col-sm-7">
-                                  <input type="text" class="form-control" name="telefono" id="telefono" v-model="form.telefono">
-                              </div>
-                        </div>
-                    </div>
-                    <div class="form-group left">
-                        <label for="" class="control-label col-sm-2">Fecha nacimiento</label>
-                       <div class="col-sm-4">
-                          <input type="text" class="form-control" name="fechanacimineto" id="telefono" v-model="form.fechaNacimiento">
-                       </div>
-                    </div>
-
-
-                    <div class="form-group">
-                      <button type="button" class="btn btn-primary" v-on:click="editar()" >Editar</button>
-                      <button type="button" class="btn btn-danger margen" v-on:click="eliminar()" >Eliminar</button>
-                      <button type="button" class="btn btn-dark margen" v-on:click="salir()"  >Salir</button>
-                    </div> 
-                </form>
-            </div>
-          <!-- <Footer />   -->
+  <div>
+    <Header />
+    <br /><br />
+    <div class="container" v-on:submit.prevent="obteniendoData">
+      <form action="" class="form-horizontal">
+        <div class="form-group left">
+          <label for="" class="control-label col-sm-2">ID</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              name="idEstacion"
+              id="idEstacion"
+              v-model="form.idEstacion"
+            />
+          </div>
         </div>
-    
+
+
+        <div class="form-group left">
+          <label for="" class="control-label col-sm-2">Nombre</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              name="nombre"
+              id="nombre"
+              v-model="form.nombre"
+            />
+          </div>
+        </div>
+        <div class="form-group left">
+          <label for="" class="control-label col-sm-2">Direccion</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              name="direccion"
+              id="direccion"
+              v-model="form.direccion"
+            />
+          </div>
+        </div>
+        <div class="form-group left row">
+          <div class="col">
+            <label for="" class="control-label col-sm-3">Teléfono</label>
+            <div class="col-sm-7">
+              <input
+                type="text"
+                class="form-control"
+                name="telefono"
+                id="telefono"
+                v-model="form.telefono"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="form-group left row">
+          <div class="col">
+            <label for="" class="control-label col-sm-3">Inventario</label>
+            <div class="col-sm-7">
+              <input
+                type="text"
+                class="form-control"
+                name="inventario"
+                id="inventario"
+                v-model="form.totalVehiculos"
+              />
+            </div>
+          </div>
+        </div>  
+        <div><br><br><br></div>
+        <div class="form-group">
+
+          <button type="button" class="btn btn-primary" v-on:click="editar()">
+            Editar
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-danger margen"
+            v-on:click="eliminar()"
+          >
+            Eliminar
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-dark margen"
+            v-on:click="salir()"
+          >
+            Salir
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- <Footer />   -->
+  </div>
 </template>
 <script>
-import Header from '@/components/Header.vue';
-//import Footer from '@/components/Footer.vue';
-import axios from 'axios';
+import Header from "@/components/Header.vue";
+
+import axios from "axios";
 export default {
-  name:"Editar",
-  components:{
-    Header,
-    //Footer
+  name: "Editar",
+  components: {
+    Header
+
   },
-  data:function(){
+  data: function() {
     return {
-        form:{
-          "pacienteId":"",
-          "nombre" : "",
-          "direccion": "", 
-          "dni" : "",
-          "correo":"",
-          "codigoPostal" :"",
-          "genero" : "",
-          "telefono" : "",
-          "fechaNacimiento" : "",
-          "token" : "" 
-        }
-    }
+      form: {
+        idEstacion: "",
+        nombre: "",
+        direccion: "",
+        telefono: "",
+        totalVehiculos: 0
+      }
+    };
   },
-  methods:{
-      editar(){
-          axios.put("http://api.solodata.es/pacientes",this.form)
-          .then( data =>{
-              console.log(data);
-          })
-      },
-      salir(){
-        this.$router.push("/admin-estaciones");
-      },
+  methods: {
+    
+    editar() {
+      let json = {
+        "idEstacion": this.form.idEstacion,
+        "nombre": this.form.nombre,
+        "direccion": this.form.direccion,
+        "telefono": this.form.telefono,
+        "totalVehiculos": this.form.totalVehiculos
+      };
+      axios
+        .post("http://localhost:8080/API/estacion/guardar", json)
+        .then(data => {
+          console.log(data);
+        });
+    },
+    salir() {
+      this.$router.push("/admin-estaciones");
+    } , 
       eliminar(){
         var enviar = {
-            "pacienteId" : this.form.pacienteId,
-            "token" : this.form.token
+            "idEstacion" : this.form.pacienteId            
         };
-        axios.delete("http://api.solodata.es/pacientes", { headers : enviar})
+        axios.delete("http://localhost:8080/API/estacion/"+ this.form.idEstacion)
         .then( datos => {
             console.log(datos);
            this.$router.push("/admin-estaciones");
         });
       }
   },
+
   mounted:function(){
-      this.form.pacienteId = this.$route.params.id;
-      axios.get("http://api.solodata.es/pacientes?id="+ this.form.pacienteId)
+      this.form.idEstacion = this.$route.params.id;
+      axios.get("http://localhost:8080/API/estacion/"+ this.form.idEstacion)
       .then( datos => {
         
-        this.form.nombre = datos.data[0].Nombre;
-        this.form.direccion = datos.data[0].Direccion;
-        this.form.dni = datos.data[0].DNI;
-        this.form.correo = datos.data[0].Correo;
-        this.form.codigoPostal = datos.data[0].CodigoPostal;
-        this.form.genero = datos.data[0].Genero;
-        this.form.telefono = datos.data[0].Telefono;
-        this.form.fechaNacimiento = datos.data[0].FechaNacimiento;
-        this.form.token = localStorage.getItem("token");
+        this.form.nombre = datos.data.nombre;
+        this.form.direccion = datos.data.direccion;
+        this.form.telefono = datos.data.telefono;
+        this.form.totalVehiculos = datos.data.totalVehiculos;
+        
         console.log(this.form);
       })
      
-  }  
-}
+  } 
+};
 </script>
 <style scoped>
- .left{
-   text-align: left;
- };
- .margen{
-   margin-left: 15px;
-   margin-right: 15px;;
- }
+.left {
+  text-align: left;
+}
+.margen {
+  margin-left: 15px;
+  margin-right: 15px;
+}
 </style>

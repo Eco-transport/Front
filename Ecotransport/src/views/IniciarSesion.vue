@@ -39,7 +39,7 @@
 
         <!-- Remind Passowrd -->
         <div id="formFooter">
-          <a class="underlineHover" href="OlvPass">¿Olvidó su contraseña?</a>
+          <a class="underlineHover" href="OlvPass">¿Olvidó su contraseña?</a>          
           <div>
           <a class="underlineHover" href="registro">Registrarme</a>
         </div>
@@ -51,9 +51,14 @@
 </template>
 
 <script>
+
+
 import Header from "@/components/Header";
 import axios from "axios";
+import Vue from "vue";
 import UnlogHeader from '../components/UnlogHeader.vue';
+
+
 export default {
   name: "iniciarsesion",
   components: {
@@ -65,7 +70,7 @@ export default {
       usuario: "",
       password: "",
       error: false,
-      error_msg: "",
+      error_msg: "",      
     };
   },
   methods: {
@@ -76,7 +81,7 @@ export default {
       };
       axios.post("http://localhost:8080/API/usuario/checkLogin", json)
       .then(resultado => {
-        if (resultado.data) {          
+        if (resultado.data) {              
           this.$router.push("mapa");
         } else {
           this.error = true;
@@ -84,6 +89,19 @@ export default {
         }
       });
     },
+/*     cargarRol(){
+      let json = {
+            "email": this.usuario
+          };
+          axios.post("http://localhost:8080/API/usuario/email", json)
+          .then(resultado => {
+            console.log(resultado.data)
+            Vue.prototype.$nombreGlobal = resultado.data.nombre
+            Vue.prototype.rolGlobal = resultado.data.rol
+            this.hayLogin = true
+            
+          });
+    } */
   },
 };
 </script>

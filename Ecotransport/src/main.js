@@ -14,6 +14,20 @@ Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VueAxios, Axios);
 
+
+/* export const nombreGlobal = "";
+export const rolGlobal = "";
+
+
+
+export var hayLogin = new Vue({
+  data: {
+    hayLogin: false
+  }  
+}) */
+
+
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

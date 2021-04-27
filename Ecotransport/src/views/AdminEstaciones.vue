@@ -6,7 +6,7 @@
 
             <div class="container izquierda">
 
-                <button class="btn btn-primary" v-on:click="nuevo()" >Nuevo usuario</button>
+                <button class="btn btn-primary" v-on:click="nuevo()" >Agregar Estación</button>
                 <br><br>
 
 
@@ -15,18 +15,18 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">NOMBRE</th>
-                        <th scope="col">CEDULA ID</th>
+                        <th scope="col">DIRECCIÓN</th>
                         <th scope="col">TELEFONO</th>
-                        <th scope="col">CORREO</th>
+                        <th scope="col">INVENTARIO</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="usuario in Listausuarios" :key="usuario.PacienteId" v-on:click="editar(usuario.PacienteId)">
-                        <th scope="row">{{ usuario.PacienteId}}</th>
-                        <td>{{ usuario.Nombre }}</td>
-                        <td>{{ usuario.DNI }}</td>
-                        <td>{{ usuario.Telefono }}</td>
-                        <td>{{ usuario.Correo }}</td>
+                    <tr v-for="estacion in ListaEstaciones" :key="estacion.idEstacion" v-on:click="editar(estacion.idEstacion)">
+                        <th scope="row">{{ estacion.idEstacion}}</th>
+                        <td>{{ estacion.nombre }}</td>
+                        <td>{{ estacion.direccion }}</td>
+                        <td>{{ estacion.telefono }}</td>
+                        <td>{{ estacion.totalVehiculos }}</td>
                     </tr>
             
                 </tbody>
@@ -46,7 +46,7 @@ export default {
     name:"EditarEstaciones",
     data(){
         return {
-            Listausuarios:null,
+            ListaEstaciones:null,
             pagina:1
         }
     },
@@ -62,9 +62,9 @@ export default {
             }
     },
     mounted:function(){
-        let direccion = "http://api.solodata.es/pacientes?page=" + this.pagina;
+        let direccion = "http://localhost:8080/API/estacion/";
         axios.get(direccion).then( data =>{
-            this.Listausuarios = data.data;
+            this.ListaEstaciones = data.data;
         });
     }
 }

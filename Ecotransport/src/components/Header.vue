@@ -16,7 +16,9 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-
+      <!-- <div class= "usuario" v-if="this.hayLogin">
+        {{this.$rolGlobal}}-{{this.$nombreGlobal}}
+      </div> -->
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-md-auto">
           <li class="nav-item">
@@ -37,6 +39,7 @@
 </template>
 
 <script>
+import Vue from "vue"
 export default {
   name: "Header",
   props: {
@@ -44,3 +47,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.usuario{
+  color: #faf8f8;
+}
+</style>
