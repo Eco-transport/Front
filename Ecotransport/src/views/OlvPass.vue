@@ -14,26 +14,47 @@
         </div>
 
         <!-- ForgotPassword Form -->
-        <form v-on:submit.prevent="forgotPassword">
-          <input
+        <form v-on:submit.prevent="enviarCorreo">
+          <input v-if="hideCorreo"
             type="text"
-            id="forgotPassword"
+            id="correo"
             class="fadeIn second"
-            name="forgotPassword"
+            name="correo"
             placeholder="Correo electronico"
             v-model="usuario"
           />
           <input type="submit" class="fadeIn third" value="Enviar Correo" v-on:click="enviarCorreo" v-if="hideBottomEnviarCorreo"/>
-          <p v-if="hidePregunta">Responda la siguiente pregunta:</p>
-          <p v-if="hidePregunta">{{pregunta}}</p>
-          <input
-            type="password"
-            id="password"
-            class="fadeIn third"
-            name="login"
-            placeholder="Contraseña"
-            v-model="password"
+          <p class="fadeIn first" v-if="hidePregunta">Responda la siguiente pregunta:</p>
+          <p class="fadeIn first" v-if="hidePregunta">{{pregunta}}</p>
+          <input v-if="hidePregunta"
+            type="text"
+            id="respuesta"
+            class="fadeIn second"
+            name="respuesta"
+            placeholder="Escriba aquí su respuesta"
+            v-model="respuesta"
           />
+          <input type="submit" class="fadeIn third" value="Enviar Respuesta" v-on:click="enviarRespuesta" v-if="hideBottomEnviarRespuesta"/>
+          <p class="fadeIn first" v-if="allowChangePassword">Por favor digite la nueva contraseña:</p>
+          <input v-if="allowChangePassword"
+            type="text"
+            id="newPassword"
+            class="fadeIn second"
+            name="newPassword"
+            placeholder="Escriba aquí su nueva contraseña"
+            v-model="newPassword"
+          />
+          <input v-if="allowChangePassword"
+            type="text"
+            id="newPasswordConfirm"
+            class="fadeIn second"
+            name="newPasswordConfirm"
+            placeholder="Confirmar nueva contraseña"
+            v-model="newPasswordConfirm"
+          />
+          <input type="submit" class="fadeIn third" value="Cambiar contraseña" v-on:click="changePassword" v-if="allowChangePassword"/>
+          <p class="fadeIn first" v-if="successChangePassword">Contraseña cambiada exitosamente</p>
+          <p class="fadeIn first" v-if="errorChangePassword">Error al cambiar la contraseña, por favor intente de nuevo</p>
           <br />
         </form>
         <div class="alert alert-danger" role="alert" v-if="error">
@@ -46,6 +67,7 @@
 
 <script>
 import Header from "@/components/Header";
+import axios from "axios";
 export default {
   name: "OlvPass",
   components: {
@@ -57,21 +79,54 @@ export default {
       password: "",
       error: false,
       error_msg: "",
+      allowChangePassword: false,
+      newPassword: "",
+      newPasswordConfirm: "",
+      respuesta: "",
       pregunta: "",
       hidePregunta: false,
+      hideCorreo: true,
       hideBottomEnviarCorreo: true,
+      hideBottomEnviarRespuesta: false,
+      successChangePassword: false,
+      errorChangePassword: false,
     };
   },
   methods: {
     enviarCorreo() {
+      this.hideCorreo = false;
       this.hideBottomEnviarCorreo = false;
       let json = {
         usuario: this.usuario,
       };
       axios.post("http://localhost:8080/API/usuario/securityQuestion", json).then((result) => {
-        pregunta = result.data.pregunta;
+        this.pregunta = result.data;
       });
       this.hidePregunta = true;
+      this.hideBottomEnviarRespuesta = true;
+    },
+    enviarRespuesta() {
+      this.hidePregunta = false;
+      this.hideBottomEnviarRespuesta = false;
+      let json = {
+        usuario: this.usuario,
+        respuesta: this.respuesta,
+      };
+      axios.post("http://localhost:8080/API/usuario/securityAnswer", json).then((result) => {
+        if(result.data){
+          this.allowChangePassword = true;
+        }else{
+          this.allowChangePassword = false;
+        }
+      });
+    },
+    changePassword() {
+      if(this.newPassword==this.newPasswordConfirm){
+        this.allowChangePassword = false;
+        this.successChangePassword = true;
+      }else{
+        this.errorChangePassword = true;
+      }
     },
   },
 }
