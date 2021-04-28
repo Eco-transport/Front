@@ -37,7 +37,7 @@
           <input type="submit" class="fadeIn third" value="Enviar Respuesta" v-on:click="enviarRespuesta" v-if="hideBottomEnviarRespuesta"/>
           <p class="fadeIn first" v-if="allowChangePassword">Por favor digite la nueva contraseña:</p>
           <input v-if="allowChangePassword"
-            type="text"
+            type="password"
             id="newPassword"
             class="fadeIn second"
             name="newPassword"
@@ -45,7 +45,7 @@
             v-model="newPassword"
           />
           <input v-if="allowChangePassword"
-            type="text"
+            type="password"
             id="newPasswordConfirm"
             class="fadeIn second"
             name="newPasswordConfirm"
@@ -94,12 +94,13 @@ export default {
   },
   methods: {
     enviarCorreo() {
+      let ruta = "http://localhost:8080/API/usuario/securityQuestion";
       this.hideCorreo = false;
       this.hideBottomEnviarCorreo = false;
       let json = {
-        usuario: this.usuario,
+        email: this.usuario,
       };
-      axios.post("http://localhost:8080/API/usuario/securityQuestion", json).then((result) => {
+      axios.post(ruta, json).then((result) => {
         this.pregunta = result.data;
       });
       this.hidePregunta = true;
@@ -109,7 +110,7 @@ export default {
       this.hidePregunta = false;
       this.hideBottomEnviarRespuesta = false;
       let json = {
-        usuario: this.usuario,
+        email: this.usuario,
         respuesta: this.respuesta,
       };
       axios.post("http://localhost:8080/API/usuario/securityAnswer", json).then((result) => {
