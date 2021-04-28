@@ -1,6 +1,7 @@
 <template>
     <div>
-        <Header/><br><br>
+        <Header/>
+        <br><br>
         <h1>Bienvenido Administrador</h1>
         <br>  
 

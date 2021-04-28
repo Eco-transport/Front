@@ -16,8 +16,8 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <!-- <div class= "usuario" v-if="this.hayLogin">
-        {{this.$rolGlobal}}-{{this.$nombreGlobal}}
+      <!-- <div class= "usuario" v-if="this.$hayLogin">
+        {{this.$nombreGlobal}}
       </div> -->
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-md-auto">

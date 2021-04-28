@@ -15,8 +15,10 @@ Vue.use(IconsPlugin);
 Vue.use(VueAxios, Axios);
 
 
-/* export const nombreGlobal = "";
-export const rolGlobal = "";
+export var $hayLogin = false;
+export var $nombreGlobal = "";
+//export var $r = false;
+/*export const rolGlobal = "";
 
 
 

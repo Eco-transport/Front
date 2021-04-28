@@ -3,11 +3,14 @@
     <Header></Header>
     <img src="@/assets/Vamos.png" style="max-width:100%;width:auto;height:auto;" alt="Vamos">
 
-    <br /><br />
-
+    <br /><br />    
+    <!-- <div class= "usuario" v-if="test">      
+      {{console.log(test)}}
+    </div> -->
     <div class="col md-8">
       <h1 class="h12">Encuentre la estación mas cercana</h1>
-      <h2 class="h12">¡Vamos!</h2>
+      <h2 class="h12">¡Vamos! </h2>
+
     </div>
 
     <br /><br />
@@ -83,6 +86,7 @@
 
 
 <script>
+
 import Header from '@/components/Header.vue';
 import axios from 'axios';
 export default {
@@ -90,7 +94,7 @@ export default {
     data(){
         return {
             ListaEstaciones:[],
-            idEstacion:1
+            idEstacion:1,                        
         }
     },
     components:{

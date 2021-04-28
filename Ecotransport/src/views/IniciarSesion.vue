@@ -55,7 +55,6 @@
 
 import Header from "@/components/Header";
 import axios from "axios";
-import Vue from "vue";
 import UnlogHeader from '../components/UnlogHeader.vue';
 
 
@@ -70,7 +69,9 @@ export default {
       usuario: "",
       password: "",
       error: false,
-      error_msg: "",      
+      error_msg: "",
+      nombre: "",
+      rol: ""      
     };
   },
   methods: {
@@ -81,27 +82,40 @@ export default {
       };
       axios.post("http://localhost:8080/API/usuario/checkLogin", json)
       .then(resultado => {
-        if (resultado.data) {              
-          this.$router.push("mapa");
+        if (resultado.data) {        
+
+          setTimeout(() => {  
+            if(this.rol==="Administrador")
+            {              
+              this.$router.push("admin-estaciones");  
+            }
+            else
+            {   
+              //console.log(this.$nombreGlobal)
+              this.$router.push("mapa");
+            }                   
+          }, 15);
+          this.cargarRol();
+          
         } else {
           this.error = true;
           this.error_msg = "Usuario o contraseña incorrecta";
         }
       });
     },
-/*     cargarRol(){
+    cargarRol(){
       let json = {
             "email": this.usuario
           };
           axios.post("http://localhost:8080/API/usuario/email", json)
           .then(resultado => {
             console.log(resultado.data)
-            Vue.prototype.$nombreGlobal = resultado.data.nombre
-            Vue.prototype.rolGlobal = resultado.data.rol
-            this.hayLogin = true
+            this.$nombreGlobal = resultado.data.nombre
+            this.rol = resultado.data.rol
+            this.$hayLogin = true
             
           });
-    } */
+    }
   },
 };
 </script>
