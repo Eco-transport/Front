@@ -42,7 +42,7 @@
         </div>
 
         <div class="form-group left">
-          <label for="" class="control-label col-sm-2">Direccion</label>
+          <label for="" class="control-label col-sm-2">Inventario</label>
           <div class="col-sm-10">
             <input
               type="text"
