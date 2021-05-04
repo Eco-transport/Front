@@ -3,11 +3,14 @@
     <Header></Header>
     <img src="@/assets/Vamos.png" style="max-width:100%;width:auto;height:auto;" alt="Vamos">
 
-    <br /><br />
-
+    <br /><br />    
+    <!-- <div class= "usuario" v-if="test">      
+      {{console.log(test)}}
+    </div> -->
     <div class="col md-8">
       <h1 class="h12">Encuentre la estación mas cercana</h1>
-      <h2 class="h12">¡Vamos!</h2>
+      <h2 class="h12">¡Vamos! </h2>
+
     </div>
 
     <br /><br />
@@ -32,18 +35,24 @@
       </div>
       <!-- Derecha -->
       <div class="col">
-        <h2>Conozca nuestros puntos</h2>
-        <br /><br />
-        <h3>📍 Soacha</h3>
-        <h4>Kra 2 #38-127</h4>
-        <br /><br />
-        <h3>📍 Chapinero</h3>
-        <h4>Calle 52 #13-70</h4>
-        <br /><br />
-        <h3>📍 Suba</h3>
-        <h4>Kra 104 #148-07</h4>
-        <br /><br />
-        <a type="button" class="btn btn-success" href="/editar-estacion">Editar</a>
+        <h2>Puntos:</h2>
+        <br>
+        <ul v-for="estacion in ListaEstaciones" :key="estacion.idEstacion" style="list-style:none">
+          <li>
+            <h5>📍 {{estacion.nombre}}</h5>
+          </li>
+          <li>
+            <h6>{{estacion.direccion}}</h6>
+          </li>
+          <li>
+            <h6>📞 {{estacion.telefono}}</h6>
+          </li>
+          <li>
+            <h6>Inventario: {{estacion.totalVehiculos}}</h6>
+          </li>
+          <br><br>
+        </ul>
+        <!-- <a type="button" class="btn btn-success" href="/editar-estacion">Editar</a> -->
       </div>
     </div>
 
@@ -75,12 +84,33 @@
   </div>
 </template>
 
+
 <script>
-import Header from "@/components/Header";
+
+import Header from '@/components/Header.vue';
+import axios from 'axios';
 export default {
-  name: "mapa",
-  components: {
-    Header
-  },
-};
+    name:"mapa",
+    data(){
+        return {
+            ListaEstaciones:[],
+            idEstacion:1,                        
+        }
+    },
+    components:{
+        Header
+    },
+    methods:{
+      
+    },
+    mounted:function(){
+        axios.get("http://localhost:8080/API/estacion").then( data =>{
+            this.ListaEstaciones = data.data;
+        });
+    }
+}
 </script>
+
+<style scoped>
+
+</style>

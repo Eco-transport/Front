@@ -1,103 +1,126 @@
 <template>
   <div>
-    <Header></Header>
+    <unlog-header />
     <br />
+    <br />
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <!-- Tabs Titles -->
 
-    <div id="formContent">
-      <!-- Tabs Titles -->
+        <!-- Icon -->
+        <div class="fadeIn first">
+          <img src="../assets/Ecotransport.png" id="icon" alt="Ecotransport" />
+        </div>
 
-      <!-- Icon -->
-      <div class="fadeIn first">
-        <img
-          src="@/assets/Ecotransport.png"
-          id="icon"
-          alt="User Icon"
-        />
-      </div>
+        <!-- Login Form -->
+        <form v-on:submit.prevent="login">
+          <input
+            type="text"
+            id="login"
+            class="fadeIn second"
+            name="login"
+            placeholder="Correo electronico"
+            v-model="usuario"
+          />
+          <input
+            type="password"
+            id="password"
+            class="fadeIn third"
+            name="login"
+            placeholder="Contraseña"
+            v-model="password"
+          />
+          <br />
+          <input type="submit" class="fadeIn fourth" value="Iniciar Sesión" />
+        </form>
+        <div class="alert alert-danger" role="alert" v-if="error">
+          {{ error_msg }}
+        </div>
 
-      <!-- Login Form -->
-      <form v-on:submit.prevent="login">
-        <input
-          type="text"
-          id="login"
-          class="fadeIn second"
-          name="login"
-          placeholder="Email"
-          v-model="usuario"
-        />
-        <input
-          type="text"
-          id="password"
-          class="fadeIn third"
-          name="login"
-          placeholder="Contraseña"
-          v-model="password"
-        />
-        <input type="submit" class="fadeIn fourth" value="Iniciar Sesión" />
-      </form>
-
-      <div class="alert alert-danger" role="alert" v-if="error">
-        {{msg}}
-      </div>
-      <div class="alert alert-success" role="alert" v-if="acceso" >
-        {{msg}}
-      </div>
-
-      <!-- Remind Passowrd -->
-      <div id="formFooter">
-        <a class="underlineHover" href="OlvPass">¿Olvidaste la contraseña?</a>
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+          <a class="underlineHover" href="OlvPass">¿Olvidó su contraseña?</a>          
+          <div>
+          <a class="underlineHover" href="registro">Registrarme</a>
+        </div>
+        </div>
+        
       </div>
     </div>
-    
   </div>
 </template>
 
 <script>
-import axios from "axios"
+
+
 import Header from "@/components/Header";
+import axios from "axios";
+import UnlogHeader from '../components/UnlogHeader.vue';
+
+
 export default {
   name: "iniciarsesion",
   components: {
-    Header
+    Header,
+    UnlogHeader,
   },
-  data : function(){
+  data: function () {
     return {
       usuario: "",
       password: "",
       error: false,
-      acceso: false,
-      msg: "",      
-    }
-  },  
-  methods:{
-    login(){
-      let json ={
+      error_msg: "",
+      nombre: "",
+      rol: ""      
+    };
+  },
+  methods: {
+    login() {
+      let json = {
         "email": this.usuario,
         "contrasena": this.password
       };
-
       axios.post("http://localhost:8080/API/usuario/checkLogin", json)
-      .then(result => {
-        if(result.data){
-          this.acceso = true;
-          this.msg = "BIENVENIDO!";
-        }
-        else{
-          this.acceso = false;
-          this.error = true;
-          this.msg = "Email o contraseña incorrecta";
-        }
+      .then(resultado => {
+        if (resultado.data) {        
 
+          setTimeout(() => {  
+            if(this.rol==="Administrador")
+            {              
+              this.$router.push("admin-estaciones");  
+            }
+            else
+            {   
+              //console.log(this.$nombreGlobal)
+              this.$router.push("mapa");
+            }                   
+          }, 15);
+          this.cargarRol();
+          
+        } else {
+          this.error = true;
+          this.error_msg = "Usuario o contraseña incorrecta";
+        }
       });
+    },
+    cargarRol(){
+      let json = {
+            "email": this.usuario
+          };
+          axios.post("http://localhost:8080/API/usuario/email", json)
+          .then(resultado => {
+            console.log(resultado.data)
+            this.$nombreGlobal = resultado.data.nombre
+            this.rol = resultado.data.rol
+            this.$hayLogin = true
+            
+          });
     }
-  }
+  },
 };
 </script>
 
 <style scoped>
-
-/* BASIC */
-
 html {
   background-color: #56baed;
 }
@@ -109,7 +132,7 @@ body {
 
 a {
   color: #92badd;
-  display:inline-block;
+  display: inline-block;
   text-decoration: none;
   font-weight: 400;
 }
@@ -119,19 +142,17 @@ h2 {
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
-  display:inline-block;
-  margin: 40px 8px 10px 8px; 
+  display: inline-block;
+  margin: 40px 8px 10px 8px;
   color: #cccccc;
 }
-
-
 
 /* STRUCTURE */
 
 .wrapper {
   display: flex;
   align-items: center;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: center;
   width: 100%;
   min-height: 100%;
@@ -147,10 +168,9 @@ h2 {
   max-width: 450px;
   position: relative;
   padding: 0px;
-  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
   text-align: center;
-  margin: auto
 }
 
 #formFooter {
@@ -161,8 +181,6 @@ h2 {
   -webkit-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
 }
-
-
 
 /* TABS */
 
@@ -175,11 +193,11 @@ h2.active {
   border-bottom: 2px solid #5fbae9;
 }
 
-
-
 /* FORM TYPOGRAPHY*/
 
-input[type=button], input[type=submit], input[type=reset]  {
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
   background-color: #56baed;
   border: none;
   color: white;
@@ -189,8 +207,8 @@ input[type=button], input[type=submit], input[type=reset]  {
   display: inline-block;
   text-transform: uppercase;
   font-size: 13px;
-  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+  box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   margin: 5px 20px 40px 20px;
@@ -201,11 +219,15 @@ input[type=button], input[type=submit], input[type=reset]  {
   transition: all 0.3s ease-in-out;
 }
 
-input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover {
   background-color: #39ace7;
 }
 
-input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+input[type="button"]:active,
+input[type="submit"]:active,
+input[type="reset"]:active {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
@@ -213,7 +235,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   transform: scale(0.95);
 }
 
-input[type=text] {
+input[type="text"] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -234,16 +256,44 @@ input[type=text] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus {
+input[type="text"]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder {
+input[type="text"]:placeholder {
   color: #cccccc;
 }
 
+input[type="password"] {
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 85%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
 
+input[type="password"]:focus {
+  background-color: #fff;
+  border-bottom: 2px solid #5fbae9;
+}
+
+input[type="password"]:placeholder {
+  color: #cccccc;
+}
 
 /* ANIMATIONS */
 
@@ -284,23 +334,44 @@ input[type=text]:placeholder {
 }
 
 /* Simple CSS3 Fade-in Animation */
-@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 .fadeIn {
-  opacity:0;
-  -webkit-animation:fadeIn ease-in 1;
-  -moz-animation:fadeIn ease-in 1;
-  animation:fadeIn ease-in 1;
+  opacity: 0;
+  -webkit-animation: fadeIn ease-in 1;
+  -moz-animation: fadeIn ease-in 1;
+  animation: fadeIn ease-in 1;
 
-  -webkit-animation-fill-mode:forwards;
-  -moz-animation-fill-mode:forwards;
-  animation-fill-mode:forwards;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 
-  -webkit-animation-duration:1s;
-  -moz-animation-duration:1s;
-  animation-duration:1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  animation-duration: 1s;
 }
 
 .fadeIn.first {
@@ -343,20 +414,17 @@ input[type=text]:placeholder {
   color: #0d0d0d;
 }
 
-.underlineHover:hover:after{
+.underlineHover:hover:after {
   width: 100%;
 }
-
-
 
 /* OTHERS */
 
 *:focus {
-    outline: none;
-} 
-
-#icon {
-  width:60%;
+  outline: none;
 }
 
+#icon {
+  width: 60%;
+}
 </style>

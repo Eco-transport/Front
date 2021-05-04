@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <div>
     <Header></Header>
     <br />
@@ -11,6 +12,25 @@
         <!-- Icon -->
         <div class="fadeIn first">
           <img src="../assets/ForgotPassword.jpg" id="icon" alt="ForgotPassword" />
+=======
+  <div>
+    <unlog-header />
+    <div class="padre">
+      <div class="hijo">
+        <h1>Recuperación de contraseña<br /></h1>
+        <p><br /></p>
+        <div>
+          <p v-show="hideEmail">Digite su correo:</p>
+          <input v-show="hideEmail" v-model="email" placeholder="Digite su correo">
+          <button class="btn btn-info" v-show="hideEmail" v-on:click="enviarCorreo">Ingresar correo</button>
+          <p v-show="alertaEmailInvalido">CORREO ELECTRONICO NO VÁLIDO</p>
+        </div>
+        <div>
+          <p v-show="hideAnswer">Responda la pregunta: "{{ pregunta }}"</p>
+          <input v-show="hideAnswer" v-model="respuesta" placeholder="Digite su respuesta">
+          <button class="btn btn-info" v-show="hideAnswer" v-on:click="enviarRespuesta">Ingresar respuesta</button>
+          <p v-show="alertaRespuestaInvalida">RESPUESTA NO VÁLIDA</p>
+>>>>>>> NicolasDev
         </div>
 
         <!-- ForgotPassword Form -->
@@ -67,11 +87,16 @@
 
 <script>
 import Header from "@/components/Header";
+<<<<<<< HEAD
 import axios from "axios";
+=======
+import UnlogHeader from '../components/UnlogHeader.vue';
+>>>>>>> NicolasDev
 export default {
   name: "OlvPass",
   components: {
-    Header//, Footer
+    Header, 
+    UnlogHeader//, Footer
   },
   data: function () {
     return {

@@ -1,7 +1,10 @@
 <template>
   <div class="Header">
     <!--Header-->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #295135;">
+    <nav
+      class="navbar navbar-expand-lg navbar-dark"
+      style="background-color: #295135"
+    >
       <a class="navbar-brand" href="/">
         <img src="@/assets/Logo.png" alt="Logo Ecotransport" height="40" />
       </a>
@@ -20,9 +23,8 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-md-auto">
           <li class="nav-item">
-            <a class="nav-link" href="test">Iniciar sesión</a>
+            <a class="nav-link" href="iniciar-sesion">Iniciar sesión</a>
           </li>
-          
         </ul>
       </div>
     </nav>

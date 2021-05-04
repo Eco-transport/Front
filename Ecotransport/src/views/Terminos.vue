@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Header></Header>
+        <Header />
         <h1>Terminos y condiciones</h1>
         <p><strong>1.Terminos Generales</strong> 
         La agencia de turismo Biking Bogotá identificada con Nit 80110891-9 y Registro Nacional de Turismo 42640 
@@ -51,12 +51,12 @@
 </template>
 
 <script>
-import Header from "@/components/Header";
+import Header from '../components/Header.vue';
 // import Footer from "@/components/Footer";
 export default {
   name: "terminos",
   components: {
-    Header//, Footer
+    Header,
   }
 };
 </script>
