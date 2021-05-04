@@ -1,16 +1,19 @@
 <template>
   <div>
     <Header></Header>
-    <img src="@/assets/Vamos.png" style="max-width:100%;width:auto;height:auto;" alt="Vamos">
+    <img
+      src="@/assets/Vamos.png"
+      style="max-width: 100%; width: auto; height: auto"
+      alt="Vamos"
+    />
 
-    <br /><br />    
+    <br /><br />
     <!-- <div class= "usuario" v-if="test">      
       {{console.log(test)}}
     </div> -->
     <div class="col md-8">
       <h1 class="h12">Encuentre la estación mas cercana</h1>
-      <h2 class="h12">¡Vamos! </h2>
-
+      <h2 class="h12">¡Vamos!</h2>
     </div>
 
     <br /><br />
@@ -36,21 +39,33 @@
       <!-- Derecha -->
       <div class="col">
         <h2>Puntos:</h2>
-        <br>
-        <ul v-for="estacion in ListaEstaciones" :key="estacion.idEstacion" style="list-style:none">
+        <br />
+        <ul
+          v-for="estacion in ListaEstaciones"
+          :key="estacion.idEstacion"
+          v-on:click="alquilar(estacion.idEstacion)"
+          style="list-style: none"
+        >
           <li>
-            <h5>📍 {{estacion.nombre}}</h5>
+            <h5>📍 {{ estacion.nombre }}</h5>
+          </li>
+          <!-- Agregar "disponibles" como atributo a la BD -->
+          <li v-if="estacion.disponibles >= 1">
+            <h5>🟢 Disponible</h5>
+          </li>
+          <li v-else>
+            <h5>🔴 No disponible</h5>
           </li>
           <li>
-            <h6>{{estacion.direccion}}</h6>
+            <h6>{{ estacion.direccion }}</h6>
           </li>
           <li>
-            <h6>📞 {{estacion.telefono}}</h6>
+            <h6>📞 {{ estacion.telefono }}</h6>
           </li>
           <li>
-            <h6>Inventario: {{estacion.totalVehiculos}}</h6>
+            <h6>Inventario: {{ estacion.totalVehiculos }}</h6>
           </li>
-          <br><br>
+          <br /><br />
         </ul>
         <!-- <a type="button" class="btn btn-success" href="/editar-estacion">Editar</a> -->
       </div>
@@ -78,39 +93,38 @@
     <br /><br />
     <!-- googleMap -->
     <div>
-        <GoogleMapLoader></GoogleMapLoader>
+      <GoogleMapLoader></GoogleMapLoader>
     </div>
-
   </div>
 </template>
 
 
 <script>
-
-import Header from '@/components/Header.vue';
-import axios from 'axios';
+import Header from "@/components/Header.vue";
+import axios from "axios";
 export default {
-    name:"mapa",
-    data(){
-        return {
-            ListaEstaciones:[],
-            idEstacion:1,                        
-        }
+  name: "mapa",
+  data() {
+    return {
+      ListaEstaciones: [],
+      idEstacion: 1,
+    };
+  },
+  components: {
+    Header,
+  },
+  methods: {
+    alquilar(id) {
+      this.$router.push("/alquilar/" + id);
     },
-    components:{
-        Header
-    },
-    methods:{
-      
-    },
-    mounted:function(){
-        axios.get("http://localhost:8080/API/estacion").then( data =>{
-            this.ListaEstaciones = data.data;
-        });
-    }
-}
+  },
+  mounted: function () {
+    axios.get("http://localhost:8080/API/estacion").then((data) => {
+      this.ListaEstaciones = data.data;
+    });
+  },
+};
 </script>
 
 <style scoped>
-
 </style>
