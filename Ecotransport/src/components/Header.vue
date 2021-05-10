@@ -24,6 +24,9 @@
           <li class="nav-item">
             <a class="nav-link" href="mapa">Mapa</a>
           </li>
+           <li class="nav-item">
+            <a class="nav-link" href="clientesolicitudes">Pide tu bici</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="terminos">Términos</a>
           </li>

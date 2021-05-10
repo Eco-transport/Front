@@ -13,6 +13,7 @@ import Error from "@/views/Error";
 import EditarEstacion from "@/views/EditarEstacion";
 import NuevaEstacion from "@/views/NuevaEstacion";
 import AdminEstaciones from "@/views/AdminEstaciones";
+import ClienteSolicitudes from "@/views/ClienteSolicitudes";
 
 Vue.use(Router)
 
@@ -80,6 +81,11 @@ export default new Router({
       path: '/admin-estaciones',
       name: 'adminEstaciones',
       component: AdminEstaciones
+    },
+    {
+      path: '/cliente-solicitudes',
+      name: 'cliente-solicitudes',
+      component: ClienteSolicitudes
     }
     ]
 })
