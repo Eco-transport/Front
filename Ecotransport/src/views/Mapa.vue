@@ -89,8 +89,15 @@
 
 import Header from '@/components/Header.vue';
 import axios from 'axios';
+import {getAuthenticationToken} from '@/dataStorage';
+
 export default {
     name:"mapa",
+    beforeCreate( ){
+      if( !getAuthenticationToken( ) ){
+        this.$router.push( {name: 'IniciarSesion'} )
+      }
+    },
     data(){
         return {
             ListaEstaciones:[],

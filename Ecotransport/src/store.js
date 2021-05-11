@@ -7,8 +7,7 @@ Vue.use(Vuex)
 // el store de vuex usuando el plugin de persistencia vuex-persistedstate
 export default new Vuex.Store({
         state: {
-
-            id:"pordefectoid",
-
+            backURL: 'http://localhost:8080',
+            id:"pordefectoid"
         },
     });

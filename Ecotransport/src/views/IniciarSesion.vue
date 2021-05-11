@@ -56,7 +56,9 @@
 import Header from "@/components/Header";
 import axios from "axios";
 import UnlogHeader from '../components/UnlogHeader.vue';
+import {setAuthenticationToken} from '@/dataStorage';
 
+const path = "/oauth/token";
 
 export default {
   name: "iniciarsesion",
@@ -75,46 +77,43 @@ export default {
     };
   },
   methods: {
-    login() {
-      let json = {
-        "email": this.usuario,
-        "contrasena": this.password
-      };
-      axios.post("http://localhost:8080/API/usuario/checkLogin", json)
-      .then(resultado => {
-        if (resultado.data) {        
-
-          setTimeout(() => {  
-            if(this.rol==="Administrador")
-            {              
-              this.$router.push("admin-estaciones");  
+    login( event ){
+      axios
+        .post( "http://localhost:8080" + path, // URL
+            { }, // Body
+            {
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              params: {
+                username: this.usuario,
+                password: this.password,
+                grant_type: 'password'
+              },
+              auth: {
+                username: "soft-eng-ii",
+                password: "secret",
+              }
             }
-            else
-            {   
-              //console.log(this.$nombreGlobal)
-              this.$router.push("mapa");
-            }                   
-          }, 15);
-          this.cargarRol();
-          
-        } else {
-          this.error = true;
-          this.error_msg = "Usuario o contraseña incorrecta";
-        }
-      });
-    },
-    cargarRol(){
-      let json = {
-            "email": this.usuario
-          };
-          axios.post("http://localhost:8080/API/usuario/email", json)
-          .then(resultado => {
-            console.log(resultado.data)
-            this.$nombreGlobal = resultado.data.nombre
-            this.rol = resultado.data.rol
-            this.$hayLogin = true
-            
-          });
+        ).then( response => {
+            if( response.status !== 200 ){
+              this.error = true;
+              this.error_msg = "Error en la autenticación";
+            }else{
+              setAuthenticationToken( response.data.access_token );
+              this.$router.push( {name: 'mapa'} );
+            }
+        } ).catch( error => {
+          if( error.response.status === 400 ){
+            this.error = true;
+            this.error_msg ="Credenciales incorrectas";
+          }else{
+            this.error = true;
+            this.error_msg = "¡Parece que hubo un error de comunicación con el servidor!";
+          }
+        } );
+
+        event.preventDefault();
     }
   },
 };
