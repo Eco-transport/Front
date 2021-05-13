@@ -57,6 +57,7 @@ import Header from "@/components/Header";
 import axios from "axios";
 import UnlogHeader from '../components/UnlogHeader.vue';
 import {setAuthenticationToken} from '@/dataStorage';
+import {getAuthenticationToken} from '@/dataStorage';
 
 const path = "/oauth/token";
 
@@ -73,7 +74,7 @@ export default {
       error: false,
       error_msg: "",
       nombre: "",
-      rol: ""      
+      ingreso_valido: false      
     };
   },
   methods: {
@@ -101,19 +102,25 @@ export default {
               this.error_msg = "Error en la autenticación";
             }else{
               setAuthenticationToken( response.data.access_token );
-              this.$router.push( {name: 'mapa'} );
+              this.ingreso_valido = true;
+              this.redirect();
             }
-        } ).catch( error => {
-          if( error.response.status === 400 ){
-            this.error = true;
-            this.error_msg ="Credenciales incorrectas";
-          }else{
-            this.error = true;
-            this.error_msg = "¡Parece que hubo un error de comunicación con el servidor!";
-          }
         } );
 
         event.preventDefault();
+    },
+    redirect( event ){
+      if(this.ingreso_valido){    //CON ESTO PUEDEN ENVIAR INFORMACIÓN DEL TOKEN, Y EN EL BACK LA PUEDEN RECUPERAR
+        axios.get( "http://localhost:8080/mi-rol-id", { params: { access_token: getAuthenticationToken( ) } } )
+        .then( response => {
+            if(response.data == 1){
+              this.$router.push( {name: 'mapa'} );
+            }else{
+              this.$router.push( {name: 'adminEstaciones'} );
+            }
+        } );
+      }
+      event.preventDefault();
     }
   },
 };

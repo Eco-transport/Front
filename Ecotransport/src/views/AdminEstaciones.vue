@@ -43,8 +43,14 @@
 <script>
 import Header from '@/components/Header.vue';
 import axios from 'axios';
+import {getAuthenticationToken} from '@/dataStorage';
 export default {
     name:"EditarEstaciones",
+    beforeCreate( ){
+      if( !getAuthenticationToken( ) ){
+        this.$router.push( {name: 'IniciarSesion'} )
+      }
+    },
     data(){
         return {
             ListaEstaciones:null,

@@ -32,7 +32,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="/">Cerrar sesión</a>
+            <a class="nav-link" v-on:click="cerrarSesion" href="/">Cerrar sesión</a>
           </li>
           
         </ul>
@@ -43,11 +43,17 @@
 
 <script>
 import Vue from "vue"
+import {deleteAuthenticationToken} from '@/dataStorage';
 export default {
   name: "Header",
   props: {
     nombre: String,
   },
+  methods: {
+    cerrarSesion(){
+      deleteAuthenticationToken();
+    }
+  }
 };
 </script>
 
