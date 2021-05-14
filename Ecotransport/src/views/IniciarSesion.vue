@@ -19,7 +19,7 @@
             id="login"
             class="fadeIn second"
             name="login"
-            placeholder="Correo electronico"
+            placeholder="Nombre de usuario"
             v-model="usuario"
           />
           <input

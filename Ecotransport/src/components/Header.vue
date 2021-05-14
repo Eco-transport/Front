@@ -22,13 +22,13 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-md-auto">
           <li class="nav-item">
-            <a class="nav-link" href="mapa">Mapa</a>
+            <a class="nav-link" href="/mapa">Puntos de atención</a>
           </li>
            <li class="nav-item">
-            <a class="nav-link" href="clientesolicitudes">Pide tu bici</a>
+            <a class="nav-link" href="/cliente-solicitudes">Historial</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="terminos">Términos</a>
+            <a class="nav-link" href="/terminos">Términos</a>
           </li>
 
           <li class="nav-item">

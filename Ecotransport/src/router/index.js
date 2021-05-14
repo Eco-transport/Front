@@ -14,6 +14,7 @@ import EditarEstacion from "@/views/EditarEstacion";
 import NuevaEstacion from "@/views/NuevaEstacion";
 import AdminEstaciones from "@/views/AdminEstaciones";
 import ClienteSolicitudes from "@/views/ClienteSolicitudes";
+import Alquilar from "@/views/Alquilar";
 
 Vue.use(Router)
 
@@ -86,6 +87,11 @@ export default new Router({
       path: '/cliente-solicitudes',
       name: 'cliente-solicitudes',
       component: ClienteSolicitudes
+    },
+    {
+      path: '/alquilar/:id',
+      name: 'alquilar',
+      component: Alquilar
     }
     ]
 })
