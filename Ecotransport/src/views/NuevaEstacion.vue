@@ -42,6 +42,32 @@
         </div>
 
         <div class="form-group left">
+          <label for="" class="control-label col-sm-2">Apertura</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              name="Apertura"
+              id="Cierre"
+              v-model="form.apertura"
+            />
+          </div>
+        </div>
+
+        <div class="form-group left">
+          <label for="" class="control-label col-sm-2">Cierre</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              name="cierre"
+              id="cierre"
+              v-model="form.cierre"
+            />
+          </div>
+        </div>
+
+        <div class="form-group left">
           <label for="" class="control-label col-sm-2">Inventario</label>
           <div class="col-sm-10">
             <input
@@ -50,6 +76,32 @@
               name="inventario"
               id="inventario"
               v-model="form.inventario"
+            />
+          </div>
+        </div>
+
+        <div class="form-group left">
+          <label for="" class="control-label col-sm-2">Disponibles</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              name="disponibles"
+              id="disponibles"
+              v-model="form.disponibles"
+            />
+          </div>
+        </div>
+
+        <div class="form-group left">
+          <label for="" class="control-label col-sm-2">Ciudad</label>
+          <div class="col-sm-10">
+            <input
+              type="text"
+              class="form-control"
+              name="ciudad"
+              id="ciudad"
+              v-model="form.ciudad"
             />
           </div>
         </div>
@@ -81,11 +133,15 @@ export default {
   name: "Nuevo",
   data: function() {
     return {
-      form: {
+      form: {        
         nombre: "",
         direccion: "",
         telefono: "",
-        inventario: ""        
+        apertura: "",
+        cierre: "",
+        totalVehiculos: 0,
+        disponibles: 0,
+        ciudad:""        
       }
     };
   },
@@ -94,19 +150,23 @@ export default {
   },
   methods: {
     guardar() {
-      let json = {        
-        "nombre": this.form.nombre,
-        "direccion": this.form.direccion,
-        "telefono": this.form.telefono,
-        "totalVehiculos": this.form.inventario
+      let json = {                
+        "stationName": this.form.nombre,
+        "address": this.form.direccion,
+        "phone": this.form.telefono,
+        "openTime": this.form.apertura,
+        "closeTime": this.form.cierre,
+        "inventory": this.form.totalVehiculos,
+        "available": this.form.disponibles,
+        "city": this.form.ciudad
       };     
 
       axios
-        .post("http://localhost:8080/API/estacion/guardar", json)
+        .post("http://localhost:8080/station/save", json)
         .then(data => {
           console.log(data);
-          this.makeToast("Hecho", "Paciente creado", "success");
-          console.log("entro a la función");
+          /* this.makeToast("Hecho", "Paciente creado", "success");
+          console.log("entro a la función"); */
           this.$router.push("/admin-estaciones");
         })
         .catch(e => {

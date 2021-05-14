@@ -42,20 +42,35 @@
         <br />
         <ul
           v-for="estacion in ListaEstaciones"
-          :key="estacion.idEstacion"
+          :key="estacion.id"
+          v-on:click="alquilar(estacion.idEstacion)"
           style="list-style: none"
         >
           <li>
-            <h5>📍 {{ estacion.nombre }}</h5>
+            <h5>📍 {{ estacion.stationName }}</h5>
           </li>
           <li>
-            <h6>{{ estacion.direccion }}</h6>
+            <h6>{{ estacion.address }}</h6>
           </li>
           <li>
-            <h6>📞 {{ estacion.telefono }}</h6>
+            <h6>📞 {{ estacion.phone }}</h6>
+          </li>
+
+          <li>
+            <h6>Apertura: {{ estacion.openTime }}</h6>
           </li>
           <li>
-            <h6>Inventario: {{ estacion.totalVehiculos }}</h6>
+            <h6>Cierre: {{ estacion.closeTime }}</h6>
+          </li>
+                              
+          <li>
+            <h6>Inventario: {{ estacion.inventory }}</h6>
+          </li>
+          <li>
+            <h6>Disponibles: {{ estacion.available }}</h6>
+          </li>
+          <li>
+            <h6>Ciudad: {{ estacion.city }}</h6>
           </li>
           <br /><br />
         </ul>
@@ -106,7 +121,7 @@ export default {
   data() {
     return {
       ListaEstaciones: [],
-      idEstacion: 1,
+      //idEstacion: 1,
     };
   },
   components: {
@@ -118,8 +133,9 @@ export default {
     },
   },
   mounted: function () {
-    axios.get("http://localhost:8080/API/estacion").then((data) => {
+    axios.get("http://localhost:8080/station").then((data) => {
       this.ListaEstaciones = data.data;
+      console.log(data.data)
     });
   },
 };

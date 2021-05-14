@@ -56,6 +56,40 @@
             </div>
           </div>
         </div>
+
+        <div class="form-group left row">
+          <div class="col">
+            <label for="" class="control-label col-sm-3">Apertura</label>
+            <div class="col-sm-7">
+              <input
+                type="text"
+                class="form-control"
+                name="Apertura"
+                id="Apertura"
+                v-model="form.apertura"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group left row">
+          <div class="col">
+            <label for="" class="control-label col-sm-3">Cierre</label>
+            <div class="col-sm-7">
+              <input
+                type="text"
+                class="form-control"
+                name="cierre"
+                id="cierre"
+                v-model="form.cierre"
+              />
+            </div>
+          </div>
+        </div>
+
+
+
+
         <div class="form-group left row">
           <div class="col">
             <label for="" class="control-label col-sm-3">Inventario</label>
@@ -70,6 +104,38 @@
             </div>
           </div>
         </div>  
+
+        <div class="form-group left row">
+          <div class="col">
+            <label for="" class="control-label col-sm-3">Disponibles</label>
+            <div class="col-sm-7">
+              <input
+                type="text"
+                class="form-control"
+                name="dispnibles"
+                id="disponibles"
+                v-model="form.disponibles"
+              />
+            </div>
+          </div>
+        </div> 
+
+        <div class="form-group left row">
+          <div class="col">
+            <label for="" class="control-label col-sm-3">Ciudad</label>
+            <div class="col-sm-7">
+              <input
+                type="text"
+                class="form-control"
+                name="Ciudad"
+                id="Ciudad"
+                v-model="form.ciudad"
+              />
+            </div>
+          </div>
+        </div> 
+
+
         <div><br><br><br></div>
         <div class="form-group">
 
@@ -115,7 +181,11 @@ export default {
         nombre: "",
         direccion: "",
         telefono: "",
-        totalVehiculos: 0
+        apertura: "",
+        cierre: "",
+        totalVehiculos: 0,
+        disponibles: 0,
+        ciudad:""
       }
     };
   },
@@ -123,14 +193,18 @@ export default {
     
     editar() {
       let json = {
-        "idEstacion": this.form.idEstacion,
-        "nombre": this.form.nombre,
-        "direccion": this.form.direccion,
-        "telefono": this.form.telefono,
-        "totalVehiculos": this.form.totalVehiculos
+        "id": this.form.idEstacion,
+        "stationName": this.form.nombre,
+        "address": this.form.direccion,
+        "phone": this.form.telefono,
+        "openTime": this.form.apertura,
+        "closeTime": this.form.cierre,
+        "inventory": this.form.totalVehiculos,
+        "available": this.form.disponibles,
+        "city": this.form.ciudad
       };
       axios
-        .post("http://localhost:8080/API/estacion/guardar", json)
+        .post("http://localhost:8080/station/save/", json)
         .then(data => {
           console.log(data);
         });
@@ -140,9 +214,9 @@ export default {
     } , 
       eliminar(){
         var enviar = {
-            "idEstacion" : this.form.pacienteId            
+            "idEstacion" : this.form.idEstacion            
         };
-        axios.delete("http://localhost:8080/API/estacion/"+ this.form.idEstacion)
+        axios.delete("http://localhost:8080/station"+ this.form.idEstacion)
         .then( datos => {
             console.log(datos);
            this.$router.push("/admin-estaciones");
@@ -152,13 +226,17 @@ export default {
 
   mounted:function(){
       this.form.idEstacion = this.$route.params.id;
-      axios.get("http://localhost:8080/API/estacion/"+ this.form.idEstacion)
+      axios.get("http://localhost:8080/station/"+ this.form.idEstacion)
       .then( datos => {
         
-        this.form.nombre = datos.data.nombre;
-        this.form.direccion = datos.data.direccion;
-        this.form.telefono = datos.data.telefono;
-        this.form.totalVehiculos = datos.data.totalVehiculos;
+        this.form.nombre = datos.data.stationName;
+        this.form.direccion = datos.data.address;
+        this.form.telefono = datos.data.phone;
+        this.form.apertura = datos.data.openTime;
+        this.form.cierre = datos.data.closeTime;
+        this.form.totalVehiculos = datos.data.inventory;
+        this.form.disponibles = datos.data.available;
+        this.form.ciudad = datos.data.city;
         
         console.log(this.form);
       })

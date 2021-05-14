@@ -18,16 +18,24 @@
                         <th scope="col">NOMBRE</th>
                         <th scope="col">DIRECCIÓN</th>
                         <th scope="col">TELEFONO</th>
+                        <th scope="col">APERTURA</th>
+                        <th scope="col">CIERRE</th>
                         <th scope="col">INVENTARIO</th>
+                        <th scope="col">DISPONIBLES</th>
+                        <th scope="col">CIUDAD</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="estacion in ListaEstaciones" :key="estacion.idEstacion" v-on:click="editar(estacion.idEstacion)">
-                        <th scope="row">{{ estacion.idEstacion}}</th>
-                        <td>{{ estacion.nombre }}</td>
-                        <td>{{ estacion.direccion }}</td>
-                        <td>{{ estacion.telefono }}</td>
-                        <td>{{ estacion.totalVehiculos }}</td>
+                    <tr v-for="estacion in ListaEstaciones" :key="estacion.id" v-on:click="editar(estacion.id)">
+                        <th scope="row">{{ estacion.id}}</th>
+                        <td>{{ estacion.stationName }}</td>
+                        <td>{{ estacion.address }}</td>
+                        <td>{{ estacion.phone }}</td>
+                        <td>{{ estacion.openTime }}</td>
+                        <td>{{ estacion.closeTime }}</td>
+                        <td>{{ estacion.inventory }}</td>
+                        <td>{{ estacion.available }}</td>
+                        <td>{{ estacion.city }}</td>
                     </tr>
             
                 </tbody>
@@ -69,7 +77,7 @@ export default {
             }
     },
     mounted:function(){
-        let direccion = "http://localhost:8080/API/estacion/";
+        let direccion = "http://localhost:8080/station/";
         axios.get(direccion).then( data =>{
             this.ListaEstaciones = data.data;
         });
