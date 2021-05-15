@@ -28,7 +28,35 @@
                 class="form-control"
                 placeholder="Nombre completo"
                 type="text"
-                v-model="nombre"
+                v-model="names"
+              />
+            </div>
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fa fa-user"></i>
+                </span>
+              </div>
+              <input
+                name=""
+                class="form-control"
+                placeholder="Nombre completo"
+                type="text"
+                v-model="surnames"
+              />
+            </div>
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fa fa-user"></i>
+                </span>
+              </div>
+              <input
+                name=""
+                class="form-control"
+                placeholder="Nombre completo"
+                type="text"
+                v-model="username"
               />
             </div>
             <div class="form-group input-group">
@@ -42,7 +70,7 @@
                 class="form-control"
                 placeholder="Cedula"
                 type="number"
-                v-model="cedula"
+                v-model="identity_number"
               />
             </div>
             <!-- form-group// -->
@@ -57,7 +85,7 @@
                 class="form-control"
                 placeholder="Correo electrónico"
                 type="email"
-                v-model="correo"
+                v-model="email"
               />
             </div>
             <!-- form-group// -->
@@ -75,7 +103,7 @@
                 class="form-control"
                 placeholder="Celular"
                 type="number"
-                v-model="celular"
+                v-model="user_phone"
               />
             </div>
             <!-- form-group// -->
@@ -85,7 +113,7 @@
                   <i class="fa fa-building"></i>
                 </span>
               </div>
-              <select class="form-control" v-model="pregunta">
+              <select class="form-control" v-model="security_question">
                 <option hidden selected="">Pregunta de seguridad</option>
                 <option>¿Nombre de su madre?</option>
                 <option>¿Primer vehiculo que compró?</option>
@@ -104,7 +132,7 @@
                 class="form-control"
                 placeholder="Respuesta de seguridad"
                 type="text"
-                v-model="respuesta"
+                v-model="security_answer"
               />
             </div>
             <!-- form-group end.// -->
@@ -118,7 +146,7 @@
                 class="form-control"
                 placeholder="Crear contraseña"
                 type="password"
-                v-model="contrasena1"
+                v-model="password1"
               />
             </div>
             <!-- form-group// -->
@@ -132,7 +160,7 @@
                 class="form-control"
                 placeholder="Repetir contraseña"
                 type="password"
-                v-model="contrasena2"
+                v-model="password2"
               />
             </div>
             <div class="alert alert-danger" role="alert" v-if="error">
@@ -148,7 +176,7 @@
                 Crear cuenta
               </button>
             </div>
-            <div class="alert alert-success" role="alert" v-if="state">
+            <div class="alert alert-success" role="alert" v-if="user_state=='ACTIVO'">
               ¡¡¡Su cuenta ha sido creada con éxito!!!
             </div>
             <!-- form-group// -->
@@ -174,43 +202,47 @@ export default {
   },
   data: function () {
     return {
-      nombre: "",
-      cedula: "",
-      correo: "",
-      celular: "",
-      pregunta: "",
-      respuesta: "",
-      contrasena1: "",
-      contrasena2: "",
-      state: false,
+      names: "",
+      password1: "",
+      password2: "",
+      surnames: "",
+      username: "",
+      identity_number: "",
+      email: "",
+      user_phone: "",
+      security_question: "",
+      security_answer: "",
+      user_state: "INACTIVO",
       error: false,
       
     };
   },
   methods: {
     contrasenaIgual() {
-      if (this.contrasena1 !== this.contrasena2) {
+      if (this.password1 !== this.password2) {
         this.error = true;
         console.log("Estan diferentes!");
       } else {
         
-        this.state = true; //cuando las contraseñas coinciden se manda un usuario
+        this.user_state = "ACTIVO"; 
         this.registro();
       }
     },
     registro() {
       let json = {
-        "cedula": this.cedula,
-        "nombre": this.nombre,
-        "email": this.correo,
-        "celular": this.celular,
-        "pregunta": this.pregunta,
-        "respuesta": this.respuesta,
-        "contrasena": this.contrasena1,
-        "activo": this.state,
+        "names": this.names,
+        "password": this.password1,
+        "surnames": this.surnames,
+        "username": this.username,
+        "identityNumber": this.identity_number,
+        "email": this.email,
+        "userPhone": this.user_phone,
+        "securityQuestion": this.security_question,
+        "securityAnswer": this.security_answer,
+        "userState": this.user_state,
       };
       axios
-        .post("http://localhost:8080/API/usuario/guardar", json)
+        .post("http://localhost:8080/registro/nuevo-usuario", json)
         .then((respuesta) => {
           console.log(respuesta.data);
         });
