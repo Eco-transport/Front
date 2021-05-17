@@ -25,7 +25,7 @@
             <a class="nav-link" href="/mapa">Puntos de atención</a>
           </li>
            <li class="nav-item">
-            <a class="nav-link" href="/cliente-solicitudes">Historial</a>
+            <a class="nav-link" href="/clientesolicitudes">Historial</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/terminos">Términos</a>
