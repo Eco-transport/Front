@@ -26,7 +26,7 @@
               <input
                 name=""
                 class="form-control"
-                placeholder="Nombre completo"
+                placeholder="Nombres"
                 type="text"
                 v-model="names"
               />
@@ -40,7 +40,7 @@
               <input
                 name=""
                 class="form-control"
-                placeholder="Nombre completo"
+                placeholder="Apellidos"
                 type="text"
                 v-model="surnames"
               />
@@ -54,7 +54,7 @@
               <input
                 name=""
                 class="form-control"
-                placeholder="Nombre completo"
+                placeholder="Usuario"
                 type="text"
                 v-model="username"
               />

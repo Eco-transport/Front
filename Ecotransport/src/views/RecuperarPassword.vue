@@ -1,5 +1,5 @@
 <template>
-  <div>
+<div>
     <unlog-header />
     <br />
     <br />
@@ -9,125 +9,163 @@
 
         <!-- Icon -->
         <div class="fadeIn first">
-          <img src="../assets/Ecotransport.png" id="icon" alt="Ecotransport" />
+          <h3>Recuperación de contraseña<br /></h3>
+          <img src="../assets/RecuperarContraseña.png" id="icon" alt="Ecotransport" />
         </div>
 
         <!-- Login Form -->
-        <form v-on:submit.prevent="login">
+        <form v-on:submit.prevent="enviarUsername">
           <input
             type="text"
-            id="login"
+            id="username"
             class="fadeIn second"
-            name="login"
-            placeholder="Nombre de usuario"
-            v-model="usuario"
+            v-show="hideUsername"
+            name="username"
+            placeholder="Digite su usuario"
+            v-model="username"
+          />
+          <p v-show="hideAnswer" class="fadeIn third">Responda la pregunta: {{ pregunta }}</p>
+          <input
+            type="text"
+            id="answer"
+            class="fadeIn third"
+            v-show="hideAnswer"
+            name="answer"
+            placeholder="Escriba la respuesta"
+            v-model="respuesta"
+          />
+          <p v-show="hideCambioPassword" class="fadeIn fourth">Cambio de contraseña:</p>
+          <input
+            type="password"
+            id="password1"
+            class="fadeIn fourth"
+            v-show="hideCambioPassword"
+            name="password1"
+            placeholder="Digite la nueva contraseña"
+            v-model="nuevaPassword1"
           />
           <input
             type="password"
-            id="password"
-            class="fadeIn third"
-            name="login"
-            placeholder="Contraseña"
-            v-model="password"
+            id="password2"
+            class="fadeIn fourth"
+            v-show="hideCambioPassword"
+            name="password2"
+            placeholder="Confirme la nueva contraseña"
+            v-model="nuevaPassword2"
           />
           <br />
-          <input type="submit" class="fadeIn fourth" value="Iniciar Sesión" />
+          <input type="submit" class="fadeIn second" v-show="hideUsername" v-on:click="enviarUsername" value="Enviar Usuario" />
+          <input type="submit" class="fadeIn third" v-show="hideAnswer" v-on:click="enviarRespuesta" value="Enviar Respuesta" />
+          <input type="submit" class="fadeIn fourth" v-show="hideCambioPassword" v-on:click="cambiarPassword" value="Cambiar Contraseña" />
         </form>
-        <div class="alert alert-danger" role="alert" v-if="error">
-          {{ error_msg }}
-        </div>
-
-        <!-- Remind Passowrd -->
-        <div id="formFooter">
-          <a class="underlineHover" href="recuperar-password">¿Olvidó su contraseña?</a>          
-          <div>
-          <a class="underlineHover" href="registro">Registrarme</a>
-        </div>
-        </div>
-        
+        <p v-show="alertaUsernameInvalido">USUARIO NO VÁLIDO</p>
+        <p v-show="alertaRespuestaInvalida">RESPUESTA NO VÁLIDA</p>
+        <p v-show="alertaPasswordInvalido">CONTRASEÑA NO VÁLIDA</p>
+        <p v-show="mensajePasswordCambiada">LA CONTRASEÑA HA SIDO CAMBIADA</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
-
 import Header from "@/components/Header";
-import axios from "axios";
 import UnlogHeader from '../components/UnlogHeader.vue';
-import {setAuthenticationToken} from '@/dataStorage';
-import {getAuthenticationToken} from '@/dataStorage';
-
-const path = "/oauth/token";
-
+import axios from "axios";
 export default {
-  name: "iniciarsesion",
+  name: "RecuperarPassword",
   components: {
-    Header,
-    UnlogHeader,
+    Header, 
+    UnlogHeader//, Footer
   },
   data: function () {
     return {
-      usuario: "",
-      password: "",
-      error: false,
-      error_msg: "",
-      nombre: "",
-      ingreso_valido: false      
+      username: "",
+      pregunta: "",
+      respuesta: "",
+      hideAnswer: false,
+      hideUsername: true,
+      hideCambioPassword: false,
+      alertaUsernameInvalido: false,
+      alertaRespuestaInvalida: false,
+      alertaPasswordInvalido: false,
+      mensajePasswordCambiada: false,
+      emailValido: false, 
+      respuestaCorrecta: false,    
+      passwordCambiada: true,
+      nuevaPassword1: "",
+      nuevaPassword2: "", 
     };
   },
   methods: {
-    login( event ){
-      axios
-        .post( "http://localhost:8080" + path, // URL
-            { }, // Body
-            {
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              params: {
-                username: this.usuario,
-                password: this.password,
-                grant_type: 'password'
-              },
-              auth: {
-                username: "soft-eng-ii",
-                password: "secret",
-              }
-            }
-        ).then( response => {
-            if( response.status !== 200 ){
-              this.error = true;
-              this.error_msg = "Error en la autenticación";
-            }else{
-              setAuthenticationToken( response.data.access_token );
-              this.ingreso_valido = true;
-              this.redirect();
-            }
-        } );
-
-        event.preventDefault();
+    enviarUsername( event ){
+      this.alertaUsernameInvalido = false;
+      axios.get("http://localhost:8080/recuperar-password/get-question/"+ this.username)
+      .then( datos => {
+          this.pregunta = datos.data;
+          this.hideAnswer = true;
+          this.hideUsername = false; 
+        
+      }).catch( error => {
+        if( error.response.status === 400 ){
+          alert( "Credenciales incorrectas" );
+        }else{
+          alert( "Usuario no encontrado" );
+        }
+      }); 
+      event.preventDefault();
     },
-    redirect( event ){
-      if(this.ingreso_valido){    //CON ESTO PUEDEN ENVIAR INFORMACIÓN DEL TOKEN, Y EN EL BACK LA PUEDEN RECUPERAR
-        axios.get( "http://localhost:8080/mi-rol-id", { params: { access_token: getAuthenticationToken( ) } } )
-        .then( response => {
-            if(response.data == 1){
-              this.$router.push( {name: 'mapa'} );
-            }else{
-              this.$router.push( {name: 'adminEstaciones'} );
-            }
-        } );
+    enviarRespuesta( event ){
+      let json = {
+        "username": this.username,
+        "answer": this.respuesta,
+      };
+      if (this.respuesta !== ""){
+        axios.post("http://localhost:8080/recuperar-password/verificar", json)
+        .then( datos => {
+          this.respuestaCorrecta = datos.data;
+          if (this.respuestaCorrecta === true){
+            this.alertaRespuestaInvalida = false;
+            this.hideAnswer = false;
+            this.hideCambioPassword = true;
+          } else {
+            this.alertaRespuestaInvalida = true;
+            this.hideCambioPassword = false;
+          }
+        });
+      } else {
+        this.alertaRespuestaInvalida = true;
+      }
+      event.preventDefault();
+    },
+    cambiarPassword (event) {
+      let json = {
+        "username": this.username,
+        "password": this.nuevaPassword1,
+      };
+      if (this.nuevaPassword1 !== this.nuevaPassword2) {
+        this.alertaPasswordInvalido = true;
+      } else {
+        this.alertaPasswordInvalido = false;
+        axios.post("http://localhost:8080/recuperar-password/cambiar", json)
+        .then( datos => {
+          this.passwordCambiada = datos.data;
+          console.log(datos.data);
+          if (this.passwordCambiada === true){
+            this.hideCambioPassword = false;
+            this.mensajePasswordCambiada = true;
+          } else {
+            this.alertaPasswordInvalido = true;
+          }
+        });
       }
       event.preventDefault();
     }
-  },
-};
+  }
+}
 </script>
 
 <style scoped>
-html {
+  html {
   background-color: #56baed;
 }
 
