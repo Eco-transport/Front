@@ -13,7 +13,7 @@
     </div> -->
     <div class="col md-8">
       <h1 class="h12">Encuentre la estación mas cercana</h1>
-      <h2 class="h12">¡Vamos!</h2>
+      <h2 class="h12">¡Bienvenidos!</h2>
     </div>
 
     <br /><br />
@@ -43,11 +43,11 @@
         <ul
           v-for="estacion in ListaEstaciones"
           :key="estacion.id"
-          v-on:click="alquilar(estacion.idEstacion)"
+          v-on:click="alquilar(estacion.id)"
           style="list-style: none"
         >
-          <li>
-            <h5>📍 {{ estacion.stationName }}</h5>
+          <li class="estacion">
+            <h2>📍 {{ estacion.stationName }}</h2>
           </li>
           <li>
             <h6>{{ estacion.address }}</h6>
@@ -62,7 +62,7 @@
           <li>
             <h6>Cierre: {{ estacion.closeTime }}</h6>
           </li>
-                              
+
           <li>
             <h6>Inventario: {{ estacion.inventory }}</h6>
           </li>
@@ -135,11 +135,35 @@ export default {
   mounted: function () {
     axios.get("http://localhost:8080/station").then((data) => {
       this.ListaEstaciones = data.data;
-      console.log(data.data)
+      if (getAuthenticationToken()) {
+        this.$swal({
+          title: "¡Bienvenidos!",
+          text: "Haz click en tu estación más cercana para alquilar",
+          imageUrl:
+            "https://media.istockphoto.com/videos/computer-laptop-using-by-funny-nerd-dog-in-jumper-video-id1214329685?s=640x640",
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: "Bienvenidos",
+        });
+      }
+
+      console.log(data.data);
     });
   },
 };
 </script>
 
 <style scoped>
+li.estacion:hover {
+  color: #55dbcb;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Montserrat", sans-serif;
+}
 </style>

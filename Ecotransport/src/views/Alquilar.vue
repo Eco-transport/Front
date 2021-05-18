@@ -8,7 +8,7 @@
     />
     <div class="row">
       <div class="col">
-          <h4>¡Increibles modelos y gran comodidad!</h4>
+        <h4>¡Increibles modelos y gran comodidad!</h4>
         <img
           src="https://http2.mlstatic.com/D_NQ_NP_2X_953114-MCO44898244934_022021-F.webp"
           style="width: 500px; height: auto"
@@ -18,9 +18,11 @@
       <div class="col">
         <div class="card bg-light">
           <article class="card-body mx-auto" style="max-width: 400px">
-            <h4 class="card-title mt-3 text-center">Alquilar cicla</h4>
+            <h4 class="card-title mt-3 text-center">
+              Alquilar cicla
+            </h4>
             <p class="divider-text">
-              <span class="bg-light"> Revisa los campos acontinuación </span>
+              <span class="bg-light"> Revisa los campos a continuación </span>
             </p>
             <form>
               <div class="form-group input-group">
@@ -31,11 +33,12 @@
                 </div>
                 <input
                   disabled
-                  name=""
+                  name="nombre"
                   class="form-control"
-                  placeholder="Nombre completo"
                   type="text"
-                  v-model="nombre"
+                  placeholder="Name"
+                  id="nombre"
+                  v-model="form.nombre"
                 />
               </div>
               <div class="form-group input-group">
@@ -70,7 +73,10 @@
                 />
               </div>
               <!-- form-group// -->
-              <p>Cantidad de horas a alquilar: <br> ($10.000 COP x hora)</p>
+              <p>
+                Cantidad de horas a alquilar: <br />
+                ($10.000 COP x hora)
+              </p>
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -119,7 +125,10 @@
               </div>
               <!-- form-group// -->
               <p class="text-center">
-                ¿Alguna duda? <a href="http://api.whatsapp.com/send?phone=+573002345678">WhatsApp</a>
+                ¿Alguna duda?
+                <a href="http://api.whatsapp.com/send?phone=+573002345678"
+                  >WhatsApp</a
+                >
               </p>
             </form>
           </article>
@@ -131,15 +140,58 @@
 
 <script>
 import Header from "@/components/Header";
+// import { Splide, SplideSlide } from '@splidejs/vue-splide';
+
 export default {
   name: "alquilar",
   components: {
+    // Splide,
+    // SplideSlide,
     Header,
+  },
+  data: function () {
+    return {
+      form: {
+        idEstacion: "",
+        nombreUsuario: "",
+        cedula: "",
+        nombreEstacion: "",
+        idCicla: "",
+        horas: 0,
+        total: 0,
+      },
+    };
+  },
+  mounted: function () {
+    if (getAuthenticationToken()) {
+      this.$swal({
+        title: "¡Casi esta listo!",
+        text: "Escoge la cantidad de horas que desees",
+        imageUrl:
+          "https://previews.123rf.com/images/yupiramos/yupiramos1610/yupiramos161007953/65334281-concepto-ecol%C3%B3gico-en-bicicleta-icono-de-la-ilustraci%C3%B3n-del-vector-de-transporte.jpg",
+        imageWidth: 200,
+        imageHeight: 200,
+        imageAlt: "Bici",
+      });
+    }
+
+     axios.get( "http://localhost:8080/mi-nombre", { params: { access_token: getAuthenticationToken( ) } } )
+        .then( response => {
+          console.log(response.data);          
+        });
+    
   },
 };
 </script>
 
 <style scoped>
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Montserrat", sans-serif;
+}
 .divider-text {
   position: relative;
   text-align: center;
