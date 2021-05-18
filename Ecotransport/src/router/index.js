@@ -7,7 +7,7 @@ import Terminos from "@/views/Terminos";
 import Registro from "@/views/Registro";
 import EliminarCuenta1 from "@/views/EliminarCuenta1";
 import CuentaEliminada from "@/views/CuentaEliminada";
-import OlvPass from "@/views/OlvPass";
+import RecuperarPassword from "@/views/RecuperarPassword";
 import IniciarSesion from "@/views/IniciarSesion";
 import Error from "@/views/Error";
 import EditarEstacion from "@/views/EditarEstacion";
@@ -53,9 +53,9 @@ export default new Router({
       component: CuentaEliminada
     },
     {
-      path: '/olvpass',
-      name: 'OlvPass',
-      component: OlvPass
+      path: '/recuperar-password',
+      name: 'RecuperarPassword',
+      component: RecuperarPassword
     },
     {
       path: '/iniciar-sesion',
