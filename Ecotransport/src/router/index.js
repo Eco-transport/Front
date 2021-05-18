@@ -84,8 +84,8 @@ export default new Router({
       component: AdminEstaciones
     },
     {
-      path: '/cliente-solicitudes',
-      name: 'cliente-solicitudes',
+      path: '/clientesolicitudes',
+      name: 'clientesolicitudes',
       component: ClienteSolicitudes
     },
     {
