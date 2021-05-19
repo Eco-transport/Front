@@ -43,11 +43,10 @@
         <ul
           v-for="estacion in ListaEstaciones"
           :key="estacion.id"
-          v-on:click="alquilar(estacion.id)"
           style="list-style: none"
         >
           <li class="estacion">
-            <h2>📍 {{ estacion.stationName }}</h2>
+            <h2 v-on:click="alquilar(estacion.id)">📍 {{ estacion.stationName }}</h2>
           </li>
           <li>
             <h6>{{ estacion.address }}</h6>
@@ -154,16 +153,22 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Padauk:wght@700&display=swap');
+
+
 li.estacion:hover {
   color: #55dbcb;
   cursor: pointer;
 }
 
-h1,
 h2,
 h3,
 h4,
-h5 {
+h5 
+{
   font-family: "Montserrat", sans-serif;
+}
+h1 {
+  font-family: "Pacifico", cursive;
 }
 </style>

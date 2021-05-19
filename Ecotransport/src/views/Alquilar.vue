@@ -8,19 +8,69 @@
     />
     <div class="row">
       <div class="col">
-        <h4>¡Increibles modelos y gran comodidad!</h4>
-        <img
+        <h1>¡Increibles modelos y gran comodidad!</h1>
+        <br />
+
+        <div>
+          <b-carousel
+            id="carousel-1"
+            v-model="slide"
+            :interval="3000"
+            controls
+            background="#aaa"
+            img-width="500"
+            img-height="500"
+            style="text-shadow: 1px 1px 2px #333"
+            @sliding-start="onSlideStart"
+            @sliding-end="onSlideEnd"
+          >
+            <!-- Imagen verde frontal -->
+            <b-carousel-slide
+              caption="Novedosos diseños"
+              text="Contamos con los más altos standares de calidad a tu servicio"
+              img-src="https://http2.mlstatic.com/D_NQ_NP_2X_953114-MCO44898244934_022021-F.webp"
+            ></b-carousel-slide>
+
+            <!-- imagen amarilla frontal  -->
+            <b-carousel-slide
+              caption="Multiples colores"
+              text="Los materiales mas resistentes"
+              img-src="https://http2.mlstatic.com/D_NQ_NP_905640-MCO44898282095_022021-O.webp"
+            ></b-carousel-slide>
+
+            <!-- amarilla trasera -->
+            <b-carousel-slide
+              caption="Viaje confortable"
+              text="Comodidad y confort garantizado"
+              img-src="https://http2.mlstatic.com/D_NQ_NP_839289-MCO44898243919_022021-O.webp"
+            ></b-carousel-slide>
+
+            <!-- azul frontal -->
+            <b-carousel-slide
+              caption="Sin papeleos"
+              text="Sin contratos ni papeleos tediosos"
+              img-src="https://http2.mlstatic.com/D_NQ_NP_2X_638089-MCO44126303547_112020-F.webp"
+            ></b-carousel-slide>
+
+            <!-- azul trasera  -->
+            <b-carousel-slide
+              caption="Todo desde tu celular"
+              text="Realiza todo el proceso de reserva desde tu móvil"
+              img-src="https://http2.mlstatic.com/D_NQ_NP_828569-MCO44126303595_112020-O.webp"
+            ></b-carousel-slide>
+          </b-carousel>
+        </div>
+
+        <!-- <img
           src="https://http2.mlstatic.com/D_NQ_NP_2X_953114-MCO44898244934_022021-F.webp"
           style="width: 500px; height: auto"
           alt="Cicla Ecologica"
-        />
+        /> -->
       </div>
       <div class="col">
         <div class="card bg-light">
           <article class="card-body mx-auto" style="max-width: 400px">
-            <h4 class="card-title mt-3 text-center">
-              Alquilar cicla
-            </h4>
+            <h4 class="card-title mt-3 text-center">Alquilar cicla</h4>
             <p class="divider-text">
               <span class="bg-light"> Revisa los campos a continuación </span>
             </p>
@@ -147,6 +197,8 @@ export default {
   components: {
     // Splide,
     // SplideSlide,
+    slide: 0,
+    sliding: null,
     Header,
   },
   data: function () {
@@ -162,6 +214,14 @@ export default {
       },
     };
   },
+  methods: {
+    onSlideStart(slide) {
+      this.sliding = true;
+    },
+    onSlideEnd(slide) {
+      this.sliding = false;
+    },
+  },
   mounted: function () {
     if (getAuthenticationToken()) {
       this.$swal({
@@ -175,17 +235,24 @@ export default {
       });
     }
 
-     axios.get( "http://localhost:8080/mi-nombre", { params: { access_token: getAuthenticationToken( ) } } )
-        .then( response => {
-          console.log(response.data);          
-        });
-    
+    axios
+      .get("http://localhost:8080/mi-nombre", {
+        params: { access_token: getAuthenticationToken() },
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
   },
 };
 </script>
 
+
 <style scoped>
-h1,
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Padauk:wght@700&display=swap");
+
+h1 {
+  font-family: "Pacifico", cursive;
+}
 h2,
 h3,
 h4,
