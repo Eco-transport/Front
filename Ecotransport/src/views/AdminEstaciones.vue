@@ -20,7 +20,6 @@
                         <th scope="col">TELEFONO</th>
                         <th scope="col">APERTURA</th>
                         <th scope="col">CIERRE</th>
-                        <th scope="col">INVENTARIO</th>
                         <th scope="col">DISPONIBLES</th>
                         <th scope="col">CIUDAD</th>
                     </tr>
@@ -33,7 +32,7 @@
                         <td>{{ estacion.phone }}</td>
                         <td>{{ estacion.openTime }}</td>
                         <td>{{ estacion.closeTime }}</td>
-                        <td>{{ estacion.inventory }}</td>
+                        <!-- <td>{{ estacion.inventory }}</td> -->
                         <td>{{ estacion.available }}</td>
                         <td>{{ estacion.city }}</td>
                     </tr>

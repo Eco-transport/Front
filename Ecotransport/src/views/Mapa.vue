@@ -45,9 +45,17 @@
           :key="estacion.id"
           style="list-style: none"
         >
-          <li class="estacion">
-            <h2 v-on:click="alquilar(estacion.id)">📍 {{ estacion.stationName }}</h2>
-          </li>
+          <div v-if="estacion.available > 0">
+            <li class="estacion">
+              <h2 v-on:click="alquilar(estacion.id)">
+                📍 {{ estacion.stationName }}
+              </h2>
+            </li>
+          </div>
+          <strike v-else>
+            <h2>📍 {{ estacion.stationName }}</h2>
+          </strike>
+
           <li>
             <h6>{{ estacion.address }}</h6>
           </li>
@@ -63,10 +71,12 @@
           </li>
 
           <li>
-            <h6>Inventario: {{ estacion.inventory }}</h6>
-          </li>
-          <li>
-            <h6>Disponibles: {{ estacion.available }}</h6>
+            <div v-if="estacion.available > 0">
+              <h6>🟢 Disponibles: {{ estacion.available }}</h6>
+            </div>
+            <div v-else>
+              <h6>🔴 Disponibles: {{ estacion.available }}</h6>
+            </div>
           </li>
           <li>
             <h6>Ciudad: {{ estacion.city }}</h6>
@@ -104,7 +114,6 @@
   </div>
 </template>
 
-
 <script>
 import Header from "@/components/Header.vue";
 import axios from "axios";
@@ -119,20 +128,20 @@ export default {
   },
   data() {
     return {
-      ListaEstaciones: [],
+      ListaEstaciones: []
       //idEstacion: 1,
     };
   },
   components: {
-    Header,
+    Header
   },
   methods: {
     alquilar(id) {
       this.$router.push("/alquilar/" + id);
-    },
+    }
   },
-  mounted: function () {
-    axios.get("http://localhost:8080/station").then((data) => {
+  mounted: function() {
+    axios.get("http://localhost:8080/station").then(data => {
       this.ListaEstaciones = data.data;
       if (getAuthenticationToken()) {
         this.$swal({
@@ -142,19 +151,18 @@ export default {
             "https://media.istockphoto.com/videos/computer-laptop-using-by-funny-nerd-dog-in-jumper-video-id1214329685?s=640x640",
           imageWidth: 400,
           imageHeight: 200,
-          imageAlt: "Bienvenidos",
+          imageAlt: "Bienvenidos"
         });
       }
 
       console.log(data.data);
     });
-  },
+  }
 };
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Padauk:wght@700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Padauk:wght@700&display=swap");
 
 li.estacion:hover {
   color: #55dbcb;
@@ -164,11 +172,15 @@ li.estacion:hover {
 h2,
 h3,
 h4,
-h5 
-{
+h5 {
   font-family: "Montserrat", sans-serif;
 }
 h1 {
   font-family: "Pacifico", cursive;
+}
+
+li,
+ul {
+  list-style: none;
 }
 </style>
