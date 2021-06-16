@@ -7,7 +7,7 @@
     <br />
 
 
-    <form action="" class="form-horizontal">
+    <!-- <form action="" class="form-horizontal">
       <div class="col-sm-10">
         <input
           type="hidden"
@@ -27,7 +27,7 @@
         />
       </div>
     </form>
-    <br />
+    <br /> -->
 
 
 
@@ -45,10 +45,9 @@
           <tr>
             <th scope="col">ID</th>
             <th scope="col">FECHA</th>
-            <th scope="col">ESTATUS ORDEN</th>
-            <th scope="col">COMENTARIOS</th>
-            <th scope="col">ESTACION</th>
+            <th scope="col">ESTADO</th>            
             <th scope="col">USUARIO</th>
+            <th scope="col">ESTACION</th>            
             <th scope="col">BICICLETA</th>
             <th scope="col">CANT. HORAS</th>
             <th scope="col">PRECIO TOTAL</th>
@@ -56,19 +55,6 @@
         </thead>
 
         <tbody>
-          <!-- <tr
-            v-for="prestamo in ListaPrestamos"
-            :key="prestamo.idPrestamo"
-            v-on:click="editar(prestamo.idPrestamo)"
-          >
-            <th scope="row">{{ prestamo.idPrestamo }}</th>
-            <td>{{ prestamo.nombre }}</td>
-            <td>{{ prestamo.direccion }}</td>
-            <td>{{ prestamo.telefono }}</td>
-            <td>{{ prestamo.totalVehiculos }}</td>
-          </tr> -->
-
-
           <tr
             v-for="prestamo in ListaPrestamos"
             :key="prestamo.orderId"
@@ -76,12 +62,11 @@
           >
             <th scope="row">{{ prestamo.orderId }}</th>
             <td>{{ prestamo.orderDate }}</td>
-            <td>{{ prestamo.orderStatus }}</td>
-            <td>{{ prestamo.orderComments }}</td>
-            <td>{{ prestamo.orderStationId }}</td>
-            <td>{{ prestamo.orderUserId }}</td>
-            <td>{{ prestamo.orderBicycleId }}</td>
-            <td>{{ prestamo.orderTime }}</td>
+            <td>{{ prestamo.orderStatus }}</td>            
+            <td>{{ form.username }}</td>
+            <td>{{ prestamo.orderStationId }}</td>            
+            <td>{{ prestamo.orderBicycleId }}</td>  
+            <td>{{ prestamo.orderTime }}</td> <!-- cantidad de horas -->          
             <td>{{ prestamo.orderTotalPrice }}</td>
           </tr>
 
@@ -109,11 +94,10 @@ export default {
 
   data() {
     return {
-      ListaPrestamos: null,
-      //pagina: 1,
+      ListaPrestamos: null,      
       form: {
         userID: "",
-        Username: ""
+        username: ""
       }
     };
   },
@@ -124,7 +108,7 @@ export default {
 
   methods: {
     nuevo() {
-      this.$router.push("/nuevaOrden");
+      this.$router.push("/mapa");
     }
   },
   mounted: function() {
@@ -137,7 +121,7 @@ export default {
                 .then(USERS => 
                 {
                     this.form.userID = USERS.data.id;
-                    this.form.Username = USERS.data.username;
+                    this.form.username = USERS.data.username;
                     this.ListaOrdenes = ORDERS.data;
                     this.ListaPrestamos = new Array();
                     for (var key in this.ListaOrdenes) 

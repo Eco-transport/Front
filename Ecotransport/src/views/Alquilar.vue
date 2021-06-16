@@ -76,12 +76,12 @@
             </p>
 
             <form action="" class="form-horizontal">
-
               <!-- AQUI EMPIEZAN LOS HIDEN -->
               <div class="form-group left">
                 <div class="col-sm-10">
                   <input
-                    type="text" hidden
+                    type="text"
+                    hidden
                     class="form-control"
                     name="fecha"
                     id="fecha"
@@ -89,23 +89,25 @@
                   />
                 </div>
               </div>
-            
-              <div class="form-group left">
-                <div class="col-sm-10">
-                    <input
-                      type="text" hidden
-                      class="form-control"
-                      name="estatus"
-                      id="estatus"
-                      v-model="form.estatus"
-                    />
-                  </div>
-              </div>
-              
+
               <div class="form-group left">
                 <div class="col-sm-10">
                   <input
-                    type="text" hidden
+                    type="text"
+                    hidden
+                    class="form-control"
+                    name="estatus"
+                    id="estatus"
+                    v-model="form.estatus"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group left">
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    hidden
                     class="form-control"
                     name="comentarios"
                     id="comentarios"
@@ -114,12 +116,7 @@
                 </div>
               </div>
 
-
-            <!-- AQUI TERMINAN LOS HIDEN -->
-
-
-
-
+              <!-- AQUI TERMINAN LOS HIDEN -->
 
               <div class="form-group input-group">
                 <div class="input-group-prepend">
@@ -153,7 +150,7 @@
                   v-model="form.Usercedula"
                 />
               </div>
-              
+
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -169,7 +166,7 @@
                   v-model="form.bikeID"
                 />
               </div>
-              
+
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -185,7 +182,7 @@
                   v-model="form.idEstacion"
                 />
               </div>
-              
+
               <p>
                 Cantidad de horas a alquilar: <br />
                 ($10.000 COP x hora)
@@ -200,14 +197,13 @@
                   name=""
                   class="form-control"
                   placeholder="Horas"
-                  type="text"
+                  type="number"
                   v-model="form.tiempo"
                 />
               </div>
 
 
-
-              
+              <!-- 
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -220,27 +216,29 @@
                   class="form-control"
                   placeholder="Total"
                   type="number"
-                  v-model="form.precio"
+                  v-model="form.total"                  
                 />
-              </div>
-              
+              </div> -->
+
               <!-- form-group// -->
               <div class="form-group">
-                <button
-                  type="submit"
-                  class="btn btn-success btn-block"                  
-                >
+                <button type="button" class="btn btn-success btn-block" v-on:click="guardar()">
                   Hacer pedido
                 </button>
-                <a class="btn btn-danger btn-block" href="
-                /mapa" role="button">Cancelar pedido</a>
+
+                <button type="button" class="btn btn-danger btn-block" v-on:click="cancelar()">
+                  Cancelar
+                </button>
+
+                <!-- <a
+                  class="btn btn-danger btn-block"
+                  href="/mapa"
+                  role="button"
+                  >Cancelar pedido</a
+                > -->
               </div>
 
-
-              <div class="alert alert-success" role="alert" v-if="state">
-                ¡¡¡Su cuenta ha sido creada con éxito!!!
-              </div>
-
+          
 
               <!-- form-group// -->
               <p class="text-center">
@@ -282,8 +280,9 @@ export default {
         userID: "",
         bikeID: "",
         Usercedula: "",
-        tiempo: "",
-        precio: 10000
+        tiempo: 0,
+        precio: 10000,
+        total: 0
       }
     };
   },
@@ -294,7 +293,6 @@ export default {
     onSlideEnd(slide) {
       this.sliding = false;
     },
-
 
     //ACA EMPIEZA LO NUEVO DE LEONARDO
 
@@ -307,38 +305,29 @@ export default {
         orderUserId: this.form.userID,
         orderBicycleId: this.form.bikeID,
         orderTime: this.form.tiempo,
-        orderTotalPrice: this.form.tiempo * this.precio
+        orderTotalPrice: this.form.tiempo * this.form.precio
       };
 
       axios
         .post("http://localhost:8080/order/save", json)
-        .then(data => {
+        .then( () => {
           this.$router.push("/clientesolicitudes");
-        })
-        .catch(e => {
-          console.log(e);
-          this.makeToast("Error", "Error al guardar", "error");
         });
     },
 
     cancelar() {
       this.$router.push("/mapa");
-    },
-
-    makeToast(titulo, texto, tipo) {
-      this.toastCount++;
-      this.$bvToast.toast(texto, {
-        title: titulo,
-        variant: tipo,
-        autoHideDelay: 5000,
-        appendToast: true
-      });
     }
 
     //ACA TERMINA LO NUEVO DE LEONARDO
   },
-  mounted: function() {
-    if (getAuthenticationToken()) {
+  mounted: function() 
+  {
+
+    /* se quita temporalmente este IF porque al 
+    hacer click en "hacer pedido" se recarga la pagina y no deja avanzar */
+
+    /* if (getAuthenticationToken()) {
       this.$swal({
         title: "¡Casi esta listo!",
         text: "Escoge la cantidad de horas que desees",
@@ -348,31 +337,20 @@ export default {
         imageHeight: 200,
         imageAlt: "Bici"
       });
-    }
-
-    /*  axios
-      .get("http://localhost:8080/mi-nombre", {
-        params: { access_token: getAuthenticationToken() },
-      })
-      .then((response) => {
-        console.log(response.data);
-      }); */
+    } */
 
     this.form.idEstacion = this.$route.params.id;
+    //this.form.total = this.form.tiempo * this.form.precio;
 
     axios
       .get("http://localhost:8080/getUserForOrder", {
         params: { access_token: getAuthenticationToken() }
       })
-      .then(respuesta => {
-        //console.log("DATA:", respuesta.data);   
-
-        var nombre = respuesta.data.names;
-        var apellido = respuesta.data.surnames;
+      .then(respuesta => {                
         this.form.Username = respuesta.data.username;
         this.form.Usercedula = respuesta.data.identityNumber;
         this.form.userID = respuesta.data.id;
-        this.form.bikeID = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
+        this.form.bikeID = Math.floor(Math.random() * (20 - 1 + 1)) + 1;//HAY QUE MEJORAR ESTO CON LA TABLA REAL
         this.form.fecha = new Date(Date.now()).toUTCString();
         this.form.estatus = "Esperando Pago";
         this.form.comentarios = "Ninguno";
