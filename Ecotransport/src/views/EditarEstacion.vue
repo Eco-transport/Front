@@ -17,7 +17,6 @@
           </div>
         </div>
 
-
         <div class="form-group left">
           <label for="" class="control-label col-sm-2">Nombre</label>
           <div class="col-sm-10">
@@ -87,9 +86,6 @@
           </div>
         </div>
 
-
-
-
         <div class="form-group left row">
           <div class="col">
             <label for="" class="control-label col-sm-3">Inventario</label>
@@ -103,7 +99,7 @@
               />
             </div>
           </div>
-        </div>  
+        </div>
 
         <div class="form-group left row">
           <div class="col">
@@ -118,7 +114,7 @@
               />
             </div>
           </div>
-        </div> 
+        </div>
 
         <div class="form-group left row">
           <div class="col">
@@ -133,15 +129,16 @@
               />
             </div>
           </div>
-        </div> 
+        </div>
 
-
-        <div><br><br><br></div>
+        <div><br /><br /><br /></div>
         <div class="form-group">
-
-          <button type="button" class="btn btn-primary" v-on:click="editar()">
-            Editar
-          </button>
+          <a
+            href="/admin-estaciones"
+            class="btn btn-primary"
+            v-on:click="editar()"
+            >Editar</a
+          >
 
           <button
             type="button"
@@ -172,7 +169,6 @@ export default {
   name: "Editar",
   components: {
     Header
-
   },
   data: function() {
     return {
@@ -185,50 +181,48 @@ export default {
         cierre: "",
         totalVehiculos: 0,
         disponibles: 0,
-        ciudad:""
+        ciudad: ""
       }
     };
   },
   methods: {
-    
     editar() {
       let json = {
-        "id": this.form.idEstacion,
-        "stationName": this.form.nombre,
-        "address": this.form.direccion,
-        "phone": this.form.telefono,
-        "openTime": this.form.apertura,
-        "closeTime": this.form.cierre,
-        "inventory": this.form.totalVehiculos,
-        "available": this.form.disponibles,
-        "city": this.form.ciudad
+        id: this.form.idEstacion,
+        stationName: this.form.nombre,
+        address: this.form.direccion,
+        phone: this.form.telefono,
+        openTime: this.form.apertura,
+        closeTime: this.form.cierre,
+        inventory: this.form.totalVehiculos,
+        available: this.form.disponibles,
+        city: this.form.ciudad
       };
-      axios
-        .post("http://localhost:8080/station/save/", json)
-        .then(data => {
-          console.log(data);
-        });
+      axios.post("http://localhost:8080/station/save/", json).then(data => {
+        console.log(data);
+      });
     },
     salir() {
       this.$router.push("/admin-estaciones");
-    } , 
-      eliminar(){
-        var enviar = {
-            "idEstacion" : this.form.idEstacion            
-        };
-        axios.delete("http://localhost:8080/station"+ this.form.idEstacion)
-        .then( datos => {
-            console.log(datos);
-           this.$router.push("/admin-estaciones");
+    },
+    eliminar() {
+      var enviar = {
+        idEstacion: this.form.idEstacion
+      };
+      axios
+        .delete("http://localhost:8080/station" + this.form.idEstacion)
+        .then(datos => {
+          console.log(datos);
+          this.$router.push("/admin-estaciones");
         });
-      }
+    }
   },
 
-  mounted:function(){
-      this.form.idEstacion = this.$route.params.id;
-      axios.get("http://localhost:8080/station/"+ this.form.idEstacion)
-      .then( datos => {
-        
+  mounted: function() {
+    this.form.idEstacion = this.$route.params.id;
+    axios
+      .get("http://localhost:8080/station/" + this.form.idEstacion)
+      .then(datos => {
         this.form.nombre = datos.data.stationName;
         this.form.direccion = datos.data.address;
         this.form.telefono = datos.data.phone;
@@ -237,11 +231,10 @@ export default {
         this.form.totalVehiculos = datos.data.inventory;
         this.form.disponibles = datos.data.available;
         this.form.ciudad = datos.data.city;
-        
+
         console.log(this.form);
-      })
-     
-  } 
+      });
+  }
 };
 </script>
 <style scoped>

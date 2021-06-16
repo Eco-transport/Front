@@ -18,8 +18,7 @@
             :interval="3000"
             controls
             background="#aaa"
-            img-width="500"
-            img-height="500"
+            img-height="300"
             style="text-shadow: 1px 1px 2px #333"
             @sliding-start="onSlideStart"
             @sliding-end="onSlideEnd"
@@ -233,6 +232,8 @@
                 >
                   Hacer pedido
                 </button>
+                <a class="btn btn-danger btn-block" href="
+                /mapa" role="button">Cancelar pedido</a>
               </div>
 
 
