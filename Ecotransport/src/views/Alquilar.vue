@@ -67,6 +67,7 @@
           alt="Cicla Ecologica"
         /> -->
       </div>
+
       <div class="col">
         <div class="card bg-light">
           <article class="card-body mx-auto" style="max-width: 400px">
@@ -74,7 +75,53 @@
             <p class="divider-text">
               <span class="bg-light"> Revisa los campos a continuación </span>
             </p>
-            <form>
+
+            <form action="" class="form-horizontal">
+
+              <!-- AQUI EMPIEZAN LOS HIDEN -->
+              <div class="form-group left">
+                <div class="col-sm-10">
+                  <input
+                    type="text" hidden
+                    class="form-control"
+                    name="fecha"
+                    id="fecha"
+                    v-model="form.fecha"
+                  />
+                </div>
+              </div>
+            
+              <div class="form-group left">
+                <div class="col-sm-10">
+                    <input
+                      type="text" hidden
+                      class="form-control"
+                      name="estatus"
+                      id="estatus"
+                      v-model="form.estatus"
+                    />
+                  </div>
+              </div>
+              
+              <div class="form-group left">
+                <div class="col-sm-10">
+                  <input
+                    type="text" hidden
+                    class="form-control"
+                    name="comentarios"
+                    id="comentarios"
+                    v-model="form.comentarios"
+                  />
+                </div>
+              </div>
+
+
+            <!-- AQUI TERMINAN LOS HIDEN -->
+
+
+
+
+
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -88,9 +135,10 @@
                   type="text"
                   placeholder="Name"
                   id="nombre"
-                  v-model="form.nombre"
+                  v-model="form.Username"
                 />
               </div>
+
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -103,10 +151,10 @@
                   class="form-control"
                   placeholder="Cedula"
                   type="number"
-                  v-model="cedula"
+                  v-model="form.Usercedula"
                 />
               </div>
-              <!-- form-group// -->
+              
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -118,11 +166,27 @@
                   name=""
                   class="form-control"
                   placeholder="ID cicla"
-                  type="email"
-                  v-model="ID_cicla"
+                  type="text"
+                  v-model="form.bikeID"
                 />
               </div>
-              <!-- form-group// -->
+              
+              <div class="form-group input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-bicycle"></i>
+                  </span>
+                </div>
+                <input
+                  disabled
+                  name=""
+                  class="form-control"
+                  placeholder="ID Estación"
+                  type="number"
+                  v-model="form.idEstacion"
+                />
+              </div>
+              
               <p>
                 Cantidad de horas a alquilar: <br />
                 ($10.000 COP x hora)
@@ -137,11 +201,14 @@
                   name=""
                   class="form-control"
                   placeholder="Horas"
-                  type="number"
-                  v-model="horas"
+                  type="text"
+                  v-model="form.tiempo"
                 />
               </div>
-              <!-- form-group// -->
+
+
+
+              
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -154,25 +221,26 @@
                   class="form-control"
                   placeholder="Total"
                   type="number"
-                  v-model="total"
+                  v-model="form.precio"
                 />
               </div>
-              <div class="alert alert-danger" role="alert" v-if="error">
-                Las contraseñas no coinciden
-              </div>
+              
               <!-- form-group// -->
               <div class="form-group">
                 <button
                   type="submit"
-                  class="btn btn-success btn-block"
-                  v-on:click="contrasenaIgual"
+                  class="btn btn-success btn-block"                  
                 >
                   Hacer pedido
                 </button>
               </div>
+
+
               <div class="alert alert-success" role="alert" v-if="state">
                 ¡¡¡Su cuenta ha sido creada con éxito!!!
               </div>
+
+
               <!-- form-group// -->
               <p class="text-center">
                 ¿Alguna duda?
@@ -190,28 +258,32 @@
 
 <script>
 import Header from "@/components/Header";
-// import { Splide, SplideSlide } from '@splidejs/vue-splide';
+import axios from "axios";
+import { getAuthenticationToken } from "@/dataStorage";
 
 export default {
   name: "alquilar",
   components: {
-    // Splide,
-    // SplideSlide,
     slide: 0,
     sliding: null,
-    Header,
+    Header
   },
-  data: function () {
+
+  data: function() {
     return {
       form: {
+        fecha: "",
+        estatus: "",
+        comentarios: "",
         idEstacion: "",
         nombreUsuario: "",
-        cedula: "",
-        nombreEstacion: "",
-        idCicla: "",
-        horas: 0,
-        total: 0,
-      },
+        Username: "",
+        userID: "",
+        bikeID: "",
+        Usercedula: "",
+        tiempo: "",
+        precio: 10000
+      }
     };
   },
   methods: {
@@ -221,8 +293,50 @@ export default {
     onSlideEnd(slide) {
       this.sliding = false;
     },
+
+
+    //ACA EMPIEZA LO NUEVO DE LEONARDO
+
+    guardar() {
+      let json = {
+        orderDate: this.form.fecha,
+        orderStatus: this.form.estatus,
+        orderComments: this.form.comentarios,
+        orderStationId: this.form.idEstacion,
+        orderUserId: this.form.userID,
+        orderBicycleId: this.form.bikeID,
+        orderTime: this.form.tiempo,
+        orderTotalPrice: this.form.tiempo * this.precio
+      };
+
+      axios
+        .post("http://localhost:8080/order/save", json)
+        .then(data => {
+          this.$router.push("/clientesolicitudes");
+        })
+        .catch(e => {
+          console.log(e);
+          this.makeToast("Error", "Error al guardar", "error");
+        });
+    },
+
+    cancelar() {
+      this.$router.push("/mapa");
+    },
+
+    makeToast(titulo, texto, tipo) {
+      this.toastCount++;
+      this.$bvToast.toast(texto, {
+        title: titulo,
+        variant: tipo,
+        autoHideDelay: 5000,
+        appendToast: true
+      });
+    }
+
+    //ACA TERMINA LO NUEVO DE LEONARDO
   },
-  mounted: function () {
+  mounted: function() {
     if (getAuthenticationToken()) {
       this.$swal({
         title: "¡Casi esta listo!",
@@ -231,21 +345,40 @@ export default {
           "https://previews.123rf.com/images/yupiramos/yupiramos1610/yupiramos161007953/65334281-concepto-ecol%C3%B3gico-en-bicicleta-icono-de-la-ilustraci%C3%B3n-del-vector-de-transporte.jpg",
         imageWidth: 200,
         imageHeight: 200,
-        imageAlt: "Bici",
+        imageAlt: "Bici"
       });
     }
 
-    axios
+    /*  axios
       .get("http://localhost:8080/mi-nombre", {
         params: { access_token: getAuthenticationToken() },
       })
       .then((response) => {
         console.log(response.data);
+      }); */
+
+    this.form.idEstacion = this.$route.params.id;
+
+    axios
+      .get("http://localhost:8080/getUserForOrder", {
+        params: { access_token: getAuthenticationToken() }
+      })
+      .then(respuesta => {
+        //console.log("DATA:", respuesta.data);   
+
+        var nombre = respuesta.data.names;
+        var apellido = respuesta.data.surnames;
+        this.form.Username = respuesta.data.username;
+        this.form.Usercedula = respuesta.data.identityNumber;
+        this.form.userID = respuesta.data.id;
+        this.form.bikeID = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
+        this.form.fecha = new Date(Date.now()).toUTCString();
+        this.form.estatus = "Esperando Pago";
+        this.form.comentarios = "Ninguno";
       });
-  },
+  }
 };
 </script>
-
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Padauk:wght@700&display=swap");
