@@ -15,7 +15,10 @@ import NuevaEstacion from "@/views/NuevaEstacion";
 import AdminEstaciones from "@/views/AdminEstaciones";
 import ClienteSolicitudes from "@/views/ClienteSolicitudes";
 import Alquilar from "@/views/Alquilar";
-
+import AdminCiclas from "@/views/AdminCiclas";
+import AdminCiclasPerEstacion from "@/views/AdminCiclasPerEstacion";
+import NuevaBicicleta from "@/views/NuevaBicicleta";
+import EditarBicicleta from "@/views/EditarBicicleta";
 Vue.use(Router)
 
 export default new Router({
@@ -92,6 +95,26 @@ export default new Router({
       path: '/alquilar/:id',
       name: 'alquilar',
       component: Alquilar
+    },
+    {
+      path: '/adminciclas',
+      name: 'adminciclas',
+      component: AdminCiclas
+    },
+    {
+      path: '/adminciclasperestacion/:id',
+      name: 'adminciclasperestacion',
+      component: AdminCiclasPerEstacion
+    },
+    {
+      path: '/nuevabicicleta/:id',
+      name: 'nuevabicicleta',
+      component: NuevaBicicleta
+    },
+    {
+      path: '/editarbicicleta/:id',
+      name: 'editarbicicleta',
+      component: EditarBicicleta
     }
     ]
 })

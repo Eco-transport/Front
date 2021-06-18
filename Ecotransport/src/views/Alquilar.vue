@@ -89,7 +89,18 @@
                   />
                 </div>
               </div>
-
+        <div class="form-group left">
+          <input type="hidden" id="custId" name="custId" value="3487" v-model="form.nombreCicla">
+          </div>
+           <div class="form-group left">
+          <input type="hidden" id="custId" name="custId" value="3487" v-model="form.vendedorCicla">
+          </div>
+           <div class="form-group left">
+          <input type="hidden" id="custId" name="custId" value="3487" v-model="form.precioCicla">
+          </div>
+           <div class="form-group left">
+          <input type="hidden" id="custId" name="custId" value="3487" v-model="form.estacionCicla">
+          </div>
               <div class="form-group left">
                 <div class="col-sm-10">
                   <input
@@ -201,7 +212,7 @@
                   v-model="form.tiempo"
                 />
               </div>
-
+            
 
               <!-- 
               <div class="form-group input-group">
@@ -282,7 +293,11 @@ export default {
         Usercedula: "",
         tiempo: 0,
         precio: 10000,
-        total: 0
+        total: 0,
+        nombreCicla:"",
+        precioCicla:"",
+        vendedorCicla:"",
+        estacionCicla:"",
       }
     };
   },
@@ -305,13 +320,25 @@ export default {
         orderUserId: this.form.userID,
         orderBicycleId: this.form.bikeID,
         orderTime: this.form.tiempo,
-        orderTotalPrice: this.form.tiempo * this.form.precio
+        orderTotalPrice: this.form.tiempo * this.form.precio,
+        bicycleID:this.form.bikeID,
+        bicycleName:this.form.nombreCicla, 
+        bicycleVendor:this.form.vendedorCicla ,
+        bicycleBuyPrice:this.form.precioCicla ,
+        bicycleStationId: this.form.estacionCicla ,
+        bicycleState:"En Reserva"
+
       };
 
       axios
         .post("http://localhost:8080/order/save", json)
         .then( () => {
+           axios
+        .post("http://localhost:8080/bicycle/save", json)
+        .then( () => {
           this.$router.push("/clientesolicitudes");
+        });
+          
         });
     },
 
@@ -340,6 +367,7 @@ export default {
     } */
 
     this.form.idEstacion = this.$route.params.id;
+    let Estation = this.$route.params.id;
     //this.form.total = this.form.tiempo * this.form.precio;
 
     axios
@@ -350,10 +378,33 @@ export default {
         this.form.Username = respuesta.data.username;
         this.form.Usercedula = respuesta.data.identityNumber;
         this.form.userID = respuesta.data.id;
-        this.form.bikeID = Math.floor(Math.random() * (20 - 1 + 1)) + 1;//HAY QUE MEJORAR ESTO CON LA TABLA REAL
+        //HAY QUE MEJORAR ESTO CON LA TABLA REAL
         this.form.fecha = new Date(Date.now()).toUTCString();
         this.form.estatus = "Esperando Pago";
         this.form.comentarios = "Ninguno";
+        let bicis = "http://localhost:8080/bicycle/";
+        axios.get(bicis).then(data => {
+             this.ListaBicis= data.data;
+             this.ListaBicicletas = new Array();
+                    for (var key in this.ListaBicis) 
+                    {
+                        var cicla = this.ListaBicis[key];
+
+                        console.log("Test cicla: ",parseInt(cicla.bicycleStationId));                        
+                        if (parseInt(cicla.bicycleStationId)=== parseInt(Estation)) {
+                            if(String(cicla.bicycleState)==="Disponible")
+                               { 
+                                 this.ListaBicicletas.push(cicla);
+                               }
+                        }
+                    }  this.form.bikeID =parseInt(this.ListaBicicletas[0].bicycleID);
+                    this.form.nombreCicla =String(this.ListaBicicletas[0].bicycleName);
+                    this.form.vendedorCicla=String(this.ListaBicicletas[0].bicycleVendor);
+                    this.form.precioCicla=String(this.ListaBicicletas[0].bicycleBuyPrice);
+                    this.form.estacionCicla=String(this.ListaBicicletas[0].bicycleStationId);
+                    
+                       
+    });
       });
   }
 };
