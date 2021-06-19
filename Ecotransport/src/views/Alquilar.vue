@@ -233,7 +233,7 @@
 
               <!-- form-group// -->
               <div class="form-group">
-                <button type="button" class="btn btn-success btn-block" v-on:click="guardar()">
+                <button type="button" class="btn btn-success btn-block" v-on:click="hacerPedido()">
                   Hacer pedido
                 </button>
 
@@ -311,8 +311,8 @@ export default {
 
     //ACA EMPIEZA LO NUEVO DE LEONARDO
 
-    guardar() {
-      let json = {
+    hacerPedido() {
+      let jsonOrder = {
         orderDate: this.form.fecha,
         orderStatus: this.form.estatus,
         orderComments: this.form.comentarios,
@@ -321,6 +321,10 @@ export default {
         orderBicycleId: this.form.bikeID,
         orderTime: this.form.tiempo,
         orderTotalPrice: this.form.tiempo * this.form.precio,
+        
+
+      };
+      let jsonBike = {
         bicycleID:this.form.bikeID,
         bicycleName:this.form.nombreCicla, 
         bicycleVendor:this.form.vendedorCicla ,
@@ -328,17 +332,15 @@ export default {
         bicycleStationId: this.form.estacionCicla ,
         bicycleState:"En Reserva"
 
-      };
+      }
 
       axios
-        .post("http://localhost:8080/order/save", json)
+        .post("http://localhost:8080/order/save", jsonOrder)
         .then( () => {
-           axios
-        .post("http://localhost:8080/bicycle/save", json)
-        .then( () => {
-          this.$router.push("/clientesolicitudes");
-        });
-          
+           axios.post("http://localhost:8080/bicycle/save", jsonBike)
+            .then( () => {
+              this.$router.push("/clientesolicitudes");
+            });          
         });
     },
 
@@ -388,23 +390,25 @@ export default {
              this.ListaBicicletas = new Array();
                     for (var key in this.ListaBicis) 
                     {
-                        var cicla = this.ListaBicis[key];
+                        var cicla = this.ListaBicis[key]; //datos de la primera bici
 
-                        console.log("Test cicla: ",parseInt(cicla.bicycleStationId));                        
+                        //console.log("Test cicla: ",parseInt(cicla.bicycleStationId));                        
                         if (parseInt(cicla.bicycleStationId)=== parseInt(Estation)) {
                             if(String(cicla.bicycleState)==="Disponible")
                                { 
                                  this.ListaBicicletas.push(cicla);
+                                 break;//para dejar de buscar
                                }
                         }
-                    }  this.form.bikeID =parseInt(this.ListaBicicletas[0].bicycleID);
-                    this.form.nombreCicla =String(this.ListaBicicletas[0].bicycleName);
-                    this.form.vendedorCicla=String(this.ListaBicicletas[0].bicycleVendor);
-                    this.form.precioCicla=String(this.ListaBicicletas[0].bicycleBuyPrice);
-                    this.form.estacionCicla=String(this.ListaBicicletas[0].bicycleStationId);
+                    }  
+              this.form.bikeID =parseInt(this.ListaBicicletas[0].bicycleID);
+              this.form.nombreCicla =String(this.ListaBicicletas[0].bicycleName);
+              this.form.vendedorCicla=String(this.ListaBicicletas[0].bicycleVendor);
+              this.form.precioCicla=String(this.ListaBicicletas[0].bicycleBuyPrice);
+              this.form.estacionCicla=String(this.ListaBicicletas[0].bicycleStationId);
                     
                        
-    });
+        });
       });
   }
 };

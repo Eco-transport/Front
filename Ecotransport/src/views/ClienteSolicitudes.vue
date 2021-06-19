@@ -116,8 +116,7 @@ export default {
         .then(ORDERS => 
         {
             axios.get("http://localhost:8080/getUser", 
-                {params: { access_token: getAuthenticationToken() }
-                })
+                {params: { access_token: getAuthenticationToken() }})
                 .then(USERS => 
                 {
                     this.form.userID = USERS.data.id;
