@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       ListaEstaciones: null,
-      pagina: 1
+      //pagina: 1
     };
   },
   components: {
@@ -82,6 +82,7 @@ export default {
   }
 };
 </script>
+
 <style scoped>
 .izquierda {
   text-align: left;

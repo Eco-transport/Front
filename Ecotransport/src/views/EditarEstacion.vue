@@ -8,6 +8,7 @@
           <label for="" class="control-label col-sm-2">ID</label>
           <div class="col-sm-10">
             <input
+              disabled
               type="text"
               class="form-control"
               name="idEstacion"
@@ -237,6 +238,7 @@ export default {
   }
 };
 </script>
+
 <style scoped>
 .left {
   text-align: left;

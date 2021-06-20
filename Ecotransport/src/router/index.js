@@ -19,6 +19,7 @@ import AdminCiclas from "@/views/AdminCiclas";
 import AdminCiclasPerEstacion from "@/views/AdminCiclasPerEstacion";
 import NuevaBicicleta from "@/views/NuevaBicicleta";
 import EditarBicicleta from "@/views/EditarBicicleta";
+import EditarPedido from "@/views/EditarPedido";
 Vue.use(Router)
 
 export default new Router({
@@ -96,6 +97,12 @@ export default new Router({
       name: 'alquilar',
       component: Alquilar
     },
+    {
+      path: '/editar-pedido/:id',
+      name: 'editarPedido',
+      component: EditarPedido
+    },
+
     {
       path: '/adminciclas',
       name: 'adminciclas',

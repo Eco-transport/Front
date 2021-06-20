@@ -7,28 +7,7 @@
     <br />
 
 
-    <!-- <form action="" class="form-horizontal">
-      <div class="col-sm-10">
-        <input
-          type="hidden"
-          id="custId"
-          name="custId"
-          value="3487"
-          v-model="form.userID"
-        />
-      </div>
-      <div class="col-sm-10">
-        <input
-          type="hidden"
-          id="custId"
-          name="custId"
-          value="3487"
-          v-model="form.Username"
-        />
-      </div>
-    </form>
-    <br /> -->
-
+    
 
 
 
@@ -107,6 +86,9 @@ export default {
   },
 
   methods: {
+    editar(id) {
+      this.$router.push("/editar-pedido/" + id);
+    },
     nuevo() {
       this.$router.push("/mapa");
     }
@@ -116,7 +98,8 @@ export default {
         .then(ORDERS => 
         {
             axios.get("http://localhost:8080/getUser", 
-                {params: { access_token: getAuthenticationToken() }})
+                {params: { access_token: getAuthenticationToken() }
+                })
                 .then(USERS => 
                 {
                     this.form.userID = USERS.data.id;
