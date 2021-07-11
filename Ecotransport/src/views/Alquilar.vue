@@ -181,7 +181,7 @@
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
-                    <i class="fa fa-bicycle"></i>
+                    <i class="fa fa-building"></i>
                   </span>
                 </div>
                 <input

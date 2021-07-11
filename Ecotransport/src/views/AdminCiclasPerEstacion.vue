@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Header />
+        <HeaderAdmin />
         <br /><br />
         <h1>Bienvenido Administrador</h1>
         <h1>Aqui puedes administrar las bicis para tu estacion</h1>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import Header from "@/components/Header.vue";
+import HeaderAdmin from "@/components/HeaderAdmin.vue";
 import axios from "axios";
 import { getAuthenticationToken } from "@/dataStorage";
 
@@ -61,7 +61,7 @@ export default {
     };
   },
   components: {
-    Header
+    HeaderAdmin
   },
   methods: {
     editar(idEstacion,bicycleID) {

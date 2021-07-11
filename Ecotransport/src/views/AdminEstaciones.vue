@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Header />
+        <HeaderAdmin />
         <br /><br />
         <h1>Bienvenido Administrador</h1>
         <br />
@@ -46,7 +46,8 @@
 </template>
 
 <script>
-import Header from "@/components/Header.vue";
+import HeaderAdmin from "@/components/HeaderAdmin.vue";
+import Footer from "@/components/Footer.vue";
 import axios from "axios";
 import { getAuthenticationToken } from "@/dataStorage";
 
@@ -64,7 +65,8 @@ export default {
     };
   },
   components: {
-    Header
+    HeaderAdmin,
+    Footer
   },
   methods: {
     editar(id) {

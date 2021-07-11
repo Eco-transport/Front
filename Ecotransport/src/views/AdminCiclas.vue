@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header></Header>
+    <HeaderAdmin></HeaderAdmin>
     <img
       src="@/assets/Vamos.png"
       style="max-width: 100%; width: auto; height: auto"
@@ -59,9 +59,10 @@
 </template>
 
 <script>
-import Header from "@/components/Header.vue";
+import HeaderAdmin from "@/components/HeaderAdmin.vue";
 import axios from "axios";
 import { getAuthenticationToken } from "@/dataStorage";
+import Header from '../components/Header.vue';
 
 export default {
   name: "adminciclas",
@@ -77,7 +78,7 @@ export default {
     };
   },
   components: {
-    Header
+    HeaderAdmin
   },
   methods: {
     listaCiclas(id) {
