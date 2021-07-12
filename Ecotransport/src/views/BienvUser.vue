@@ -20,18 +20,6 @@
       <div class="cajas">
         <div class="row justify-content-center">
           <div class="col-lg">
-            <h3> Mis pedidos</h3>
-            <center>
-              Aquí encontrará sus pedidos y podrá modificarlos o cancelarlos facilmente
-            </center>
-            <a
-              class="btn btn-outline-success"
-              href="/clientesolicitudes"
-              role="button"
-              >Editar</a
-            >
-          </div>
-          <div class="col-lg">
             <h3>Alquilar</h3>
             <center>
               Encuentra tu estación mas cercana y alquila por horas una de nuestras ciclas ecológicas
@@ -41,6 +29,18 @@
               href="/mapa"
               role="button"
               >Iniciar</a
+            >
+          </div>
+          <div class="col-lg">
+            <h3> Mis pedidos</h3>
+            <center>
+              Aquí encontrará sus pedidos y podrá modificarlos o cancelarlos facilmente
+            </center>
+            <a
+              class="btn btn-outline-success"
+              href="/clientesolicitudes"
+              role="button"
+              >Editar</a
             >
           </div>
         </div>

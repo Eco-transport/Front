@@ -2,7 +2,7 @@
   <div class="Header">
     <!--Header-->
     <nav class="navbar navbar-expand-md navbar-ligth">
-      <a class="navbar-brand" href="/bienvenido-admin">
+      <a class="navbar-brand" href="/bienvenido-user">
         <img src="@/assets/LogoHeader.png" alt="Logo Ecotransport" height="40" />
       </a>
       <button

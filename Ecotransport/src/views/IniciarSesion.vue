@@ -1,6 +1,10 @@
 <template>
   <div>
-    <unlog-header />
+    <div
+    class="body"
+    style="background-image: url('https://images.pexels.com/photos/34950/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');"
+  >
+    <Unlog-header />
     <br />
     <br />
     <div class="wrapper fadeInDown">
@@ -47,6 +51,8 @@
         
       </div>
     </div>
+  </div>
+  <Footer></Footer>
   </div>
 </template>
 
@@ -114,9 +120,9 @@ export default {
         axios.get( "http://localhost:8080/mi-rol-id", { params: { access_token: getAuthenticationToken( ) } } )
         .then( response => {
             if(response.data == 1){
-              this.$router.push( {name: 'mapa'} );
+              this.$router.push( {name: 'bienvenidouser'} );
             }else{
-              this.$router.push( {name: 'adminEstaciones'} );
+              this.$router.push( {name: 'bienvenidoadmin'} );
             }
         } );
       }
@@ -169,6 +175,7 @@ h2 {
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
   background: #fff;
+  
   padding: 30px;
   width: 90%;
   max-width: 450px;
@@ -432,5 +439,12 @@ input[type="password"]:placeholder {
 
 #icon {
   width: 60%;
+}
+
+.body {
+  height: auto;
+  background-color: rgb(0, 0, 0, 0.8);
+  background-size: cover;
+  font-family: "Montserrat", sans-serif;
 }
 </style>
