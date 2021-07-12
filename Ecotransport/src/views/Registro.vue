@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <unlog-header />
     <br />
     <div class="container">
@@ -188,6 +188,7 @@
       </div>
       <!-- card.// -->
     </div>
+    <br>
   </div>
 </template>
 
@@ -274,5 +275,15 @@ export default {
   top: 55%;
   left: 0;
   z-index: 1;
+}
+
+.body {
+  height: auto;
+  background-color: rgb(0, 0, 0, 0.2);
+  background-size: cover;
+  font-family: "Montserrat", sans-serif;
+}
+.card{
+  background-color: aqua;
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div class="body">
-    <div>
     <HeaderAdmin />
     <br /><br />
     <div class="container" v-on:submit.prevent="obteniendoData">
@@ -160,9 +159,7 @@
         </div>
       </form>
     </div>
-
-  </div>
-      <!-- <Footer />   -->
+    <br>
   </div>
 </template>
 <script>
