@@ -1,8 +1,15 @@
 <template>
-  <div>
-    <Header />
-    <div class="container">
-      <form action="" class="form-horizontal">
+<div>
+    <div class="body"
+    style="background-image: url('https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');">
+    <HeaderAdmin />
+    <div class="container ">
+      <div class="row justify-content-center">
+        <form action="" class="form-horizontal">
+<!-- 
+          <div class="row">
+          <div class="col-lg">
+          </div></div> -->
         <div class="form-group left">
           <label for="" class="control-label col-sm-2">Nombre</label>
           <div class="col-sm-10">
@@ -53,6 +60,8 @@
             />
           </div>
         </div>
+
+        <!-- Aquí debería ir un div para justificar a la derecha -->
 
         <div class="form-group left">
           <label for="" class="control-label col-sm-2">Cierre</label>
@@ -109,7 +118,7 @@
 
 
         <div class="form-group">
-          <button type="button" class="btn btn-primary" v-on:click="guardar()">
+          <button type="button" class="btn btn-success" v-on:click="guardar()">
             Guardar
           </button>
           <button
@@ -121,12 +130,17 @@
           </button>
         </div>
       </form>
+      </div>
     </div>
-    <!-- <Footer /> -->
+
   </div>
+      <Footer />
+</div>
 </template>
 <script>
-import Header from "@/components/Header.vue";
+import HeaderAdmin from "@/components/HeaderAdmin.vue";
+import Footer from "@/components/Footer.vue";
+
 //import Footer from '@/components/Footer.vue'
 import axios from "axios";
 export default {
@@ -146,7 +160,8 @@ export default {
     };
   },
   components: {
-    Header    
+    HeaderAdmin , 
+    Footer   
   },
   methods: {
     guardar() {
@@ -192,5 +207,18 @@ export default {
 <style scoped>
 .left {
   text-align: left;
+}
+
+.body {
+  height: 100vh;
+  background-color: rgb(0, 0, 0, 0.8);
+  background-size: cover;
+  font-family: "Montserrat", sans-serif;
+}
+
+form{
+  color: white;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 20%;
 }
 </style>

@@ -62,7 +62,6 @@
 import HeaderAdmin from "@/components/HeaderAdmin.vue";
 import axios from "axios";
 import { getAuthenticationToken } from "@/dataStorage";
-import Header from '../components/Header.vue';
 
 export default {
   name: "adminciclas",

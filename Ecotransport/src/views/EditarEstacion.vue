@@ -1,6 +1,8 @@
 <template>
   <div>
-    <Header />
+    <div class="body"
+    style="background-image: url('https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');">
+    <HeaderAdmin />
     <br /><br />
     <div class="container" v-on:submit.prevent="obteniendoData">
       <form action="" class="form-horizontal">
@@ -136,7 +138,7 @@
         <div class="form-group">
           <a
             href="/admin-estaciones"
-            class="btn btn-primary"
+            class="btn btn-success"
             v-on:click="editar()"
             >Editar</a
           >
@@ -159,17 +161,20 @@
         </div>
       </form>
     </div>
-    <!-- <Footer />   -->
+
+  </div>
+      <Footer />  
   </div>
 </template>
 <script>
-import Header from "@/components/Header.vue";
-
+import HeaderAdmin from "@/components/HeaderAdmin.vue";
+import Footer from "@/components/Footer.vue";
 import axios from "axios";
 export default {
   name: "Editar",
   components: {
-    Header
+    HeaderAdmin,
+    Footer
   },
   data: function() {
     return {
@@ -246,5 +251,18 @@ export default {
 .margen {
   margin-left: 15px;
   margin-right: 15px;
+}
+
+.body {
+  height: 100vh;
+  background-color: rgb(0, 0, 0, 0.8);
+  background-size: cover;
+  font-family: "Montserrat", sans-serif;
+}
+
+form{
+  color: white;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 40%;
 }
 </style>
