@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <Header />
+  <div
+    class="body"
+    style="background-image: url('https://images.pexels.com/photos/409701/pexels-photo-409701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');"
+  >
+    <HeaderUser />
     <br /><br />
     <div class="container" v-on:submit.prevent="obteniendoData">
       <form action="" class="form-horizontal">
@@ -78,7 +81,7 @@
         <div><br /><br /><br /></div>
         <div class="form-group">
           <a
-            href="/clientesolicitudes"
+            href="/cliente-solicitudes"
             class="btn btn-primary"
             v-on:click="editar()"
             >Editar</a
@@ -106,7 +109,7 @@
   </div>
 </template>
 <script>
-import Header from "@/components/Header.vue";
+import HeaderUser from "@/components/HeaderUser.vue";
 import axios from "axios";
 
 
@@ -114,7 +117,7 @@ export default {
   name: "EditarPedido", 
 
   components: {
-    Header
+    HeaderUser
   },
   data: function() {
     return {
@@ -150,14 +153,14 @@ export default {
       });
     },
     salir() {
-      this.$router.push("/clientesolicitudes");
+      this.$router.push("/cliente-solicitudes");
     },
     eliminar() {
       axios
         .delete("http://localhost:8080/order/" + this.form.id)
         .then(datos => {
           console.log(datos);
-          this.$router.push("/clientesolicitudes");
+          this.$router.push("/cliente-solicitudes");
         });
     }
   },
@@ -189,5 +192,34 @@ export default {
 .margen {
   margin-left: 15px;
   margin-right: 15px;
+}
+
+/* agrega */
+.body {
+  height: auto;
+  background-color: rgb(0, 0, 0, 0.5);
+  background-size: cover;
+  font-family: "Montserrat", sans-serif;
+}
+
+.control-label {
+  color: white;
+}
+
+form {
+  width: 40%;
+  font-size: 20px;
+}
+#estacion, #estado, #fecha, #idPedido {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: solid 1px rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  color: white;
+}
+input {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: solid 1px rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  color: white;
 }
 </style>

@@ -1,6 +1,9 @@
 <template>
 <div>
-    <div class="body">
+    <div
+    class="body"
+    style="background-image: url('https://images.pexels.com/photos/1545505/pexels-photo-1545505.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');"
+  >
     <HeaderAdmin />
     <div class="container ">
       <div class="row justify-content-center">
@@ -208,15 +211,18 @@ export default {
   text-align: left;
 }
 
-.body {
-  height: auto;
-  background-color: rgb(0, 0, 0, 0.2);
-  background-size: cover;
-  font-family: "Montserrat", sans-serif;
+form {
+  width: 40%;
+  font-size: 20px;
 }
-
-form{
-  width: 20%;
+label {
+  color: white;
+}
+input {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: solid 1px rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  color: white;
 }
 
 </style>

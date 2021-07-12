@@ -90,7 +90,7 @@ export default new Router({
       component: AdminEstaciones
     },
     {
-      path: '/clientesolicitudes',
+      path: '/cliente-solicitudes',
       name: 'clientesolicitudes',
       component: ClienteSolicitudes
     },
@@ -106,22 +106,22 @@ export default new Router({
     },
 
     {
-      path: '/adminciclas',
+      path: '/admin-ciclas',
       name: 'adminciclas',
       component: AdminCiclas
     },
     {
-      path: '/adminciclasperestacion/:id',
+      path: '/admin-ciclas-per-estacion/:id',
       name: 'adminciclasperestacion',
       component: AdminCiclasPerEstacion
     },
     {
-      path: '/nuevabicicleta/:id',
+      path: '/nueva-bicicleta/:id',
       name: 'nuevabicicleta',
       component: NuevaBicicleta
     },
     {
-      path: '/editarbicicleta/:id',
+      path: '/editar-bicicleta/:id',
       name: 'editarbicicleta',
       component: EditarBicicleta
     },

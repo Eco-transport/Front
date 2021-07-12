@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header></Header>
+    <HeaderUser></HeaderUser>
     <img
       src="@/assets/Vamos.png"
       style="max-width: 100%; width: auto; height: auto"
@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import Header from "@/components/Header.vue";
+import HeaderUser from "@/components/HeaderUser.vue";
 import axios from "axios";
 import { getAuthenticationToken } from "@/dataStorage";
 
@@ -133,7 +133,7 @@ export default {
     };
   },
   components: {
-    Header
+    HeaderUser
   },
   methods: {
     alquilar(id) {

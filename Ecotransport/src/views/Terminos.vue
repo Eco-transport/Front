@@ -1,7 +1,11 @@
 <template>
-    <div>
-        <Header />
-        <h1>Terminos y condiciones</h1>
+    <div
+    class="body"
+    style="background-image: url('https://images.pexels.com/photos/102152/pexels-photo-102152.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');"
+  >
+        <HeaderUser />
+        <div class="texto">
+          <h1>Terminos y condiciones</h1>
         <p><strong>1.Terminos Generales</strong> 
         La agencia de turismo Biking Bogotá identificada con Nit 80110891-9 y Registro Nacional de Turismo 42640 
         garantiza la prestación de un servicio de calidad y asesoría continua a sus clientes. 
@@ -47,16 +51,50 @@
          alquiler en buenas condiciones para su adecuado funcionamiento, sin lugar a ninguna reclamación
           posterior. (Artículo 1992 del código civil)
         </p>
+        </div>
+        <br>
     </div>
 </template>
 
 <script>
-import Header from '../components/Header.vue';
+import HeaderUser from '../components/HeaderUser.vue';
 // import Footer from "@/components/Footer";
 export default {
   name: "terminos",
   components: {
-    Header,
+    HeaderUser,
   }
 };
 </script>
+
+<style scoped>
+.body {
+  height: auto;
+  background-color: rgb(0, 0, 0, 0.8);
+  background-size: cover;
+  font-family: "Montserrat", sans-serif;
+}
+h1{
+  margin-top: 5%;
+  color: black;
+}
+p{
+  color: black;
+  width: 70%;
+  margin-left: 15%;
+}
+
+/* Transparencia */
+.texto {
+  height: auto;
+  margin: 20%;
+  margin-top: 4%;
+  margin-bottom: 1%;
+  border: 0px;
+  padding: 0%;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: solid 1px rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+}
+</style>

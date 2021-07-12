@@ -1,6 +1,9 @@
 <template>
     <div>
-      <div class="body">
+      <div
+    class="body"
+    style="background-image: url('https://images.pexels.com/photos/1545505/pexels-photo-1545505.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');"
+  >
         <HeaderAdmin />
         <br /><br />
         <h1>Edite la información de una estación</h1>
@@ -95,15 +98,21 @@ export default {
 }
 .body {
   height: 100vh;
-  background-color: rgb(0, 0, 0, 0.2);
+  background-color: rgb(0, 0, 0, 0.5);
   background-size: cover;
   font-family: "Montserrat", sans-serif;
+}
+
+h1{
+  color: white;
 }
 .table{  
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(4px);
+  color:white;
 }
 table tbody :hover{
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.7);
+  color: black
 }
 </style>

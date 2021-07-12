@@ -38,7 +38,7 @@
             </center>
             <a
               class="btn btn-outline-success"
-              href="/clientesolicitudes"
+              href="/cliente-solicitudes"
               role="button"
               >Editar</a
             >

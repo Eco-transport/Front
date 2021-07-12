@@ -1,5 +1,8 @@
 <template>
-  <div class="body">
+  <div
+    class="body"
+    style="background-image: url('https://images.pexels.com/photos/1545505/pexels-photo-1545505.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');"
+  >
     <HeaderAdmin />
     <br /><br />
     <div class="container" v-on:submit.prevent="obteniendoData">
@@ -136,7 +139,7 @@
         <div class="form-group">
           <a
             href="/admin-estaciones"
-            class="btn btn-success"
+            class="btn btn-primary"
             v-on:click="editar()"
             >Editar</a
           >
@@ -159,18 +162,18 @@
         </div>
       </form>
     </div>
-    <br>
+    <!-- <Footer />   -->
+    <br />
   </div>
 </template>
 <script>
 import HeaderAdmin from "@/components/HeaderAdmin.vue";
-import Footer from "@/components/Footer.vue";
+
 import axios from "axios";
 export default {
   name: "Editar",
   components: {
-    HeaderAdmin,
-    Footer
+    HeaderAdmin
   },
   data: function() {
     return {
@@ -248,16 +251,31 @@ export default {
   margin-left: 15px;
   margin-right: 15px;
 }
-
 .body {
   height: auto;
-  background-color: rgb(0, 0, 0, 0.2);
+  background-color: rgb(0, 0, 0, 0.5);
   background-size: cover;
   font-family: "Montserrat", sans-serif;
 }
 
-form{
-  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+.control-label {
+  color: white;
+}
+
+form {
   width: 40%;
+  font-size: 20px;
+}
+#idEstacion {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: solid 1px rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  color: white;
+}
+input {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: solid 1px rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  color: white;
 }
 </style>

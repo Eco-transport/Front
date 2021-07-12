@@ -22,10 +22,10 @@
             <a class="nav-link" href="/mapa">Alquilar</a>
           </li>
            <li class="nav-item">
-            <a class="nav-link" href="/clientesolicitudes">Pedidos</a>
+            <a class="nav-link" href="/cliente-solicitudes">Pedidos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/admin-pedidos">Términos</a>
+            <a class="nav-link" href="/terminos">Términos</a>
           </li>
 
           <li class="nav-item">

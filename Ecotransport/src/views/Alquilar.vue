@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header />
+    <HeaderUser />
     <br /><br />
     <link
       rel="stylesheet"
@@ -267,7 +267,7 @@
 </template>
 
 <script>
-import Header from "@/components/Header";
+import HeaderUser from "@/components/HeaderUser";
 import axios from "axios";
 import { getAuthenticationToken } from "@/dataStorage";
 
@@ -276,7 +276,7 @@ export default {
   components: {
     slide: 0,
     sliding: null,
-    Header
+    HeaderUser
   },
 
   data: function() {
@@ -339,7 +339,7 @@ export default {
         .then( () => {
            axios.post("http://localhost:8080/bicycle/save", jsonBike)
             .then( () => {
-              this.$router.push("/clientesolicitudes");
+              this.$router.push("/cliente-solicitudes");
             });          
         });
     },

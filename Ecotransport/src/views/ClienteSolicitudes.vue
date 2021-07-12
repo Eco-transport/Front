@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <Header></Header>
+  <div
+    class="body"
+    style="background-image: url('https://images.pexels.com/photos/409701/pexels-photo-409701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');"
+  >
+    <HeaderUser></HeaderUser>
     <br /><br />
     <h1>Bienvenido Cliente</h1>
     <h1>Aqui podras revisar tu historial de prestamos</h1>
@@ -53,12 +56,13 @@
         </tbody>
       </table>
     </div>
-    <Footer />
+    <!-- <Footer /> -->
+    <br><br><br><br>
   </div>
 </template>
 
 <script>
-import Header from "@/components/Header.vue";
+import HeaderUser from "@/components/HeaderUser.vue";
 import axios from "axios";
 import { getAuthenticationToken } from "@/dataStorage";
 
@@ -82,7 +86,7 @@ export default {
   },
 
   components: {
-    Header
+    HeaderUser
   },
 
   methods: {
@@ -123,4 +127,25 @@ export default {
 .izquierda {
   text-align: left;
 }
+
+h1{
+  color: white;
+}
+
+.body {
+  height: auto;
+  background-color: rgb(0, 0, 0, 0.8);
+  background-size: cover;
+  font-family: "Montserrat", sans-serif;
+}
+.table{  
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  color:white;
+}
+table tbody :hover{
+  background-color: rgba(255, 255, 255, 0.7);
+  color: black
+}
+
 </style>
