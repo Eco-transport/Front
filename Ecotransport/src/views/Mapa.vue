@@ -1,11 +1,9 @@
 <template>
-  <div>
+  <div
+    class="body"
+    style="background-image: url('https://images.pexels.com/photos/409701/pexels-photo-409701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');"
+  >
     <HeaderUser></HeaderUser>
-    <img
-      src="@/assets/Vamos.png"
-      style="max-width: 100%; width: auto; height: auto"
-      alt="Vamos"
-    />
 
     <br /><br />
     <!-- <div class= "usuario" v-if="test">      
@@ -169,18 +167,24 @@ li.estacion:hover {
   cursor: pointer;
 }
 
-h2,
-h3,
-h4,
-h5 {
+h2,h3,h4,h5 {
   font-family: "Montserrat", sans-serif;
+  color: white;
 }
 h1 {
   font-family: "Pacifico", cursive;
+  color: white;
 }
 
-li,
-ul {
+li,ul {
   list-style: none;
+  color: white;
+}
+
+.body {
+  height: auto;
+  background-color: rgb(0, 0, 0, 0.8);
+  background-size: cover;
+  font-family: "Montserrat", sans-serif;
 }
 </style>

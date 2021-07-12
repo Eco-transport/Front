@@ -113,6 +113,10 @@ h3 {
   border-radius: 10px;
 }
 
+#casilla :hover{
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 .col-lg h3 {
   margin-top: 5%;
   text-shadow: 3px 4px 5px rgba(255, 255, 255, 0, 8);
