@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <div class="body"
-    style="background-image: url('https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');">
+  <div class="body">
+    <div>
     <HeaderAdmin />
     <br /><br />
     <div class="container" v-on:submit.prevent="obteniendoData">
@@ -163,7 +162,7 @@
     </div>
 
   </div>
-      <Footer />  
+      <!-- <Footer />   -->
   </div>
 </template>
 <script>
@@ -254,14 +253,13 @@ export default {
 }
 
 .body {
-  height: 100vh;
-  background-color: rgb(0, 0, 0, 0.8);
+  height: auto;
+  background-color: rgb(0, 0, 0, 0.2);
   background-size: cover;
   font-family: "Montserrat", sans-serif;
 }
 
 form{
-  color: white;
   text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   width: 40%;
 }

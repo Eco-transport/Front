@@ -1,10 +1,9 @@
 <template>
     <div>
-      <div class="body"
-    style="background-image: url('https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');">
+      <div class="body">
         <HeaderAdmin />
         <br /><br />
-        <h1>Bienvenido Administrador</h1>
+        <h1>Edite la información de una estación</h1>
         <br />
 
         <div class="container izquierda">
@@ -45,7 +44,7 @@
         </div>
         
     </div> 
-    <Footer />
+    <!-- <Footer /> -->
   </div>   
 </template>
 
@@ -90,25 +89,21 @@ export default {
 </script>
 
 <style scoped>
+
 .izquierda {
   text-align: left;
 }
 .body {
   height: 100vh;
-  background-color: rgb(0, 0, 0, 0.8);
+  background-color: rgb(0, 0, 0, 0.2);
   background-size: cover;
   font-family: "Montserrat", sans-serif;
 }
-h1{
-  color: white;
-  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-}
 .table{  
-  background-color: rgba(255, 255, 255, 0.2);
-  border: solid 1px rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(4px);
 }
 table tbody :hover{
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 </style>

@@ -21,6 +21,7 @@ import NuevaBicicleta from "@/views/NuevaBicicleta";
 import EditarBicicleta from "@/views/EditarBicicleta";
 import EditarPedido from "@/views/EditarPedido";
 import BienvAdmin from "@/views/BienvAdmin";
+import BienvUser from "@/views/BienvUser";
 Vue.use(Router)
 
 export default new Router({
@@ -128,6 +129,11 @@ export default new Router({
       path: '/bienvenido-admin',
       name: 'bienvenidoadmin',
       component: BienvAdmin
+    },
+    {
+      path: '/bienvenido-user',
+      name: 'bienvenidouser',
+      component: BienvUser
     }
     ]
 })

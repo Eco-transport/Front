@@ -1,10 +1,10 @@
 <template>
   <div
     class="body"
-    style="background-image: url('https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');"
+    style="background-image: url('https://images.pexels.com/photos/531321/pexels-photo-531321.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');"
   >
     <!-- Enunciado principal con nombre -->
-    <HeaderAdmin />
+    <HeaderUser />
     <div class="container">
       <div class="row justify-content-center">
         <h1>Bienvenido Nicolas</h1>
@@ -12,39 +12,38 @@
     </div>
     <div class="container">
       <div class="row justify-content-center">
-        <h3>¿Qué desea administrar?</h3>
+        <h3>¡Empecemos!</h3>
       </div>
     </div>
     <!-- Matriz de 3 elementos con grid de Bootstrap -->
     <div class="container">
       <div class="cajas">
-        
-      <div class="row">
-        <div class="col-lg">
-          <h3>Estaciones</h3>
-          <center>
-            Administra puntos de alquiler, unidades disponibles, horarios
-            disponibles, crea o eliminalas
-          </center>
-          <a class="btn btn-outline-success" href="/admin-estaciones" role="button">Editar</a>
+        <div class="row justify-content-center">
+          <div class="col-lg">
+            <h3> Mis pedidos</h3>
+            <center>
+              Aquí encontrará sus pedidos y podrá modificarlos o cancelarlos facilmente
+            </center>
+            <a
+              class="btn btn-outline-success"
+              href="/clientesolicitudes"
+              role="button"
+              >Editar</a
+            >
+          </div>
+          <div class="col-lg">
+            <h3>Alquilar</h3>
+            <center>
+              Encuentra tu estación mas cercana y alquila por horas una de nuestras ciclas ecológicas
+            </center>
+            <a
+              class="btn btn-outline-success"
+              href="/mapa"
+              role="button"
+              >Iniciar</a
+            >
+          </div>
         </div>
-        <div class="col-lg">
-          <h3>Ciclas</h3>
-          <center>
-            Administra unidades, estado de las ciclas, estaciones que las possen
-            y gestionalas facilmente
-          </center>
-          <a class="btn btn-outline-success" href="/admin-ciclas" role="button">Editar</a>
-        </div>
-        <div class="col-lg">
-          <h3>Pedidos</h3>
-          <center>
-            Administra los pedidos reslizados por los clientes, cancela pedidos,
-            cambia su estado
-          </center>
-          <a class="btn btn-outline-success" href="/admin-pedidos" role="button">Editar</a>
-        </div>
-      </div>
       </div>
     </div>
     <Footer></Footer>
@@ -52,12 +51,12 @@
 </template>
 
 <script>
-import HeaderAdmin from "../components/HeaderAdmin.vue";
+import HeaderUser from "../components/HeaderUser.vue";
 import Footer from "@/components/Footer";
 export default {
   name: "terminos",
   components: {
-    HeaderAdmin,
+    HeaderUser,
     Footer
   }
 };
@@ -93,15 +92,19 @@ h3 {
 
   text-shadow: 3px 4px 5px rgba(0, 0, 0, 0.7);
 }
-
 .cajas {
   margin-top: 4%;
+  width: 80%;
+  margin-left: 10%;
 }
+
+
 
 /* Transparencia */
 .col-lg {
   height: 200px;
-  margin: 1%;
+  margin: 5%;
+  margin-top: 2%;
   border: 0px;
   padding: 0%;
   background-color: rgba(255, 255, 255, 0.3);
@@ -112,12 +115,13 @@ h3 {
 
 .col-lg h3 {
   margin-top: 5%;
-  text-shadow: 3px 4px 5px rgba(0, 0, 0, 0);
-  color: #000000;
+  text-shadow: 3px 4px 5px rgba(255, 255, 255, 0, 8);
+  color: #ffffff;
 }
 
 center {
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  text-shadow: 3px 4px 5px rgba(255, 255, 255, 0, 8);
   margin: 10px;
   margin-left: 30px;
   margin-right: 30px;
