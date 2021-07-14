@@ -12,54 +12,9 @@
         <br />
 
         <!-- CARRUSEL COMIENZO -->
-        <div>
-          <b-carousel
-            id="carousel-1"
-            v-model="slide"
-            :interval="3000"
-            controls
-            background="#aaa"
-            img-height="300"
-            style="text-shadow: 1px 1px 2px #333"
-            @sliding-start="onSlideStart"
-            @sliding-end="onSlideEnd"
-          >
-            <!-- Imagen verde frontal -->
-            <b-carousel-slide
-              caption="Novedosos diseños"
-              text="Contamos con los más altos standares de calidad a tu servicio"
-              img-src="https://http2.mlstatic.com/D_NQ_NP_2X_953114-MCO44898244934_022021-F.webp"
-            ></b-carousel-slide>
-
-            <!-- imagen amarilla frontal  -->
-            <b-carousel-slide
-              caption="Multiples colores"
-              text="Los materiales mas resistentes"
-              img-src="https://http2.mlstatic.com/D_NQ_NP_905640-MCO44898282095_022021-O.webp"
-            ></b-carousel-slide>
-
-            <!-- amarilla trasera -->
-            <b-carousel-slide
-              caption="Viaje confortable"
-              text="Comodidad y confort garantizado"
-              img-src="https://http2.mlstatic.com/D_NQ_NP_839289-MCO44898243919_022021-O.webp"
-            ></b-carousel-slide>
-
-            <!-- azul frontal -->
-            <b-carousel-slide
-              caption="Sin papeleos"
-              text="Sin contratos ni papeleos tediosos"
-              img-src="https://http2.mlstatic.com/D_NQ_NP_2X_638089-MCO44126303547_112020-F.webp"
-            ></b-carousel-slide>
-
-            <!-- azul trasera  -->
-            <b-carousel-slide
-              caption="Todo desde tu celular"
-              text="Realiza todo el proceso de reserva desde tu móvil"
-              img-src="https://http2.mlstatic.com/D_NQ_NP_828569-MCO44126303595_112020-O.webp"
-            ></b-carousel-slide>
-          </b-carousel>
-        </div>
+        
+        
+        
         <!-- CARRUSEL TERMINA -->
 
 
@@ -88,7 +43,7 @@
                   type="text"
                   placeholder="Name"
                   id="nombre"
-                  v-model="name"
+                  v-model="client"
                 />
               </div>
 
@@ -100,7 +55,7 @@
                 </div>
                 <input
                   disabled
-                  name=""
+                  name="cedula"
                   class="form-control"
                   placeholder="Cedula"
                   type="text"
@@ -118,9 +73,9 @@
                   disabled
                   name=""
                   class="form-control"
-                  placeholder="ID cicla"
-                  type="number"
-                  v-model="idBike"
+                  placeholder="Bicicleta"
+                  type="text"
+                  v-model="bikeBrand"
                 />
               </div>
 
@@ -134,9 +89,9 @@
                   disabled
                   name=""
                   class="form-control"
-                  placeholder="ID Estación"
-                  type="number"
-                  v-model="idStation"
+                  placeholder="Estación"
+                  type="text"
+                  v-model="stationName"
                 />
               </div>
 
@@ -162,7 +117,7 @@
               </div>
 
           
-              <!-- form-group// -->
+              <!-- hacer pedido -->
               <div class="form-group">
                 <button
                   type="button"
@@ -213,31 +168,18 @@ export default {
 
   data: function() {
     return {
-      name: "Testing",
-      cedula: "1123456",
-      idBike: 1,
-      idStation: 1,
-      hours: 10
-
-      /* form: {
+      client: "",
+      cedula: "",
       
-        fecha: "",
-        estatus: "",
-        comentarios: "",
-        idEstacion: "",
-        nombreUsuario: "",
-        Username: "",
-        userID: "",
-        bikeID: "",
-        Usercedula: "",
-        tiempo: 0,
-        precio: 10000,
-        total: 0,
-        nombreCicla: "",
-        precioCicla: "",
-        vendedorCicla: "",
-        estacionCicla: ""
-      } */
+      bikeBrand: "",
+      stationName: "",
+
+      idClient: 0,      
+      idBike: 0,      
+      idStation: this.$route.params.id,
+
+      
+      hours: 10
     };
   },
   methods: {
@@ -250,51 +192,58 @@ export default {
     cancelar() {
       this.$router.push("/mapa");
     },
-    hacerPedido() {}
-    
-    
-    //ACA EMPIEZA LO NUEVO DE LEONARDO
-    /*
     hacerPedido() {
-      let jsonOrder = {
-        orderDate: this.form.fecha,
-        orderStatus: this.form.estatus,
-        orderComments: this.form.comentarios,
-        orderStationId: this.form.idEstacion,
-        orderUserId: this.form.userID,
-        orderBicycleId: this.form.bikeID,
-        orderTime: this.form.tiempo,
-        orderTotalPrice: this.form.tiempo * this.form.precio
-      };
-      let jsonBike = {
-        bicycleID: this.form.bikeID,
-        bicycleName: this.form.nombreCicla,
-        bicycleVendor: this.form.vendedorCicla,
-        bicycleBuyPrice: this.form.precioCicla,
-        bicycleStationId: this.form.estacionCicla,
-        bicycleState: "En Reserva"
-      };
 
-      axios.post("http://localhost:8080/order/save", jsonOrder).then(() => {
-        axios.post("http://localhost:8080/bicycle/save", jsonBike).then(() => {
-          this.$router.push("/cliente-solicitudes");
-        });
-      });
-    },
-    
-    //ACA TERMINA LO NUEVO DE LEONARDO
-    
-    */
-
-    
-
-    
+    }
   },
   mounted: function() {
+    if (getAuthenticationToken())
+    {
+      /* Obteniendo  UserData = OK */
+      axios
+      .get("http://localhost:8080/user/getUser", {
+        params: { access_token: getAuthenticationToken() }
+      })
+      .then(userData => {
+        //console.log(userData.data);
+        this.idClient = userData.data.id;
+        this.client = userData.data.names;
+        this.cedula = "ID: "+userData.data.identityNumber;
+      });
 
+      /* Obteniendo  Station Data  = OK */
+      axios
+        .get("http://localhost:8080/station/" + this.idStation)
+        .then(stationData => {
+          //console.log(stationData.data);
+          this.idStation = stationData.data.id;
+          this.stationName = "Estación: " +stationData.data.stationName;
+          
+        });
 
+      /* Obteniendo  BikeData = FAILED*/
+      axios
+        .get("http://localhost:8080/bicycle/test/" + this.idStation)
+        .then(bicycleData => {
+          console.log(bicycleData.data); //this working well, return TRUE because find a station '1' inside bycicle table
+        });
+      /* axios
+        .get("http://localhost:8080/bicycle/find1/" + this.idStation)
+        .then(bicycleData => {
+          console.log(bicycleData.data);
+        }); */
+      axios
+        .get("http://localhost:8080/bicycle/find2/" + this.idStation)
+        .then(bicycleData => {
+          console.log(bicycleData.data); //this FAILED, doesn't do anything
+        });
+  
+    }else{
+      console.log("Loguearse de nuevo");
+    }
+    
 
-
+    
 
 
 
