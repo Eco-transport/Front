@@ -6,9 +6,7 @@
     <HeaderUser></HeaderUser>
 
     <br /><br />
-    <!-- <div class= "usuario" v-if="test">      
-      {{console.log(test)}}
-    </div> -->
+    
     <div class="col md-8">
       <h1 class="h12">Encuentre la estación mas cercana</h1>
       <h2 class="h12">¡Bienvenidos!</h2>
@@ -18,7 +16,7 @@
 
     <div class="row">
       <!-- Izquierda -->
-      <div class="col">
+      <!-- <div class="col">
         <div>
           <h2>Estamos ubicados en:</h2>
         </div>
@@ -33,7 +31,10 @@
             loading="lazy"
           ></iframe>
         </div>
-      </div>
+      </div> -->
+
+
+
       <!-- Derecha -->
       <div class="col">
         <h2>Puntos:</h2>
@@ -106,9 +107,9 @@
     </div>
     <br /><br />
     <!-- googleMap -->
-    <div>
+    <!-- <div>
       <GoogleMapLoader></GoogleMapLoader>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -126,8 +127,7 @@ export default {
   },
   data() {
     return {
-      ListaEstaciones: []
-      //idEstacion: 1,
+      ListaEstaciones: []      
     };
   },
   components: {
@@ -139,28 +139,25 @@ export default {
     }
   },
   mounted: function() {
-    axios.get("http://localhost:8080/station").then(data => {
-      this.ListaEstaciones = data.data;
+    
       if (getAuthenticationToken()) {
-        this.$swal({
-          title: "¡Bienvenidos!",
-          text: "Haz click en tu estación más cercana para alquilar",
-          imageUrl:
-            "https://media.istockphoto.com/videos/computer-laptop-using-by-funny-nerd-dog-in-jumper-video-id1214329685?s=640x640",
-          imageWidth: 400,
-          imageHeight: 200,
-          imageAlt: "Bienvenidos"
-        });
+        axios.get("http://localhost:8080/station")
+        .then(data => {
+          this.ListaEstaciones = data.data;  
+          console.log(data.data);
+        });  
+        
+        
       }
 
-      console.log(data.data);
-    });
+      
+    
   }
 };
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Padauk:wght@700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Padauk:wght@700&display=swap"); */
 
 li.estacion:hover {
   color: #55dbcb;
