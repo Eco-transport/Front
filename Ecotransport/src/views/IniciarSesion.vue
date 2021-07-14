@@ -113,7 +113,7 @@ export default {
             }
         } );
 
-        event.preventDefault();
+        /* event.preventDefault(); */
     },
     redirect( event ){
       if(this.ingreso_valido){    //CON ESTO PUEDEN ENVIAR INFORMACIÓN DEL TOKEN, Y EN EL BACK LA PUEDEN RECUPERAR
@@ -126,7 +126,7 @@ export default {
             }
         } );
       }
-      event.preventDefault();
+      /* event.preventDefault(); */
     }
   },
 };
