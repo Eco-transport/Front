@@ -11,6 +11,7 @@
         <h1>¡Increibles modelos y gran comodidad!</h1>
         <br />
 
+        <!-- CARRUSEL COMIENZO -->
         <div>
           <b-carousel
             id="carousel-1"
@@ -59,6 +60,8 @@
             ></b-carousel-slide>
           </b-carousel>
         </div>
+        <!-- CARRUSEL TERMINA -->
+
 
         <!-- <img
           src="https://http2.mlstatic.com/D_NQ_NP_2X_953114-MCO44898244934_022021-F.webp"
@@ -89,18 +92,42 @@
                   />
                 </div>
               </div>
-        <div class="form-group left">
-          <input type="hidden" id="custId" name="custId" value="3487" v-model="form.nombreCicla">
-          </div>
-           <div class="form-group left">
-          <input type="hidden" id="custId" name="custId" value="3487" v-model="form.vendedorCicla">
-          </div>
-           <div class="form-group left">
-          <input type="hidden" id="custId" name="custId" value="3487" v-model="form.precioCicla">
-          </div>
-           <div class="form-group left">
-          <input type="hidden" id="custId" name="custId" value="3487" v-model="form.estacionCicla">
-          </div>
+              <div class="form-group left">
+                <input
+                  type="hidden"
+                  id="custId"
+                  name="custId"
+                  value="3487"
+                  v-model="form.nombreCicla"
+                />
+              </div>
+              <div class="form-group left">
+                <input
+                  type="hidden"
+                  id="custId"
+                  name="custId"
+                  value="3487"
+                  v-model="form.vendedorCicla"
+                />
+              </div>
+              <div class="form-group left">
+                <input
+                  type="hidden"
+                  id="custId"
+                  name="custId"
+                  value="3487"
+                  v-model="form.precioCicla"
+                />
+              </div>
+              <div class="form-group left">
+                <input
+                  type="hidden"
+                  id="custId"
+                  name="custId"
+                  value="3487"
+                  v-model="form.estacionCicla"
+                />
+              </div>
               <div class="form-group left">
                 <div class="col-sm-10">
                   <input
@@ -212,7 +239,6 @@
                   v-model="form.tiempo"
                 />
               </div>
-            
 
               <!-- 
               <div class="form-group input-group">
@@ -233,11 +259,19 @@
 
               <!-- form-group// -->
               <div class="form-group">
-                <button type="button" class="btn btn-success btn-block" v-on:click="hacerPedido()">
+                <button
+                  type="button"
+                  class="btn btn-success btn-block"
+                  v-on:click="hacerPedido()"
+                >
                   Hacer pedido
                 </button>
 
-                <button type="button" class="btn btn-danger btn-block" v-on:click="cancelar()">
+                <button
+                  type="button"
+                  class="btn btn-danger btn-block"
+                  v-on:click="cancelar()"
+                >
                   Cancelar
                 </button>
 
@@ -248,8 +282,6 @@
                   >Cancelar pedido</a
                 > -->
               </div>
-
-          
 
               <!-- form-group// -->
               <p class="text-center">
@@ -294,10 +326,10 @@ export default {
         tiempo: 0,
         precio: 10000,
         total: 0,
-        nombreCicla:"",
-        precioCicla:"",
-        vendedorCicla:"",
-        estacionCicla:"",
+        nombreCicla: "",
+        precioCicla: "",
+        vendedorCicla: "",
+        estacionCicla: ""
       }
     };
   },
@@ -320,28 +352,22 @@ export default {
         orderUserId: this.form.userID,
         orderBicycleId: this.form.bikeID,
         orderTime: this.form.tiempo,
-        orderTotalPrice: this.form.tiempo * this.form.precio,
-        
-
+        orderTotalPrice: this.form.tiempo * this.form.precio
       };
       let jsonBike = {
-        bicycleID:this.form.bikeID,
-        bicycleName:this.form.nombreCicla, 
-        bicycleVendor:this.form.vendedorCicla ,
-        bicycleBuyPrice:this.form.precioCicla ,
-        bicycleStationId: this.form.estacionCicla ,
-        bicycleState:"En Reserva"
+        bicycleID: this.form.bikeID,
+        bicycleName: this.form.nombreCicla,
+        bicycleVendor: this.form.vendedorCicla,
+        bicycleBuyPrice: this.form.precioCicla,
+        bicycleStationId: this.form.estacionCicla,
+        bicycleState: "En Reserva"
+      };
 
-      }
-
-      axios
-        .post("http://localhost:8080/order/save", jsonOrder)
-        .then( () => {
-           axios.post("http://localhost:8080/bicycle/save", jsonBike)
-            .then( () => {
-              this.$router.push("/cliente-solicitudes");
-            });          
+      axios.post("http://localhost:8080/order/save", jsonOrder).then(() => {
+        axios.post("http://localhost:8080/bicycle/save", jsonBike).then(() => {
+          this.$router.push("/cliente-solicitudes");
         });
+      });
     },
 
     cancelar() {
@@ -350,33 +376,17 @@ export default {
 
     //ACA TERMINA LO NUEVO DE LEONARDO
   },
-  mounted: function() 
-  {
-
-    /* se quita temporalmente este IF porque al 
-    hacer click en "hacer pedido" se recarga la pagina y no deja avanzar */
-
-    /* if (getAuthenticationToken()) {
-      this.$swal({
-        title: "¡Casi esta listo!",
-        text: "Escoge la cantidad de horas que desees",
-        imageUrl:
-          "https://previews.123rf.com/images/yupiramos/yupiramos1610/yupiramos161007953/65334281-concepto-ecol%C3%B3gico-en-bicicleta-icono-de-la-ilustraci%C3%B3n-del-vector-de-transporte.jpg",
-        imageWidth: 200,
-        imageHeight: 200,
-        imageAlt: "Bici"
-      });
-    } */
-
+  mounted: function() {
+   
     this.form.idEstacion = this.$route.params.id;
     let Estation = this.$route.params.id;
-    //this.form.total = this.form.tiempo * this.form.precio;
+    
 
     axios
       .get("http://localhost:8080/getUserForOrder", {
         params: { access_token: getAuthenticationToken() }
       })
-      .then(respuesta => {                
+      .then(respuesta => {
         this.form.Username = respuesta.data.username;
         this.form.Usercedula = respuesta.data.identityNumber;
         this.form.userID = respuesta.data.id;
@@ -386,28 +396,30 @@ export default {
         this.form.comentarios = "Ninguno";
         let bicis = "http://localhost:8080/bicycle/";
         axios.get(bicis).then(data => {
-             this.ListaBicis= data.data;
-             this.ListaBicicletas = new Array();
-                    for (var key in this.ListaBicis) 
-                    {
-                        var cicla = this.ListaBicis[key]; //datos de la primera bici
+          this.ListaBicis = data.data;
+          this.ListaBicicletas = new Array();
+          for (var key in this.ListaBicis) {
+            var cicla = this.ListaBicis[key]; //datos de la primera bici
 
-                        //console.log("Test cicla: ",parseInt(cicla.bicycleStationId));                        
-                        if (parseInt(cicla.bicycleStationId)=== parseInt(Estation)) {
-                            if(String(cicla.bicycleState)==="Disponible")
-                               { 
-                                 this.ListaBicicletas.push(cicla);
-                                 break;//para dejar de buscar
-                               }
-                        }
-                    }  
-              this.form.bikeID =parseInt(this.ListaBicicletas[0].bicycleID);
-              this.form.nombreCicla =String(this.ListaBicicletas[0].bicycleName);
-              this.form.vendedorCicla=String(this.ListaBicicletas[0].bicycleVendor);
-              this.form.precioCicla=String(this.ListaBicicletas[0].bicycleBuyPrice);
-              this.form.estacionCicla=String(this.ListaBicicletas[0].bicycleStationId);
-                    
-                       
+            //console.log("Test cicla: ",parseInt(cicla.bicycleStationId));
+            if (parseInt(cicla.bicycleStationId) === parseInt(Estation)) {
+              if (String(cicla.bicycleState) === "Disponible") {
+                this.ListaBicicletas.push(cicla);
+                break; //para dejar de buscar
+              }
+            }
+          }
+          this.form.bikeID = parseInt(this.ListaBicicletas[0].bicycleID);
+          this.form.nombreCicla = String(this.ListaBicicletas[0].bicycleName);
+          this.form.vendedorCicla = String(
+            this.ListaBicicletas[0].bicycleVendor
+          );
+          this.form.precioCicla = String(
+            this.ListaBicicletas[0].bicycleBuyPrice
+          );
+          this.form.estacionCicla = String(
+            this.ListaBicicletas[0].bicycleStationId
+          );
         });
       });
   }
