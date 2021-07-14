@@ -63,11 +63,7 @@
         <!-- CARRUSEL TERMINA -->
 
 
-        <!-- <img
-          src="https://http2.mlstatic.com/D_NQ_NP_2X_953114-MCO44898244934_022021-F.webp"
-          style="width: 500px; height: auto"
-          alt="Cicla Ecologica"
-        /> -->
+
       </div>
 
       <div class="col">
@@ -79,83 +75,6 @@
             </p>
 
             <form action="" class="form-horizontal">
-              <!-- AQUI EMPIEZAN LOS HIDEN -->
-              <div class="form-group left">
-                <div class="col-sm-10">
-                  <input
-                    type="text"
-                    hidden
-                    class="form-control"
-                    name="fecha"
-                    id="fecha"
-                    v-model="form.fecha"
-                  />
-                </div>
-              </div>
-              <div class="form-group left">
-                <input
-                  type="hidden"
-                  id="custId"
-                  name="custId"
-                  value="3487"
-                  v-model="form.nombreCicla"
-                />
-              </div>
-              <div class="form-group left">
-                <input
-                  type="hidden"
-                  id="custId"
-                  name="custId"
-                  value="3487"
-                  v-model="form.vendedorCicla"
-                />
-              </div>
-              <div class="form-group left">
-                <input
-                  type="hidden"
-                  id="custId"
-                  name="custId"
-                  value="3487"
-                  v-model="form.precioCicla"
-                />
-              </div>
-              <div class="form-group left">
-                <input
-                  type="hidden"
-                  id="custId"
-                  name="custId"
-                  value="3487"
-                  v-model="form.estacionCicla"
-                />
-              </div>
-              <div class="form-group left">
-                <div class="col-sm-10">
-                  <input
-                    type="text"
-                    hidden
-                    class="form-control"
-                    name="estatus"
-                    id="estatus"
-                    v-model="form.estatus"
-                  />
-                </div>
-              </div>
-
-              <div class="form-group left">
-                <div class="col-sm-10">
-                  <input
-                    type="text"
-                    hidden
-                    class="form-control"
-                    name="comentarios"
-                    id="comentarios"
-                    v-model="form.comentarios"
-                  />
-                </div>
-              </div>
-
-              <!-- AQUI TERMINAN LOS HIDEN -->
-
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -169,7 +88,7 @@
                   type="text"
                   placeholder="Name"
                   id="nombre"
-                  v-model="form.Username"
+                  v-model="name"
                 />
               </div>
 
@@ -184,8 +103,8 @@
                   name=""
                   class="form-control"
                   placeholder="Cedula"
-                  type="number"
-                  v-model="form.Usercedula"
+                  type="text"
+                  v-model="cedula"
                 />
               </div>
 
@@ -200,8 +119,8 @@
                   name=""
                   class="form-control"
                   placeholder="ID cicla"
-                  type="text"
-                  v-model="form.bikeID"
+                  type="number"
+                  v-model="idBike"
                 />
               </div>
 
@@ -217,7 +136,7 @@
                   class="form-control"
                   placeholder="ID Estación"
                   type="number"
-                  v-model="form.idEstacion"
+                  v-model="idStation"
                 />
               </div>
 
@@ -225,6 +144,8 @@
                 Cantidad de horas a alquilar: <br />
                 ($10.000 COP x hora)
               </p>
+
+
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -236,27 +157,11 @@
                   class="form-control"
                   placeholder="Horas"
                   type="number"
-                  v-model="form.tiempo"
+                  v-model="hours"
                 />
               </div>
 
-              <!-- 
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fa fa-university"></i>
-                  </span>
-                </div>
-                <input
-                  disabled
-                  name=""
-                  class="form-control"
-                  placeholder="Total"
-                  type="number"
-                  v-model="form.total"                  
-                />
-              </div> -->
-
+          
               <!-- form-group// -->
               <div class="form-group">
                 <button
@@ -275,12 +180,7 @@
                   Cancelar
                 </button>
 
-                <!-- <a
-                  class="btn btn-danger btn-block"
-                  href="/mapa"
-                  role="button"
-                  >Cancelar pedido</a
-                > -->
+            
               </div>
 
               <!-- form-group// -->
@@ -313,7 +213,14 @@ export default {
 
   data: function() {
     return {
-      form: {
+      name: "Testing",
+      cedula: "1123456",
+      idBike: 1,
+      idStation: 1,
+      hours: 10
+
+      /* form: {
+      
         fecha: "",
         estatus: "",
         comentarios: "",
@@ -330,7 +237,7 @@ export default {
         precioCicla: "",
         vendedorCicla: "",
         estacionCicla: ""
-      }
+      } */
     };
   },
   methods: {
@@ -340,9 +247,14 @@ export default {
     onSlideEnd(slide) {
       this.sliding = false;
     },
-
+    cancelar() {
+      this.$router.push("/mapa");
+    },
+    hacerPedido() {}
+    
+    
     //ACA EMPIEZA LO NUEVO DE LEONARDO
-
+    /*
     hacerPedido() {
       let jsonOrder = {
         orderDate: this.form.fecha,
@@ -369,15 +281,27 @@ export default {
         });
       });
     },
-
-    cancelar() {
-      this.$router.push("/mapa");
-    }
-
+    
     //ACA TERMINA LO NUEVO DE LEONARDO
+    
+    */
+
+    
+
+    
   },
   mounted: function() {
-   
+
+
+
+
+
+
+
+    
+
+      /* ANTERIOR LLAMADO */
+    /*   
     this.form.idEstacion = this.$route.params.id;
     let Estation = this.$route.params.id;
     
@@ -422,6 +346,9 @@ export default {
           );
         });
       });
+
+    */
+      
   }
 };
 </script>
