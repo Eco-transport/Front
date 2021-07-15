@@ -39,17 +39,17 @@
         <tbody>
           <tr
             v-for="prestamo in ListaPrestamos"
-            :key="prestamo.orderId"
-            v-on:click="editar(prestamo.orderId)"
+            :key="prestamo.id"
+            v-on:click="editar(prestamo.id)"
           >
-            <th scope="row">{{ prestamo.orderId }}</th>
+            <th scope="row">{{ prestamo.id }}</th>
             <td>{{ prestamo.orderDate }}</td>
             <td>{{ prestamo.orderStatus }}</td>            
-            <td>{{ form.username }}</td>
-            <td>{{ prestamo.orderStationId }}</td>            
-            <td>{{ prestamo.orderBicycleId }}</td>  
-            <td>{{ prestamo.orderTime }}</td> <!-- cantidad de horas -->          
-            <td>{{ prestamo.orderTotalPrice }}</td>
+            <td>{{ prestamo.userID }}</td>            
+            <td>{{ prestamo.paymentID }}</td>            
+            <td>{{ prestamo.stationID }}</td>  
+            <td>{{ prestamo.hours }}</td> 
+            <td>{{ prestamo.price }}</td>
           </tr>
 
 
@@ -78,10 +78,7 @@ export default {
   data() {
     return {
       ListaPrestamos: null,      
-      form: {
-        userID: "",
-        username: ""
-      }
+      
     };
   },
 
@@ -98,7 +95,13 @@ export default {
     }
   },
   mounted: function() {
+
     axios.get("http://localhost:8080/order")
+    .then(orders => {
+      this.ListaPrestamos = orders.data;
+      console.log(orders.data);
+    });
+    /* axios.get("http://localhost:8080/order")
         .then(ORDERS => 
         {
             axios.get("http://localhost:8080/getUser", 
@@ -118,7 +121,7 @@ export default {
                         }
                     }
                 });
-        });
+        }); */
   }
 };
 </script>

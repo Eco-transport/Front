@@ -12,13 +12,8 @@
         <br />
 
         <!-- CARRUSEL COMIENZO -->
-        
-        
-        
+
         <!-- CARRUSEL TERMINA -->
-
-
-
       </div>
 
       <div class="col">
@@ -75,7 +70,7 @@
                   class="form-control"
                   placeholder="Bicicleta"
                   type="text"
-                  v-model="bikeBrand"
+                  v-model="serialBike"
                 />
               </div>
 
@@ -100,7 +95,6 @@
                 ($10.000 COP x hora)
               </p>
 
-
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -116,7 +110,6 @@
                 />
               </div>
 
-          
               <!-- hacer pedido -->
               <div class="form-group">
                 <button
@@ -134,8 +127,6 @@
                 >
                   Cancelar
                 </button>
-
-            
               </div>
 
               <!-- form-group// -->
@@ -165,22 +156,26 @@ export default {
     sliding: null,
     HeaderUser
   },
-
+  beforeCreate() {
+    if (!getAuthenticationToken()) {
+      this.$router.push({ name: "IniciarSesion" });
+    }
+  },
   data: function() {
     return {
       client: "",
       cedula: "",
-      
+
       bikeBrand: "",
       stationName: "",
       serialBike: "",
 
-      idClient: 0,      
-      idBike: 0,      
+      idClient: 0,
+      idBike: 0,
       idStation: this.$route.params.id,
 
-      
-      hours: 0
+      valueHour: 10000,
+      hours: 1
     };
   },
   methods: {
@@ -194,105 +189,67 @@ export default {
       this.$router.push("/mapa");
     },
     hacerPedido() {
+      var date = new Date();
+      var dateString =
+        date.getFullYear() +
+        "/" +
+        date.getMonth() +
+        "/" +
+        date.getDay() +
+        " " +
+        date.getHours() +
+        ":" +
+        date.getMinutes() +
+        ":" +
+        date.getSeconds();
 
+      let json = {
+        orderDate: dateString,
+        orderStatus: "Pendiente de Pago",
+        hours: this.hours,
+        price: this.hours * this.valueHour,
+        paymentID: 1, //always this will be 1 = efectivo
+        stationID: this.idStation,
+        userID: this.idClient
+      };
+
+      axios.post("http://localhost:8080/order/save", json).then(r => {
+        //console.log(r.data);
+        this.$router.push("/cliente-solicitudes");
+      });
     }
   },
   mounted: function() {
-    if (getAuthenticationToken())
-    {
-      /* Obteniendo  UserData = OK */
-      axios
+    /* Obteniendo  UserData = OK */
+    axios
       .get("http://localhost:8080/user/getUser", {
         params: { access_token: getAuthenticationToken() }
       })
       .then(userData => {
         //console.log(userData.data);
         this.idClient = userData.data.id;
-        this.client = "Cliente: "+userData.data.names;
-        this.cedula = "ID: "+userData.data.identityNumber;
+        this.client = "Cliente: " + userData.data.names;
+        this.cedula = "ID: " + userData.data.identityNumber;
       });
 
-      /* Obteniendo  Station Data  = OK */
-      axios
-        .get("http://localhost:8080/station/" + this.idStation)
-        .then(stationData => {
-          //console.log(stationData.data);
-          this.idStation = stationData.data.id;
-          this.stationName = "Estación: " +stationData.data.stationName;
-          
-        });
-
-      /* Obteniendo  BikeData = OK*/
-      axios
-        .get("http://localhost:8080/bicycle/" + this.idStation)
-        .then(bicycleData => {
-          //console.log(bicycleData.data); 
-          this.bikeBrand = "Marca: "+ bicycleData.data.vendor;
-          this.serialBike = "Serial: " + bicycleData.data.bicycleSerial;
-          this.idBike = bicycleData.data.id;
-        });
-
-  
-    }else{
-      console.log("Loguearse de nuevo");
-    }
-    
-
-    
-
-
-
-    
-
-      /* ANTERIOR LLAMADO */
-    /*   
-    this.form.idEstacion = this.$route.params.id;
-    let Estation = this.$route.params.id;
-    
-
+    /* Obteniendo  Station Data  = OK */
     axios
-      .get("http://localhost:8080/getUserForOrder", {
-        params: { access_token: getAuthenticationToken() }
-      })
-      .then(respuesta => {
-        this.form.Username = respuesta.data.username;
-        this.form.Usercedula = respuesta.data.identityNumber;
-        this.form.userID = respuesta.data.id;
-        //HAY QUE MEJORAR ESTO CON LA TABLA REAL
-        this.form.fecha = new Date(Date.now()).toUTCString();
-        this.form.estatus = "Esperando Pago";
-        this.form.comentarios = "Ninguno";
-        let bicis = "http://localhost:8080/bicycle/";
-        axios.get(bicis).then(data => {
-          this.ListaBicis = data.data;
-          this.ListaBicicletas = new Array();
-          for (var key in this.ListaBicis) {
-            var cicla = this.ListaBicis[key]; //datos de la primera bici
-
-            //console.log("Test cicla: ",parseInt(cicla.bicycleStationId));
-            if (parseInt(cicla.bicycleStationId) === parseInt(Estation)) {
-              if (String(cicla.bicycleState) === "Disponible") {
-                this.ListaBicicletas.push(cicla);
-                break; //para dejar de buscar
-              }
-            }
-          }
-          this.form.bikeID = parseInt(this.ListaBicicletas[0].bicycleID);
-          this.form.nombreCicla = String(this.ListaBicicletas[0].bicycleName);
-          this.form.vendedorCicla = String(
-            this.ListaBicicletas[0].bicycleVendor
-          );
-          this.form.precioCicla = String(
-            this.ListaBicicletas[0].bicycleBuyPrice
-          );
-          this.form.estacionCicla = String(
-            this.ListaBicicletas[0].bicycleStationId
-          );
-        });
+      .get("http://localhost:8080/station/" + this.idStation)
+      .then(stationData => {
+        //console.log(stationData.data);
+        this.idStation = stationData.data.id;
+        this.stationName = "Estación: " + stationData.data.stationName;
       });
 
-    */
-      
+    /* Obteniendo  BikeData = OK*/
+    axios
+      .get("http://localhost:8080/bicycle/" + this.idStation)
+      .then(bicycleData => {
+        //console.log(bicycleData.data);
+        this.bikeBrand = "Marca: " + bicycleData.data.vendor;
+        this.serialBike = "Serial: " + bicycleData.data.bicycleSerial;
+        this.idBike = bicycleData.data.id;
+      });
   }
 };
 </script>
