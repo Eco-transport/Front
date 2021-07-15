@@ -144,7 +144,7 @@ export default {
         axios.get("http://localhost:8080/station")
         .then(data => {
           this.ListaEstaciones = data.data;  
-          console.log(data.data);
+          //console.log(data.data);
         });  
         
         

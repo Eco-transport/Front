@@ -110,7 +110,7 @@
                 <input
                   name=""
                   class="form-control"
-                  placeholder="Horas"
+                  placeholder="¿# de horas?"
                   type="number"
                   v-model="hours"
                 />
@@ -173,13 +173,14 @@ export default {
       
       bikeBrand: "",
       stationName: "",
+      serialBike: "",
 
       idClient: 0,      
       idBike: 0,      
       idStation: this.$route.params.id,
 
       
-      hours: 10
+      hours: 0
     };
   },
   methods: {
@@ -207,7 +208,7 @@ export default {
       .then(userData => {
         //console.log(userData.data);
         this.idClient = userData.data.id;
-        this.client = userData.data.names;
+        this.client = "Cliente: "+userData.data.names;
         this.cedula = "ID: "+userData.data.identityNumber;
       });
 
@@ -221,22 +222,16 @@ export default {
           
         });
 
-      /* Obteniendo  BikeData = FAILED*/
+      /* Obteniendo  BikeData = OK*/
       axios
-        .get("http://localhost:8080/bicycle/test/" + this.idStation)
+        .get("http://localhost:8080/bicycle/" + this.idStation)
         .then(bicycleData => {
-          console.log(bicycleData.data); //this working well, return TRUE because find a station '1' inside bycicle table
+          //console.log(bicycleData.data); 
+          this.bikeBrand = "Marca: "+ bicycleData.data.vendor;
+          this.serialBike = "Serial: " + bicycleData.data.bicycleSerial;
+          this.idBike = bicycleData.data.id;
         });
-      /* axios
-        .get("http://localhost:8080/bicycle/find1/" + this.idStation)
-        .then(bicycleData => {
-          console.log(bicycleData.data);
-        }); */
-      axios
-        .get("http://localhost:8080/bicycle/find2/" + this.idStation)
-        .then(bicycleData => {
-          console.log(bicycleData.data); //this FAILED, doesn't do anything
-        });
+
   
     }else{
       console.log("Loguearse de nuevo");
