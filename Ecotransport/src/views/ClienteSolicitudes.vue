@@ -42,9 +42,12 @@
             <th scope="row">{{ prestamo.id }}</th>
             <td>{{ prestamo.orderDate }}</td>
             <td>{{ prestamo.orderStatus }}</td>            
-            <td> {{user}} </td>            
+            <!-- <td> {{user}} </td>            
             <td>{{ station }}</td>
-            <td>{{ bike }}</td>            
+            <td>{{ bike }}</td>             -->
+            <td>{{ prestamo.userId }}</td>            
+            <td>{{ prestamo.stationID }}</td>            
+            <td>{{ prestamo.stationID }}</td>            
             <td>{{ prestamo.hours }}</td>
             <td>{{ prestamo.price }}</td>
             <td> Efectivo </td>
@@ -71,15 +74,16 @@ export default {
     if (!getAuthenticationToken()) {
       this.$router.push({ name: "IniciarSesion" });
     }
+    
   },
 
   data: function() {
     return {
       OrderList: null,
       idClient: 0,
-      user: localStorage.getItem('usuario'),
-      bike: localStorage.getItem('bike'),
-      station: localStorage.getItem('station')
+      user: this.$session.get('usuario'),
+      bike: "",
+      station: ""
       
     };
   },
@@ -89,10 +93,30 @@ export default {
   },
 
   methods: {
+    gettingStationData(){//NOT WORKING
+      var tmp = this.$session.get("stationID");
+      axios
+      .get("http://localhost:8080/station/" + tmp)
+      .then(r=>{
+        this.station = r.data.stationName;
+        console.log(this.station);
+      });
+    },
+    gettingBicycleData(){//NOT WORKING
+      var tmp = this.$session.get("bikeID");
+      axios
+      .get("http://localhost:8080/bicycle/id/" + tmp)
+      .then(r=>{
+        this.bike = r.data.bicycleSerial;
+        console.log(this.bike);
+      });
+    },
     editar(id) {
+      //this.$session.clear("stationName");
       this.$router.push("/editar-pedido/" + id);
     },
     nuevo() {
+      this.$session.clear("stationName");
       this.$router.push("/mapa");
     }
   },
@@ -106,20 +130,23 @@ export default {
       this.$router.push({ name: "IniciarSesion" });      
     }
     else{ 
-      axios //Working well!!
+      axios 
       .get("http://localhost:8080/user/getUser", {
          params: { access_token: getAuthenticationToken() }
       }).then(userData => {
         
         this.idClient = userData.data.id;
 
-        //It's mandatory use this axios call inside previos call 
+        //It's mandatory use this axios-call inside current call 
         //because somehow the idClient lost the value beyond these brackets 
         //So, meanwhile, I solved it with a double call like below
         axios 
         .get("http://localhost:8080/order/user/" + this.idClient)
         .then(orderData => {this.OrderList = orderData.data;});  
       });
+
+      //this.gettingStationData();
+      //this.gettingBicycleData();
 
     } 
   }

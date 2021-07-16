@@ -161,6 +161,7 @@ export default {
     if (!getAuthenticationToken()) {
       this.$router.push({ name: "IniciarSesion" });
     }
+    this.$session.clear("stationName");
   },
   data: function() {
     return {
@@ -180,6 +181,7 @@ export default {
       //ORDER
       valueHour: 10000,
       hours: 1,
+      status: "Pendiente de Pago",
 
       //STATION
       idStation: this.$route.params.id,
@@ -238,14 +240,16 @@ export default {
 
       let json = {
         orderDate: dateString,
-        orderStatus: "Pendiente de Pago",
+        orderStatus: this.status,
         hours: this.hours,
         price: this.hours * this.valueHour,
+        serialBicycle: this.toSentSerialBike,
         paymentID: 1, //always this will be 1 = efectivo
         stationID: this.idStation,
         userId: this.idClient
       };
       
+      console.log(this.$session.get("name"));
 
       axios.post("http://localhost:8080/order/save", json).then(r => {        
         this.updateValuesBikes();
@@ -281,8 +285,16 @@ export default {
         this.stationAvailable = stationData.data.available;
         this.stationOpen = stationData.data.openTime;
         this.stationClose = stationData.data.closeTime;
-
         
+        this.$session.set('stationID', this.idStation);
+        this.$session.set('stationName', this.stationName);
+        this.$session.set('stationAddress', this.stationAddress);
+        this.$session.set('stationPhone', this.stationPhone);
+        this.$session.set('stationCity', this.stationCity);
+        this.$session.set('stationInventory', this.stationInventory);
+        this.$session.set('stationAvailable', this.stationAvailable);
+        this.$session.set('stationOpen', this.stationOpen);
+        this.$session.set('stationClose', this.stationClose);
       });
 
     /* Obteniendo  BikeData = OK*/
@@ -291,9 +303,14 @@ export default {
       .then(bicycleData => {        
         this.toSentSerialBike = bicycleData.data.bicycleSerial;
         this.toSentVendorBike = bicycleData.data.vendor;
-        this.bikeBrand = "Marca: " + this.toSentVendorBike;
-        this.serialBike = "Serial: " + this.toSentSerialBike;
+        this.bikeBrand = this.toSentVendorBike;
+        this.serialBike = this.toSentSerialBike;
         this.idBike = bicycleData.data.id;
+
+
+        this.$session.set('bikeID', this.idBike);    
+        this.$session.set('vendor', this.bikeBrand);
+        this.$session.set('bike', this.toSentSerialBike);
         
         
 
@@ -302,8 +319,21 @@ export default {
         //it didn't work. Something happened with the scope of the variables
       });
   },
-  updated(){
-    localStorage.setItem('station', this.stationName);
+  beforeDestroy(){
+    //STATION STORAGE
+    localStorage.setItem('stationID', this.idStation);
+    localStorage.setItem('stationName', this.stationName);
+    localStorage.setItem('stationAddress', this.stationAddress);
+    localStorage.setItem('stationPhone', this.stationPhone);
+    localStorage.setItem('stationCity', this.stationCity);
+    localStorage.setItem('stationInventory', this.stationInventory);
+    localStorage.setItem('stationAvailable', this.stationAvailable);
+    localStorage.setItem('stationOpen', this.stationOpen);
+    localStorage.setItem('stationClose', this.stationClose);
+
+    //BICYCLE STORAGE
+    localStorage.setItem('bikeID', this.idBike);    
+    localStorage.setItem('vendor', this.bikeBrand);
     localStorage.setItem('bike', this.toSentSerialBike);
   }
 };

@@ -19,12 +19,16 @@ Vue.use(VueAxios, Axios);
 Vue.use(VueSweetalert2);
 // Vue.use(VueSplide);
 
+import VueSessionStorage from "vue-sessionstorage";
+Vue.use(VueSessionStorage);
+Vue.config.productionTip = false;
 
 
-Vue.prototype.$testing = 'hahahha';
+
+/* Vue.prototype.$testing = 'hahahha';
 Vue.prototype.$userFullNameGlobal = "bah";
 Vue.prototype.$stationNameGlobal = "bah";
-Vue.prototype.$bicycleSerialGlobal = "bah";
+Vue.prototype.$bicycleSerialGlobal = "bah"; */
 
 
 

@@ -1,7 +1,8 @@
 <template>
+  <!-- style="background-image: url('https://images.pexels.com/photos/409701/pexels-photo-409701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');" -->
   <div
     class="body"
-    style="background-image: url('https://images.pexels.com/photos/409701/pexels-photo-409701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');"
+    
   >
     <HeaderUser />
     <br /><br />
@@ -16,7 +17,7 @@
               class="form-control"
               name="idPedido"
               id="idPedido"
-              v-model="form.id"
+              v-model="id"
             />
           </div>
         </div>
@@ -30,20 +31,20 @@
               class="form-control"
               name="fecha"
               id="fecha"
-              v-model="form.fecha"
+              v-model="fecha"
             />
           </div>
         </div>
         <div class="form-group left">
-          <label for="" class="control-label col-sm-2">Estado</label>
+          <label for="" class="control-label col-sm-2">status</label>
           <div class="col-sm-10">
             <input
                 disabled
               type="text"
               class="form-control"
-              name="estado"
-              id="estado"
-              v-model="form.estado"
+              name="status"
+              id="status"
+              v-model="status"
             />
           </div>
         </div>
@@ -57,7 +58,7 @@
                 class="form-control"
                 name="estacion"
                 id="estacion"
-                v-model="form.estacionID"
+                v-model="station"
               />
             </div>
           </div>
@@ -72,7 +73,7 @@
                 class="form-control"
                 name="horas"
                 id="horas"
-                v-model="form.horas"
+                v-model="hours"
               />
             </div>
           </div>
@@ -121,70 +122,97 @@ export default {
   },
   data: function() {
     return {
-      form: {
-        id: "",
-        fecha: "",
-        estado: "",
-        comentarios: "",
-        estacionID: "",
-        usuarioID: "",
-        bicicletaID: "",
-        horas: 0,
-        //totalPrice: 0,
-        precio: 10000,
-      }
+      //ORDER DATA
+      id: this.$route.params.id,
+      fecha: "",
+      status: "",
+      hours: 0,
+      valueHour: 10000, 
+      bicycle: "",      
+      station: "",
+      user: "",
+      
+      //BICYCLE DATA 
+      idBicycle: parseInt(localStorage.getItem('bikeID')),
+
+      //STATION DATA
+      idStation: parseInt(localStorage.getItem('stationID'))
+      
+      
+    
     };
   },
   methods: {
+    updateBikesAfterDelete(){
+      let json = {
+        id: this.idBicycle,
+        vendor:localStorage.getItem('vendor'),
+        bicycleSerial: localStorage.getItem('bike'),
+        bicycleStatus: "Disponible", //this is the change
+        stationId: this.idStation
+      }
+      axios
+      .post("http://localhost:8080/bicycle/save/", json)
+      .then(()=>{});
+    },
+    updateStationsAfterDelete(){
+      let json = {
+        id: this.idStation,
+        stationName: localStorage.getItem('stationName'),
+        address: localStorage.getItem('stationAddress'),
+        phone: localStorage.getItem('stationPhone'),
+        city: localStorage.getItem('stationCity'),
+        inventory: parseInt(localStorage.getItem('stationInventory')),
+        available: parseInt(localStorage.getItem('stationAvailable')),
+        openTime: localStorage.getItem('stationOpen'),
+        closeTime: localStorage.getItem('stationClose') 
+      }
+      axios
+      .post("http://localhost:8080/station/save/", json)
+      .then(r=>{console.log(r.data)});
+    },
     editar() {
       let json = {
-        orderId: this.form.id,
-        orderDate: this.form.fecha,
-        orderStatus: this.form.estado,
-        orderComments: this.form.comentarios,
-        orderStationId: this.form.estacionID,
-        orderUserId: this.form.usuarioID,
-        orderBicycleId: this.form.bicicletaID,
-        orderTime: this.form.horas,
-        orderTotalPrice: this.form.horas * this.form.precio
+        id: this.id,
+        orderDate: this.fecha,
+        orderStatus: this.status,
+        hours: this.hours,
+        price: this.hours * this.valueHour,
+        serialBicycle: this.bicycle,
+        paymentID: 1, //always this will be 1 = efectivo
+        stationID: this.station,
+        userId: this.user
       };
-      axios.post("http://localhost:8080/order/save/", json).then(data => {
-        console.log(data);
-      });
+      axios.post("http://localhost:8080/order/save/", json).then(() => {});
     },
     salir() {
       this.$router.push("/cliente-solicitudes");
     },
     eliminar() {
       axios
-        .delete("http://localhost:8080/order/" + this.form.id)
-        .then(datos => {
-          console.log(datos);
+        .delete("http://localhost:8080/order/" + this.id)
+        .then(() => {
+          this.updateBikesAfterDelete();
+          this.updateStationsAfterDelete();
           this.$router.push("/cliente-solicitudes");
         });
     }
   },
 
-  mounted: function() {
-    this.form.id = this.$route.params.id;
-    axios.get("http://localhost:8080/order/" + this.form.id)
-    .then(datos => {
-
-      console.log(datos.data);
-      this.form.fecha = datos.data.orderDate;
-      this.form.estado = datos.data.orderStatus;
-      this.form.comentarios = datos.data.orderComments;
-      this.form.estacionID = datos.data.orderStationId;
-      this.form.usuarioID = datos.data.orderUserId;
-      this.form.bicicletaID = datos.data.orderBicycleId;
-      this.form.horas = datos.data.orderTime;
-      this.form.totalPrice = datos.data.orderTotalPrice; 
-
-      
+  mounted: function() {    
+    axios.get("http://localhost:8080/order/" + this.id)
+    .then(datos => {      
+      this.fecha = datos.data.orderDate;
+      this.status = datos.data.orderStatus;
+      this.hours = datos.data.hours;
+      this.bicycle = datos.data.serialBicycle;
+      this.station = datos.data.stationID;
+      this.user = datos.data.userId;
     });
   }
 };
 </script>
+
 <style scoped>
 .left {
   text-align: left;
@@ -210,7 +238,7 @@ form {
   width: 40%;
   font-size: 20px;
 }
-#estacion, #estado, #fecha, #idPedido {
+#estacion, #status, #fecha, #idPedido {
   background-color: rgba(255, 255, 255, 0.2);
   border: solid 1px rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(4px);
