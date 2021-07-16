@@ -20,8 +20,13 @@ Vue.use(VueSweetalert2);
 // Vue.use(VueSplide);
 
 
-export var $hayLogin = false;
-export var $nombreGlobal = "";
+
+Vue.prototype.$testing = 'hahahha';
+Vue.prototype.$userGlobal = -1;
+Vue.prototype.$stationGlobal = -1;
+Vue.prototype.$bicycleGlobal = -1;
+
+
 
 new Vue({
   el: '#app',  

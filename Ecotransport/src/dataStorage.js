@@ -1,4 +1,5 @@
 const tokenKey = 'token-ingesoft';
+var global = "hahah";
 
 export function getAuthenticationToken(){
     return localStorage.getItem( tokenKey );

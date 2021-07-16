@@ -94,7 +94,13 @@ export default {
       this.$router.push("/mapa");
     }
   },
-  mounted: function() {
+
+  afterUpdate(){
+    console.log(this.$userGlobal);
+    console.log(this.$stationGlobal);
+    console.log(this.$bicycleGlobal);
+  },
+  mounted: function() {    
 
     axios.get("http://localhost:8080/order")
     .then(orders => {

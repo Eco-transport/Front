@@ -147,8 +147,9 @@
 <script>
 import HeaderUser from "@/components/HeaderUser";
 import axios from "axios";
+import Vue from "vue";
 import { getAuthenticationToken } from "@/dataStorage";
-
+import {testing} from "../main";
 export default {
   name: "alquilar",
   components: {
@@ -175,7 +176,10 @@ export default {
       idStation: this.$route.params.id,
 
       valueHour: 10000,
-      hours: 1
+      hours: 1,
+
+      toSentSerialBike: "",
+      toSentVendorBike: ""
     };
   },
   methods: {
@@ -188,20 +192,22 @@ export default {
     cancelar() {
       this.$router.push("/mapa");
     },
+    updateValuesBikes(){
+      let json = {
+        id: this.idBike,
+        vendor: this.toSentVendorBike,
+        bicycleSerial: this.toSentSerialBike,
+        bicycleStatus: "Ocupada",
+        stationId: this.idStation
+      };
+      axios.post("http://localhost:8080/bicycle/save", json)
+      .then(() => {});
+    },
     hacerPedido() {
       var date = new Date();
       var dateString =
-        date.getFullYear() +
-        "/" +
-        date.getMonth() +
-        "/" +
-        date.getDay() +
-        " " +
-        date.getHours() +
-        ":" +
-        date.getMinutes() +
-        ":" +
-        date.getSeconds();
+        date.getFullYear() +"/"+ date.getMonth() +"/"+ date.getDay() +" "+
+        date.getHours() +":"+ date.getMinutes() +":"+ date.getSeconds();
 
       let json = {
         orderDate: dateString,
@@ -213,10 +219,12 @@ export default {
         userID: this.idClient
       };
 
-      axios.post("http://localhost:8080/order/save", json).then(r => {
-        //console.log(r.data);
+      axios.post("http://localhost:8080/order/save", json).then(r => {        
+        this.updateValuesBikes();
         this.$router.push("/cliente-solicitudes");
       });
+
+      
     }
   },
   mounted: function() {
@@ -227,17 +235,21 @@ export default {
       })
       .then(userData => {
         //console.log(userData.data);
-        this.idClient = userData.data.id;
+        this.idClient = userData.data.id; 
+        this.$userGlobal = this.idClient;        
+        //console.log(this.$userGlobal);
         this.client = "Cliente: " + userData.data.names;
         this.cedula = "ID: " + userData.data.identityNumber;
       });
-
+    
     /* Obteniendo  Station Data  = OK */
     axios
       .get("http://localhost:8080/station/" + this.idStation)
       .then(stationData => {
         //console.log(stationData.data);
         this.idStation = stationData.data.id;
+        this.$stationGlobal = this.idStation;
+        //console.log(this.$stationGlobal);
         this.stationName = "Estación: " + stationData.data.stationName;
       });
 
@@ -245,10 +257,14 @@ export default {
     axios
       .get("http://localhost:8080/bicycle/" + this.idStation)
       .then(bicycleData => {
-        //console.log(bicycleData.data);
-        this.bikeBrand = "Marca: " + bicycleData.data.vendor;
-        this.serialBike = "Serial: " + bicycleData.data.bicycleSerial;
+        console.log(bicycleData.data);
+        this.toSentSerialBike = bicycleData.data.bicycleSerial;
+        this.toSentVendorBike = bicycleData.data.vendor;
+        this.bikeBrand = "Marca: " + this.toSentVendorBike;
+        this.serialBike = "Serial: " + this.toSentSerialBike;
         this.idBike = bicycleData.data.id;
+        this.$bicycleGlobal = this.idBike;
+        
       });
   }
 };
