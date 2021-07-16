@@ -1,7 +1,8 @@
 <template>
+  <!-- style="background-image: url('https://images.pexels.com/photos/409701/pexels-photo-409701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');"   -->
   <div
     class="body"
-    style="background-image: url('https://images.pexels.com/photos/409701/pexels-photo-409701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');"
+    
   >
     <HeaderUser></HeaderUser>
     <br /><br />
@@ -38,14 +39,14 @@
 
         <tbody>
           <tr
-            v-for="prestamo in ListaPrestamos"
+            v-for="prestamo in OrderList"
             :key="prestamo.id"
             v-on:click="editar(prestamo.id)"
           >
             <th scope="row">{{ prestamo.id }}</th>
             <td>{{ prestamo.orderDate }}</td>
             <td>{{ prestamo.orderStatus }}</td>            
-            <td>{{ prestamo.userID }}</td>            
+            <td>{{ prestamo.userId }}</td>            
             <td>{{ prestamo.paymentID }}</td>            
             <td>{{ prestamo.stationID }}</td>  
             <td>{{ prestamo.hours }}</td> 
@@ -75,9 +76,10 @@ export default {
     }
   },
 
-  data() {
+  data: function() {
     return {
-      ListaPrestamos: null,      
+      OrderList: null,
+      idClient: 0,      
       
     };
   },
@@ -94,40 +96,40 @@ export default {
       this.$router.push("/mapa");
     }
   },
+  mounted: function() {  
+    /* if (!getAuthenticationToken()) {
+      this.$router.push({ name: "IniciarSesion" });
+      //this is because if custome is logged
+      //but do not anything during a period of time
+      //he'll lose the credentials by this session 
+      //but still there, without this if-sentence 
+      //he'll see the whole data.
+    }
+    else{} */
+      axios //Working well!!
+      .get("http://localhost:8080/user/getUser", {
+         params: { access_token: getAuthenticationToken() }
+      }).then(userData => {
+        
+        this.idClient = userData.data.id;
+         
 
-  afterUpdate(){
-    console.log(this.$userGlobal);
-    console.log(this.$stationGlobal);
-    console.log(this.$bicycleGlobal);
-  },
-  mounted: function() {    
 
-    axios.get("http://localhost:8080/order")
-    .then(orders => {
-      this.ListaPrestamos = orders.data;
-      console.log(orders.data);
-    });
-    /* axios.get("http://localhost:8080/order")
-        .then(ORDERS => 
-        {
-            axios.get("http://localhost:8080/getUser", 
-                {params: { access_token: getAuthenticationToken() }
-                })
-                .then(USERS => 
-                {
-                    this.form.userID = USERS.data.id;
-                    this.form.username = USERS.data.username;
-                    this.ListaOrdenes = ORDERS.data;
-                    this.ListaPrestamos = new Array();
-                    for (var key in this.ListaOrdenes) 
-                    {
-                        var orden = this.ListaOrdenes[key];                        
-                        if (orden.orderUserId === this.form.userID) {
-                            this.ListaPrestamos.push(orden);
-                        }
-                    }
-                });
-        }); */
+        //It's mandatory use this axios call inside previos call 
+        //because somehow the idClient lost the value beyond these brackets call
+        //So, meanwhile I solved with a double call like below
+        axios 
+        .get("http://localhost:8080/order/user/" + this.idClient)
+        .then(orderData => {this.OrderList = orderData.data;});  
+      });
+
+      
+
+      
+    
+
+    
+  
   }
 };
 </script>

@@ -12,7 +12,7 @@
         <br />
 
         <!-- CARRUSEL COMIENZO -->
-
+        
         <!-- CARRUSEL TERMINA -->
       </div>
 
@@ -147,9 +147,9 @@
 <script>
 import HeaderUser from "@/components/HeaderUser";
 import axios from "axios";
-import Vue from "vue";
+
 import { getAuthenticationToken } from "@/dataStorage";
-import {testing} from "../main";
+
 export default {
   name: "alquilar",
   components: {
@@ -192,7 +192,6 @@ export default {
       stationOpen  : "",
       stationClose : "",
 
-
     };
   },
   methods: {
@@ -229,7 +228,7 @@ export default {
         closeTime: this.stationClose,
       };
       axios.post("http://localhost:8080/station/save", json)
-      .then(r => {console.log(r.data);});
+      .then(() => {});
     },    
     hacerPedido() {
       var date = new Date();
@@ -244,13 +243,14 @@ export default {
         price: this.hours * this.valueHour,
         paymentID: 1, //always this will be 1 = efectivo
         stationID: this.idStation,
-        userID: this.idClient
+        userId: this.idClient
       };
+      
 
       axios.post("http://localhost:8080/order/save", json).then(r => {        
         this.updateValuesBikes();
-        this.updateValuesStation();
-        //this.$router.push("/cliente-solicitudes");
+        this.updateValuesStation();        
+        this.$router.push("/cliente-solicitudes");
       });
 
       
@@ -262,11 +262,8 @@ export default {
       .get("http://localhost:8080/user/getUser", {
         params: { access_token: getAuthenticationToken() }
       })
-      .then(userData => {
-        //console.log(userData.data);
+      .then(userData => {        
         this.idClient = userData.data.id; 
-        this.$userGlobal = this.idClient;        
-        //console.log(this.$userGlobal);
         this.client = "Cliente: " + userData.data.names;
         this.cedula = "ID: " + userData.data.identityNumber;
       });
@@ -274,8 +271,7 @@ export default {
     /* Obteniendo  Station Data  = OK */
     axios
       .get("http://localhost:8080/station/" + this.idStation)
-      .then(stationData => {
-        //console.log(stationData.data);
+      .then(stationData => {        
         this.idStation = stationData.data.id;
         this.stationName = stationData.data.stationName;
         this.stationAddress = stationData.data.address;
@@ -290,15 +286,13 @@ export default {
     /* Obteniendo  BikeData = OK*/
     axios
       .get("http://localhost:8080/bicycle/" + this.idStation)
-      .then(bicycleData => {
-        console.log(bicycleData.data);
+      .then(bicycleData => {        
         this.toSentSerialBike = bicycleData.data.bicycleSerial;
         this.toSentVendorBike = bicycleData.data.vendor;
         this.bikeBrand = "Marca: " + this.toSentVendorBike;
         this.serialBike = "Serial: " + this.toSentSerialBike;
         this.idBike = bicycleData.data.id;
         this.$bicycleGlobal = this.idBike;
-        
       });
   }
 };

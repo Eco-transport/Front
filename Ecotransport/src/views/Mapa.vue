@@ -1,8 +1,9 @@
 <template>
-  <div
-    class="body"
-    style="background-image: url('https://images.pexels.com/photos/409701/pexels-photo-409701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');"
-  >
+    <!-- style="background-image: url('https://images.pexels.com/photos/409701/pexels-photo-409701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');" -->
+    <div
+      class="body"      
+      
+    >
     <HeaderUser></HeaderUser>
 
     <br /><br />
