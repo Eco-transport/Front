@@ -109,6 +109,7 @@ export default {
             }else{
               setAuthenticationToken( response.data.access_token );
               this.ingreso_valido = true;
+              localStorage.setItem('usuario', this.usuario);//used in ClientesSolicitudes.vue
               this.redirect();
             }
         } );

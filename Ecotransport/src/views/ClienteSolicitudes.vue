@@ -10,11 +10,6 @@
     <h1>Aqui podras revisar tu historial de prestamos</h1>
     <br />
 
-
-    
-
-
-
     <div class="container izquierda">
       <form method="get" action="/mapa">
         <button class="btn btn-primary" v-on:click="nuevo()">
@@ -34,6 +29,7 @@
             <th scope="col">BICICLETA</th>
             <th scope="col">CANT. HORAS</th>
             <th scope="col">PRECIO TOTAL</th>
+            <th scope="col">MÉTODO DE PAGO</th>
           </tr>
         </thead>
 
@@ -46,11 +42,12 @@
             <th scope="row">{{ prestamo.id }}</th>
             <td>{{ prestamo.orderDate }}</td>
             <td>{{ prestamo.orderStatus }}</td>            
-            <td>{{ prestamo.userId }}</td>            
-            <td>{{ prestamo.paymentID }}</td>            
-            <td>{{ prestamo.stationID }}</td>  
-            <td>{{ prestamo.hours }}</td> 
+            <td> {{user}} </td>            
+            <td>{{ station }}</td>
+            <td>{{ bike }}</td>            
+            <td>{{ prestamo.hours }}</td>
             <td>{{ prestamo.price }}</td>
+            <td> Efectivo </td>
           </tr>
 
 
@@ -79,7 +76,10 @@ export default {
   data: function() {
     return {
       OrderList: null,
-      idClient: 0,      
+      idClient: 0,
+      user: localStorage.getItem('usuario'),
+      bike: localStorage.getItem('bike'),
+      station: localStorage.getItem('station')
       
     };
   },
@@ -97,39 +97,31 @@ export default {
     }
   },
   mounted: function() {  
-    /* if (!getAuthenticationToken()) {
-      this.$router.push({ name: "IniciarSesion" });
+    if (!getAuthenticationToken()) {
       //this is because if custome is logged
       //but do not anything during a period of time
       //he'll lose the credentials by this session 
       //but still there, without this if-sentence 
       //he'll see the whole data.
+      this.$router.push({ name: "IniciarSesion" });      
     }
-    else{} */
+    else{ 
       axios //Working well!!
       .get("http://localhost:8080/user/getUser", {
          params: { access_token: getAuthenticationToken() }
       }).then(userData => {
         
         this.idClient = userData.data.id;
-         
-
 
         //It's mandatory use this axios call inside previos call 
-        //because somehow the idClient lost the value beyond these brackets call
-        //So, meanwhile I solved with a double call like below
+        //because somehow the idClient lost the value beyond these brackets 
+        //So, meanwhile, I solved it with a double call like below
         axios 
         .get("http://localhost:8080/order/user/" + this.idClient)
         .then(orderData => {this.OrderList = orderData.data;});  
       });
 
-      
-
-      
-    
-
-    
-  
+    } 
   }
 };
 </script>

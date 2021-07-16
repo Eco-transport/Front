@@ -22,9 +22,9 @@ Vue.use(VueSweetalert2);
 
 
 Vue.prototype.$testing = 'hahahha';
-Vue.prototype.$userGlobal = -1;
-Vue.prototype.$stationGlobal = -1;
-Vue.prototype.$bicycleGlobal = -1;
+Vue.prototype.$userFullNameGlobal = "bah";
+Vue.prototype.$stationNameGlobal = "bah";
+Vue.prototype.$bicycleSerialGlobal = "bah";
 
 
 

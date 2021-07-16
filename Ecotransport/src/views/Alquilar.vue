@@ -281,6 +281,8 @@ export default {
         this.stationAvailable = stationData.data.available;
         this.stationOpen = stationData.data.openTime;
         this.stationClose = stationData.data.closeTime;
+
+        
       });
 
     /* Obteniendo  BikeData = OK*/
@@ -292,8 +294,17 @@ export default {
         this.bikeBrand = "Marca: " + this.toSentVendorBike;
         this.serialBike = "Serial: " + this.toSentSerialBike;
         this.idBike = bicycleData.data.id;
-        this.$bicycleGlobal = this.idBike;
+        
+        
+
+
+        //this.$bicycleSerialGlobal = this.toSentSerialBike; 
+        //it didn't work. Something happened with the scope of the variables
       });
+  },
+  updated(){
+    localStorage.setItem('station', this.stationName);
+    localStorage.setItem('bike', this.toSentSerialBike);
   }
 };
 </script>
