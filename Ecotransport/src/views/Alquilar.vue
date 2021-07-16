@@ -164,22 +164,35 @@ export default {
   },
   data: function() {
     return {
+
+      //CUSTOMER
+      idClient: 0,
       client: "",
       cedula: "",
 
-      bikeBrand: "",
-      stationName: "",
+      //BIKE
+      idBike: 0,      
+      bikeBrand: "",      
       serialBike: "",
-
-      idClient: 0,
-      idBike: 0,
-      idStation: this.$route.params.id,
-
+      toSentSerialBike: "",
+      toSentVendorBike: "",
+      
+      //ORDER
       valueHour: 10000,
       hours: 1,
 
-      toSentSerialBike: "",
-      toSentVendorBike: ""
+      //STATION
+      idStation: this.$route.params.id,
+      stationName: "",
+      stationAddress : "",
+      stationPhone : "",
+      stationCity : "",
+      stationInventory  : "",
+      stationAvailable  : "",
+      stationOpen  : "",
+      stationClose : "",
+
+
     };
   },
   methods: {
@@ -203,6 +216,21 @@ export default {
       axios.post("http://localhost:8080/bicycle/save", json)
       .then(() => {});
     },
+    updateValuesStation(){
+      let json = {
+        id: this.idStation,
+        stationName: this.stationName,
+        address: this.stationAddress,
+        phone: this.stationPhone,
+        city: this.stationCity,
+        inventory: this.stationInventory,
+        available: this.stationAvailable - 1,
+        openTime: this.stationOpen,
+        closeTime: this.stationClose,
+      };
+      axios.post("http://localhost:8080/station/save", json)
+      .then(r => {console.log(r.data);});
+    },    
     hacerPedido() {
       var date = new Date();
       var dateString =
@@ -221,7 +249,8 @@ export default {
 
       axios.post("http://localhost:8080/order/save", json).then(r => {        
         this.updateValuesBikes();
-        this.$router.push("/cliente-solicitudes");
+        this.updateValuesStation();
+        //this.$router.push("/cliente-solicitudes");
       });
 
       
@@ -248,9 +277,14 @@ export default {
       .then(stationData => {
         //console.log(stationData.data);
         this.idStation = stationData.data.id;
-        this.$stationGlobal = this.idStation;
-        //console.log(this.$stationGlobal);
-        this.stationName = "Estación: " + stationData.data.stationName;
+        this.stationName = stationData.data.stationName;
+        this.stationAddress = stationData.data.address;
+        this.stationPhone = stationData.data.phone;
+        this.stationCity = stationData.data.city;
+        this.stationInventory = stationData.data.inventory;
+        this.stationAvailable = stationData.data.available;
+        this.stationOpen = stationData.data.openTime;
+        this.stationClose = stationData.data.closeTime;
       });
 
     /* Obteniendo  BikeData = OK*/
