@@ -10,7 +10,7 @@
     
     <div class="col md-8">
       <h1 class="h12">Encuentre la estación mas cercana</h1>
-      <h2 class="h12">¡Bienvenidos!</h2>
+      <h2 class="h12">¡Bienvenidos! {{ nombre_user }}</h2>
     </div>
 
     <br /><br />
@@ -128,7 +128,8 @@ export default {
   },
   data() {
     return {
-      ListaEstaciones: []      
+      ListaEstaciones: [],  
+      nombre_user: ""    
     };
   },
   components: {
@@ -147,7 +148,10 @@ export default {
           this.ListaEstaciones = data.data;  
           //console.log(data.data);
         });  
-        
+        axios.get( "http://localhost:8080/user/getNames", { params: { access_token: getAuthenticationToken( ) } } )
+        .then( response => {
+          this.nombre_user = response.data
+          } );
         
       }
 
