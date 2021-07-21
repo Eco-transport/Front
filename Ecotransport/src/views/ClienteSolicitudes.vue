@@ -139,10 +139,13 @@ export default {
 
         //It's mandatory use this axios-call inside current call 
         //because somehow the idClient lost the value beyond these brackets 
-        //So, meanwhile, I solved it with a double call like below
+        //So, meanwhile, I solved it with a second call like below
         axios 
         .get("http://localhost:8080/order/user/" + this.idClient)
-        .then(orderData => {this.OrderList = orderData.data;});  
+        .then(orderData => {
+          //this.OrderList = orderData.data;
+          console.log(orderData.data);
+        });  
       });
 
       //this.gettingStationData();
