@@ -7,7 +7,7 @@
     <HeaderUser />
     <div class="container">
       <div class="row justify-content-center">
-        <h1>Bienvenido Nicolas</h1>
+        <h1>Bienvenido {{ nombre_user }}</h1>
       </div>
     </div>
     <div class="container">
@@ -53,11 +53,31 @@
 <script>
 import HeaderUser from "../components/HeaderUser.vue";
 import Footer from "@/components/Footer";
+import axios from "axios";
+import { getAuthenticationToken } from "@/dataStorage";
 export default {
+  beforeCreate() {
+    if (!getAuthenticationToken()) {
+      this.$router.push({ name: "IniciarSesion" });
+    }
+  },
   name: "terminos",
   components: {
     HeaderUser,
     Footer
+  },
+  data() {
+    return {
+      nombre_user: ""
+    };
+  },
+  mounted: function() {
+    if (getAuthenticationToken()) {
+      axios.get( "http://localhost:8080/user/getNames", { params: { access_token: getAuthenticationToken( ) } } )
+      .then( response => {
+        this.nombre_user = response.data
+        } );
+    }
   }
 };
 </script>
