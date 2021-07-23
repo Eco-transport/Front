@@ -107,8 +107,9 @@ export default {
         idEstacion: "",
         vendedor: "",
         status: ""      
-      }
-        /* idEstacion: "",
+      },
+      form: {
+        idEstacion: "",
         nombre: "",
         direccion: "",
         telefono: "",
@@ -116,7 +117,8 @@ export default {
         cierre: "",
         totalVehiculos: 0,
         disponibles: 0,
-        ciudad: "" */
+        ciudad: ""
+      }
     };
   },
   methods: {
@@ -138,11 +140,11 @@ export default {
           this.makeToast("Error", "Error al guardar", "error");
         });
 
-      /* this.editarEstacion(this.form.idEstacion); */
+        this.editarEstacion(this.form.idEstacion); 
     },
-    /* editarEstacion(idEstacionInt) {
+     editarEstacion(idEstacionInt) {
       axios
-        .get("http://localhost:8080/station/" + idEstacionInt)
+        .post("http://localhost:8080/station/addBicycle/" + idEstacionInt)
         .then(datos => {
           this.nombre = datos.data.stationName;
           this.direccion = datos.data.address;
@@ -155,21 +157,7 @@ export default {
 
           console.log(this.form);
         });
-      let json = {
-        id: this.idEstacion,
-        stationName: this.nombre,
-        address: this.direccion,
-        phone: this.telefono,
-        openTime: this.apertura,
-        closeTime: this.cierre,
-        inventory: this.totalVehiculos + 1,
-        available: this.disponibles + 1,
-        city: this.ciudad
-      };
-      axios.post("http://localhost:8080/station/save/", json).then(data => {
-        console.log(data);
-      });
-    }, */
+    }, 
     salir() {
       this.$router.push("/admin-ciclas");
     },

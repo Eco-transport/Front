@@ -136,7 +136,6 @@ export default {
       };
       axios.post("http://localhost:8080/bicycle/save/", json).then(data => {
       });
-      this.editarEstacion(this.form.idEstacion);
     },
     salir() {
       this.$router.push("/admin-ciclas");
