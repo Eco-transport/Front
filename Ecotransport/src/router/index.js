@@ -116,7 +116,7 @@ export default new Router({
       component: AdminCiclasPerEstacion
     },
     {
-      path: '/nueva-bicicleta/:id',
+      path: '/nueva-bicicleta',
       name: 'nuevabicicleta',
       component: NuevaBicicleta
     },

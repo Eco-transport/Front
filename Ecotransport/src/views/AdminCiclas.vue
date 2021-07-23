@@ -1,61 +1,48 @@
 <template>
   <div>
-    <HeaderAdmin></HeaderAdmin>
-    <img
-      src="@/assets/Vamos.png"
-      style="max-width: 100%; width: auto; height: auto"
-      alt="Vamos"
-    />
-
-    <br /><br />
-    <!-- <div class= "usuario" v-if="test">      
-      {{console.log(test)}}
-    </div> -->
-    <div class="col md-8">
-      <h2 class="h12">Selecciona la estacion para administrar las bicicletas</h2>
-      
-    </div>
-
-    <br /><br />
-
-    <div class="row">
-     
-      <!-- Derecha -->
-      <div class="col">
-        <h2>Puntos:</h2>
+      <div
+    class="body"
+    style="background-image: url('https://images.pexels.com/photos/1545505/pexels-photo-1545505.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');"
+  >
+        <HeaderAdmin />
+        <br /><br />
+        <h1>Edite la información de una bicicleta</h1>
         <br />
-        <ul
-          v-for="estacion in ListaEstaciones"
-          :key="estacion.id"
-          style="list-style: none"
-        >
-          <div v-if="estacion.available > 0">
-            <li class="estacion">
-              <h2 v-on:click="listaCiclas(estacion.id)">
-                📍 {{ estacion.stationName }}
-              </h2>
-            </li>
-          </div>
-          <strike v-else>
-            <h2>📍 {{ estacion.stationName }}</h2>
-          </strike>
 
-          <li>
-            <h6>{{ estacion.address }}</h6>
-          </li>
-          
-          <li>
-            <h6>Ciudad: {{ estacion.city }}</h6>
-          </li>
-          <br /><br />
-        </ul>
-        <!-- <a type="button" class="btn btn-success" href="/editar-estacion">Editar</a> -->
-      </div>
-    </div>
+        <div class="container izquierda">
+            <button class="btn btn-success" v-on:click="nuevo()">
+                Agregar Bicicleta
+            </button>
+            <br /><br />
 
-    <br />
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">SERIAL</th>
+                    <th scope="col">STATUS</th>
+                    <th scope="col">ID  DE ESTACIÓN</th>
+                    <th scope="col">VENDEDOR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="bicicleta in ListaBicicletas" :key="bicicleta.id" v-on:click="editar(bicicleta.id)">
+                    <th scope="row">{{ bicicleta.id}}</th>
+                    <td>{{ bicicleta.bicycleSerial }}</td>
+                    <td>{{ bicicleta.bicycleStatus }}</td>
+                    <td>{{ bicicleta.stationId }}</td>
+                    <td>{{ bicicleta.vendor }}</td>
+                    
+                </tr>
 
-  </div>
+              </tbody>
+            </table>
+
+        </div>
+        
+    </div> 
+    <Footer />
+  </div>   
 </template>
 
 <script>
@@ -72,47 +59,49 @@ export default {
   },
   data() {
     return {
-      ListaEstaciones: []
-      //idEstacion: 1,
+      ListaBicicletas: []
     };
   },
   components: {
     HeaderAdmin
   },
   methods: {
-    listaCiclas(id) {
-      this.$router.push("/adminciclasperestacion/" + id);
+    editar(id) {
+      this.$router.push("/editar-bicicleta/" + id);
+    },
+    nuevo() {
+      this.$router.push("/nueva-bicicleta");
     }
   },
   mounted: function() {
-    axios.get("http://localhost:8080/station").then(data => {
-      this.ListaEstaciones = data.data;
-      console.log(data.data);
+    axios.get("http://localhost:8080/bicycle").then(data => {
+      this.ListaBicicletas = data.data;
     });
   }
 };
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Padauk:wght@700&display=swap");
-
-li.estacion:hover {
-  color: #55dbcb;
-  cursor: pointer;
+.izquierda {
+  text-align: left;
 }
-
-h2,
-h3,
-h4,
-h5 {
+.body {
+  height: 100vh;
+  background-color: rgb(0, 0, 0, 0.5);
+  background-size: cover;
   font-family: "Montserrat", sans-serif;
 }
-h1 {
-  font-family: "Pacifico", cursive;
-}
 
-li,
-ul {
-  list-style: none;
+h1{
+  color: white;
+}
+.table{  
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  color:white;
+}
+table tbody :hover{
+  background-color: rgba(255, 255, 255, 0.7);
+  color: black
 }
 </style>

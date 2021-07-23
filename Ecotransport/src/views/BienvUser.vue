@@ -7,7 +7,7 @@
     <HeaderUser />
     <div class="container">
       <div class="row justify-content-center">
-        <h1>Bienvenido {{ nombre_user }}</h1>
+        <h1>Bienvenid@ {{ nombre_user }}</h1>
       </div>
     </div>
     <div class="container">
