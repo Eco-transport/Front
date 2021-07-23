@@ -22,6 +22,8 @@ import EditarBicicleta from "@/views/EditarBicicleta";
 import EditarPedido from "@/views/EditarPedido";
 import BienvAdmin from "@/views/BienvAdmin";
 import BienvUser from "@/views/BienvUser";
+import AdminPedidos from "@/views/AdminPedidos";
+import AdminEditarPedido from "@/views/AdminEditarPedido";
 Vue.use(Router)
 
 export default new Router({
@@ -75,8 +77,8 @@ export default new Router({
     }
     ,
     {
-      path: '/editar/:id',
-      name: 'editar',
+      path: '/editar-estacion/:id',
+      name: 'editarEstacion',
       component: EditarEstacion
     },
     {
@@ -134,6 +136,17 @@ export default new Router({
       path: '/bienvenido-user',
       name: 'bienvenidouser',
       component: BienvUser
+    },
+    {
+      path: '/admin-pedidos',
+      name: 'AdministrarPedidos',
+      component: AdminPedidos
+    },
+    {
+      path: '/editar-pedido-admin/:id',
+      name: 'AdminEditarPedido',
+      component: AdminEditarPedido
     }
+    
     ]
 })
