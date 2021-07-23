@@ -215,7 +215,7 @@ export default {
         idEstacion: this.form.idEstacion
       };
       axios
-        .delete("http://localhost:8080/station" + this.form.idEstacion)
+        .delete("http://localhost:8080/station/" + this.form.idEstacion)
         .then(datos => {
           console.log(datos);
           this.$router.push("/admin-estaciones");

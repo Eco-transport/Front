@@ -24,7 +24,7 @@
             <th scope="col">ID</th>
             <th scope="col">FECHA</th>
             <th scope="col">ESTADO</th>            
-            <th scope="col">USUARIO</th>
+            <!-- <th scope="col">USUARIO</th> -->
             <th scope="col">ESTACION</th>            
             <th scope="col">BICICLETA</th>
             <th scope="col">CANT. HORAS</th>
@@ -41,13 +41,10 @@
           >
             <th scope="row">{{ prestamo.id }}</th>
             <td>{{ prestamo.orderDate }}</td>
-            <td>{{ prestamo.orderStatus }}</td>            
-            <!-- <td> {{user}} </td>            
-            <td>{{ station }}</td>
-            <td>{{ bike }}</td>             -->
-            <td>{{ prestamo.userId }}</td>            
+            <td>{{ prestamo.orderStatus }}</td>                        
+            <!-- <td>{{ prestamo.userId }}</td>                         -->
             <td>{{ prestamo.stationID }}</td>            
-            <td>{{ prestamo.stationID }}</td>            
+            <td>{{ prestamo.serialBicycle }}</td>            
             <td>{{ prestamo.hours }}</td>
             <td>{{ prestamo.price }}</td>
             <td> Efectivo </td>
@@ -78,13 +75,12 @@ export default {
   },
 
   data: function() {
+     
     return {
       OrderList: null,
       idClient: 0,
-      user: this.$session.get('usuario'),
-      bike: "",
-      station: ""
-      
+      user: this.$session.get('usuario'),      
+      stationList: null,
     };
   },
 
@@ -93,24 +89,12 @@ export default {
   },
 
   methods: {
-    gettingStationData(){//NOT WORKING
-      var tmp = this.$session.get("stationID");
-      axios
-      .get("http://localhost:8080/station/" + tmp)
-      .then(r=>{
-        this.station = r.data.stationName;
-        console.log(this.station);
-      });
+    
+    gettingStationData(){ 
+     
+      
     },
-    gettingBicycleData(){//NOT WORKING
-      var tmp = this.$session.get("bikeID");
-      axios
-      .get("http://localhost:8080/bicycle/id/" + tmp)
-      .then(r=>{
-        this.bike = r.data.bicycleSerial;
-        console.log(this.bike);
-      });
-    },
+ 
     editar(id) {
       //this.$session.clear("stationName");
       this.$router.push("/editar-pedido/" + id);
@@ -130,27 +114,30 @@ export default {
       this.$router.push({ name: "IniciarSesion" });      
     }
     else{ 
+      
+      this.gettingStationData();
+      
       axios 
       .get("http://localhost:8080/user/getUser", {
          params: { access_token: getAuthenticationToken() }
       }).then(userData => {
-        
-        this.idClient = userData.data.id;
+          this.idClient = userData.data.id;
 
-        //It's mandatory use this axios-call inside current call 
-        //because somehow the idClient lost the value beyond these brackets 
-        //So, meanwhile, I solved it with a second call like below
-        axios 
-        .get("http://localhost:8080/order/user/" + this.idClient)
-        .then(orderData => {
-          //this.OrderList = orderData.data;
-          console.log(orderData.data);
-        });  
-      });
-
-      //this.gettingStationData();
-      //this.gettingBicycleData();
-
+          //It's mandatory use this axios-call inside current call 
+          //because somehow the idClient lost the value beyond these brackets 
+          //So, meanwhile, I solved it with a second call like below
+          axios 
+          .get("http://localhost:8080/order/user/" + this.idClient)
+          .then(orderData => {
+            this.OrderList = orderData.data;            
+            this.OrderList.forEach(function(order){
+              axios.get("http://localhost:8080/station/" + order.stationID)
+                    .then(tmp => {order.stationID = tmp.data.stationName;});
+               /* axios.get( "http://localhost:8080/user/getNames", { params: { access_token: getAuthenticationToken( ) } })
+                    .then(tmp => {order.userId = tmp.data}); */
+            });
+          });  
+       });
     } 
   }
 };

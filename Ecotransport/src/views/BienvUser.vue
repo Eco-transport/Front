@@ -22,19 +22,18 @@
           <div class="col-lg">
             <h3>Alquilar</h3>
             <center>
-              Encuentra tu estación mas cercana y alquila por horas una de nuestras ciclas ecológicas
+              Encuentra tu estación mas cercana y alquila por horas una de
+              nuestras ciclas ecológicas
             </center>
-            <a
-              class="btn btn-outline-success"
-              href="/mapa"
-              role="button"
+            <a class="btn btn-outline-success" href="/mapa" role="button"
               >Iniciar</a
             >
           </div>
           <div class="col-lg">
-            <h3> Mis pedidos</h3>
+            <h3>Mis pedidos</h3>
             <center>
-              Aquí encontrará sus pedidos y podrá modificarlos o cancelarlos facilmente
+              Aquí encontrará sus pedidos y podrá modificarlos o cancelarlos
+              facilmente
             </center>
             <a
               class="btn btn-outline-success"
@@ -73,10 +72,14 @@ export default {
   },
   mounted: function() {
     if (getAuthenticationToken()) {
-      axios.get( "http://localhost:8080/user/getNames", { params: { access_token: getAuthenticationToken( ) } } )
-      .then( response => {
-        this.nombre_user = response.data
-        } );
+      axios
+        .get("http://localhost:8080/user/getNames", {
+          params: { access_token: getAuthenticationToken() }
+        })
+        .then(response => {
+          this.nombre_user = response.data;
+        });
+
     }
   }
 };
@@ -118,8 +121,6 @@ h3 {
   margin-left: 10%;
 }
 
-
-
 /* Transparencia */
 .col-lg {
   height: 200px;
@@ -133,7 +134,7 @@ h3 {
   border-radius: 10px;
 }
 
-#casilla :hover{
+#casilla :hover {
   background-color: rgba(255, 255, 255, 0.5);
 }
 
