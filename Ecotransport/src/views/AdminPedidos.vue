@@ -23,6 +23,8 @@
               <th scope="col">BICICLETA</th>
               <th scope="col">ESTACION</th>
               <th scope="col">USUARIO</th>
+              <th scope="col">HORA RECOGIDA</th>
+              <th scope="col">HORA ENTREGA</th>
               <th scope="col">PAGO</th>
             </tr>
           </thead>
@@ -40,6 +42,8 @@
               <td>{{ item.serialBicycle }}</td>
               <td>{{ item.stationID }}</td>
               <td>{{ item.userId }}</td>
+              <td>{{ item.serviceStart }}</td>
+              <td>{{ item.serviceFinish }}</td>
               <td>{{ item.paymentID }}</td>
             </tr>
           </tbody>

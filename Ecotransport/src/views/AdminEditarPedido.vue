@@ -9,7 +9,7 @@
           <label for="" class="control-label col-sm-2">ID</label>
           <div class="col-sm-10">
             <input
-              disabled
+              
               type="text"
               class="form-control"
               name="orderID"
@@ -23,7 +23,7 @@
           <label for="" class="control-label col-sm-2">FECHA</label>
           <div class="col-sm-10">
             <input
-              disabled
+              
               type="text"
               class="form-control"
               name="date"
@@ -55,7 +55,7 @@
             <label for="" class="control-label col-sm-3">TIEMPO</label>
             <div class="col-sm-7">
               <input
-                disabled
+                
                 type="number"
                 class="form-control"
                 name="hours"
@@ -71,7 +71,7 @@
             <label for="" class="control-label col-sm-3">PRECIO</label>
             <div class="col-sm-7">
               <input
-                disabled
+                
                 type="number"
                 class="form-control"
                 name="price"
@@ -87,7 +87,7 @@
             <label for="" class="control-label col-sm-3">BICICLETA</label>
             <div class="col-sm-7">
               <input
-                disabled
+                
                 type="text"
                 class="form-control"
                 name="serial"
@@ -103,7 +103,7 @@
             <label for="" class="control-label col-sm-3">ESTACIÓN</label>
             <div class="col-sm-7">
               <input
-                disabled
+                
                 type="text"
                 class="form-control"
                 name="station"
@@ -119,7 +119,7 @@
             <label for="" class="control-label col-sm-3">USUARIO</label>
             <div class="col-sm-7">
               <input
-                disabled
+                
                 type="text"
                 class="form-control"
                 name="user"
@@ -132,10 +132,42 @@
 
         <div class="form-group left row">
           <div class="col">
+            <label for="" class="control-label col-sm-3">HORA RECOGIDA</label>
+            <div class="col-sm-7">
+              <input
+                
+                type="text"
+                class="form-control"
+                name="serviceStart"
+                id="serviceStart"
+                v-model="serviceStart"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group left row">
+          <div class="col">
+            <label for="" class="control-label col-sm-3">HORA ENTREGA</label>
+            <div class="col-sm-7">
+              <input
+                
+                type="text"
+                class="form-control"
+                name="serviceFinish"
+                id="serviceFinish"
+                v-model="serviceFinish"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group left row">
+          <div class="col">
             <label for="" class="control-label col-sm-3">PAGO</label>
             <div class="col-sm-7">
               <input
-                disabled
+                
                 type="text"
                 class="form-control"
                 name="payment"
@@ -145,6 +177,7 @@
             </div>
           </div>
         </div>
+
 
         <div><br /><br /><br /></div>
         <div class="form-group">
@@ -196,7 +229,9 @@ export default {
       serial: "",
       station: "",
       user: "",
-      payment: ""
+      payment: "",
+      serviceStart: "",
+      serviceFinish: ""
     };
   },
   methods: {
@@ -212,7 +247,9 @@ export default {
         serialBicycle: this.serial,
         paymentID: this.payment,
         stationID: this.station,
-        userId: this.user
+        userId: this.user,
+        serviceStart: this.serviceStart,
+        serviceFinish: this.serviceFinish
       };
       //console.log(json);
       axios.post("http://localhost:8080/order/save/", json)
@@ -241,6 +278,8 @@ export default {
       this.serial = data.data.serialBicycle;
       this.station = data.data.stationID;
       this.user = data.data.userId;
+      this.serviceStart = data.data.serviceStart;
+      this.serviceFinish = data.data.serviceFinish;
       this.payment = data.data.paymentID;
     });
   }
