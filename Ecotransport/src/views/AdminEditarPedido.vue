@@ -180,11 +180,28 @@
             <div class="col-sm-7">
               <input
                 
-                type="text"
+                type="number"
                 class="form-control"
                 name="extraPayment"
                 id="extraPayment"
                 v-model="extraPayment"
+              />
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group left row">
+          <div class="col">
+            <label for="" class="control-label col-sm-3">TOTAL SERVICIO</label>
+            <div class="col-sm-7">
+              <input
+                
+                type="number"
+                class="form-control"
+                name="total"
+                id="total"
+                v-model="total"
               />
             </div>
           </div>
@@ -255,6 +272,7 @@ export default {
       serviceFinish: "",
       priceHour: 10000,      
       extraPayment: 0,
+      total: 0,
     };
   },
   methods: {
@@ -296,6 +314,7 @@ export default {
       if(MM>15){HH = HH+1}//after 15min the full hour will be applied
 
       this.extraPayment = HH*this.priceHour;
+      this.total = this.extraPayment + this.price;
     },
     finalizarPedido(){      
       let json = {
