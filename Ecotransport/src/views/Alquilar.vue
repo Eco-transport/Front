@@ -260,21 +260,22 @@ export default {
 
       if((parseInt(this.serviceStart.substring(0,2), 10)+ parseInt(this.hours))>=24){
         var hourAux = (parseInt(this.serviceStart.substring(0,2), 10) + parseInt(this.hours))-24;
-        console.log("ENTRA IF");
+        
         if(hourAux<10){
           this.serviceFinish = "0" + hourAux + ":" + this.serviceStart.substring(3,5);
         }else{
           this.serviceFinish = hourAux + ":" + this.serviceStart.substring(3,5);
         }
       }else{
-        var hourAux = parseInt(this.serviceStart.substring(0,2), 10) + parseInt(this.hours);
-        console.log("ENTRA ELSE");
+        var hourAux = parseInt(this.serviceStart.substring(0,2), 10) + parseInt(this.hours);        
         if(hourAux<10){
           this.serviceFinish = "0" + hourAux + ":" + this.serviceStart.substring(3,5);
         }else{
           this.serviceFinish = hourAux + ":" + this.serviceStart.substring(3,5);
         }
       }
+
+      
       let json = {
         orderDate: dateString,
         orderStatus: this.status,

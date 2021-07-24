@@ -34,19 +34,14 @@
         </div>
         <div class="form-group left">
           <label for="" class="control-label col-sm-2">STATUS</label>
-          <div class="col-sm-10">
-            <!-- <input
-              type="text"
-              class="form-control"
-              name="status"
-              id="status"
-              v-model="status"
-            /> -->
+          <div class="col-sm-10">            
             <select id="status" name="status">
               <option value="volvo">{{ status }}</option>
+              <option value="saab">Recogido</option>
+              <option value="saab">Entregado</option>
               <option value="saab">Pagado</option>
-              <option value="mercedes">Cancelado</option>
-              <option value="audi">Otro</option>
+              <option value="mercedes">Anulado</option>
+              <option value="audi">Finalizdo</option>
             </select>
           </div>
         </div>
@@ -179,26 +174,52 @@
         </div>
 
 
+        <div class="form-group left row">
+          <div class="col">
+            <label for="" class="control-label col-sm-3">SOBRECOSTO</label>
+            <div class="col-sm-7">
+              <input
+                
+                type="text"
+                class="form-control"
+                name="extraPayment"
+                id="extraPayment"
+                v-model="extraPayment"
+              />
+            </div>
+          </div>
+        </div>
+
+
         <div><br /><br /><br /></div>
         <div class="form-group">
-          <a
-            href="/admin-pedidos"
-            class="btn btn-primary"
-            v-on:click="editar()"
-            >Editar</a
-          >
-
           <button
             type="button"
-            class="btn btn-danger margen"
-            v-on:click="eliminar()"
+            class="btn btn-primary"
+            v-on:click="editar()"
           >
-            Eliminar
+            Editar
           </button>
 
           <button
             type="button"
-            class="btn btn-dark margen"
+            class="btn btn-dark"
+            v-on:click="calcularSobreCosto()"
+          >
+            Calcular Sobrecosto
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-success"
+            v-on:click="finalizarPedido()"
+          >
+            Finalizar Pedido
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-danger"
             v-on:click="salir()"
           >
             Salir
@@ -231,7 +252,9 @@ export default {
       user: "",
       payment: "",
       serviceStart: "",
-      serviceFinish: ""
+      serviceFinish: "",
+      priceHour: 10000,      
+      extraPayment: 0,
     };
   },
   methods: {
@@ -258,14 +281,42 @@ export default {
     salir() {
       this.$router.push("/admin-pedidos");
     },
-    eliminar() {
-      /* axios
-        .delete("http://localhost:8080/station/" + this.form.idEstacion)
-        .then(datos => {
-          console.log(datos);
-          this.$router.push("/admin-estaciones");
-        }); */
+    calcularSobreCosto(){
+      var date = new Date();
+      var hh = date.getHours(), mm = date.getMinutes(), ss = date.getSeconds();         
+      var hhOrder = parseInt(this.serviceFinish.substring(0,2));
+      var mmOrder = parseInt(this.serviceFinish.substring(3,5));
+      var HH = hh-hhOrder, MM = mm-mmOrder;
+      
+      if(hh<hhOrder){
+        HH = (hhOrder-12)+hh;
+        if(HH<0){HH = 24+HH}//meaning that the delay is near to 24hrs
+      }
+
+      if(MM>15){HH = HH+1}//after 15min the full hour will be applied
+
+      this.extraPayment = HH*this.priceHour;
+    },
+    finalizarPedido(){      
+      let json = {
+        id: this.orderID,
+        orderDate: this.date,
+        orderStatus: "FINALIZADO",
+        hours: this.hours,
+        price: this.price + this.extraPayment,
+        serialBicycle: this.serial,
+        paymentID: this.payment,
+        stationID: this.station,
+        userId: this.user,
+        serviceStart: this.serviceStart,
+        serviceFinish: this.serviceFinish
+      };
+      //console.log(json);
+      axios.post("http://localhost:8080/order/save/", json)
+            .then(() => {/* console.log(data); */});
+      this.$router.push("/admin-pedidos");
     }
+
   },
 
   mounted: function() {
