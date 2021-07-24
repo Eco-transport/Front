@@ -29,6 +29,8 @@
             <th scope="col">BICICLETA</th>
             <th scope="col">CANT. HORAS</th>
             <th scope="col">PRECIO TOTAL</th>
+            <th scope="col">HORA RECOGIDA</th>
+            <th scope="col">HORA ENTREGA</th>
             <th scope="col">MÉTODO DE PAGO</th>
           </tr>
         </thead>
@@ -47,6 +49,8 @@
             <td>{{ prestamo.serialBicycle }}</td>            
             <td>{{ prestamo.hours }}</td>
             <td>{{ prestamo.price }}</td>
+            <td>{{ prestamo.serviceStart }}</td>
+            <td>{{ prestamo.serviceFinish }}</td>
             <td> Efectivo </td>
           </tr>
 
