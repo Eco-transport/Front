@@ -273,6 +273,23 @@ export default {
       priceHour: 10000,      
       extraPayment: 0,
       total: 0,
+
+      //BICYCLE DATA 
+      idBicycle: "-1", //integer
+      vendor: "-1",
+      bicycleSerial: "-1",
+      bicycleStatus: "-1",
+      stationId: "-1",
+
+      //STATION DATA
+      stationName: "",
+      address: "",
+      phone: "",
+      city: "",
+      inventory: "",
+      available: "",
+      openTime: "",
+      closeTime: "",
     };
   },
   methods: {
@@ -333,11 +350,90 @@ export default {
       //console.log(json);
       axios.post("http://localhost:8080/order/save/", json)
             .then(() => {/* console.log(data); */});
-      this.$router.push("/admin-pedidos");
-    }
+      /* setTimeout(()=>{this.wildcardLoadData;},30); */
+      this.wildcardLoadData(); 
+      console.log("Empezar");
+      /* setTimeout(()=>{this.updateBikes();},30);//minimum 30ms    
+      setTimeout(()=>{this.updateStations();},50);//minimum 50ms   
+      this.$router.push("/admin-pedidos"); */
+    },
+    wildcardLoadData(){
+      axios
+      .get("http://localhost:8080/bicycle/serial/" + this.serial)
+      .then(r => {
+        /* this.idBicycle = r.data.id;
+        this.vendor = r.data.vendor;
+        this.bicycleSerial = r.data.bicycleSerial;
+        this.bicycleStatus = "Disponible"; //this is the update
+        this.stationId = r.data.stationId; */
+        let json = {
+          id: r.data.id,
+          vendor: r.data.vendor,
+          bicycleSerial: r.data.bicycleSerial,
+          bicycleStatus: "Disponible",
+          stationId: r.data.stationId,
+        }
+        axios
+        .post("http://localhost:8080/bicycle/save/", json)
+        .then(()=>{/* console.log(r.data) */});
+      });
+      axios
+      .get("http://localhost:8080/station/" + this.station)
+      .then(r => {
+        /* this.stationName = r.data.stationName;
+        this.address = r.data.address;
+        this.phone = r.data.phone;
+        this.city = r.data.city;
+        this.inventory = r.data.inventory;
+        this.available = r.data.available;
+        this.openTime = r.data.openTime;
+        this.closeTime = r.data.closeTime; */
+        let json = {
+          id: this.station,
+          stationName: r.data.stationName,
+          address: r.data.address,
+          phone: r.data.phone,
+          city: r.data.city,
+          inventory: r.data.inventory,
+          available: r.data.available + 1,//this is the update
+          openTime: r.data.openTime,
+          closeTime: r.data.closeTime, 
+        }
+        axios
+        .post("http://localhost:8080/station/save/", json)
+        .then(()=>{/* console.log(r.data) */});
+        });
+    },
+    updateBikes(){ 
+      let json = {
+        id: this.idBicycle,
+        vendor: this.vendor,
+        bicycleSerial: this.bicycleSerial,
+        bicycleStatus: this.bicycleStatus,
+        stationId: this.stationId,
+      }
+      axios
+      .post("http://localhost:8080/bicycle/save/", json)
+      .then(()=>{/* console.log(r.data) */});
+    },
+    updateStations(){
+      let json = {
+        id: this.station,
+        stationName: this.stationName,
+        address: this.address,
+        phone: this.phone,
+        city: this.city,
+        inventory: this.inventory,
+        available: this.available + 1,//this is the update
+        openTime: this.openTime,
+        closeTime: this.closeTime, 
+      }
+      axios
+      .post("http://localhost:8080/station/save/", json)
+      .then(()=>{/* console.log(r.data) */});
 
+    },
   },
-
   mounted: function() {
     this.orderID = this.$route.params.id;
     axios.get("http://localhost:8080/order/" + this.orderID).then(data => {
