@@ -350,22 +350,14 @@ export default {
       //console.log(json);
       axios.post("http://localhost:8080/order/save/", json)
             .then(() => {/* console.log(data); */});
-      /* setTimeout(()=>{this.wildcardLoadData;},30); */
       this.wildcardLoadData(); 
-      console.log("Empezar");
-      /* setTimeout(()=>{this.updateBikes();},30);//minimum 30ms    
-      setTimeout(()=>{this.updateStations();},50);//minimum 50ms   
-      this.$router.push("/admin-pedidos"); */
+      console.log("Empezar"); 
+      this.$router.push("/admin-pedidos"); 
     },
     wildcardLoadData(){
       axios
       .get("http://localhost:8080/bicycle/serial/" + this.serial)
       .then(r => {
-        /* this.idBicycle = r.data.id;
-        this.vendor = r.data.vendor;
-        this.bicycleSerial = r.data.bicycleSerial;
-        this.bicycleStatus = "Disponible"; //this is the update
-        this.stationId = r.data.stationId; */
         let json = {
           id: r.data.id,
           vendor: r.data.vendor,
@@ -380,14 +372,6 @@ export default {
       axios
       .get("http://localhost:8080/station/" + this.station)
       .then(r => {
-        /* this.stationName = r.data.stationName;
-        this.address = r.data.address;
-        this.phone = r.data.phone;
-        this.city = r.data.city;
-        this.inventory = r.data.inventory;
-        this.available = r.data.available;
-        this.openTime = r.data.openTime;
-        this.closeTime = r.data.closeTime; */
         let json = {
           id: this.station,
           stationName: r.data.stationName,
@@ -403,35 +387,6 @@ export default {
         .post("http://localhost:8080/station/save/", json)
         .then(()=>{/* console.log(r.data) */});
         });
-    },
-    updateBikes(){ 
-      let json = {
-        id: this.idBicycle,
-        vendor: this.vendor,
-        bicycleSerial: this.bicycleSerial,
-        bicycleStatus: this.bicycleStatus,
-        stationId: this.stationId,
-      }
-      axios
-      .post("http://localhost:8080/bicycle/save/", json)
-      .then(()=>{/* console.log(r.data) */});
-    },
-    updateStations(){
-      let json = {
-        id: this.station,
-        stationName: this.stationName,
-        address: this.address,
-        phone: this.phone,
-        city: this.city,
-        inventory: this.inventory,
-        available: this.available + 1,//this is the update
-        openTime: this.openTime,
-        closeTime: this.closeTime, 
-      }
-      axios
-      .post("http://localhost:8080/station/save/", json)
-      .then(()=>{/* console.log(r.data) */});
-
     },
   },
   mounted: function() {
