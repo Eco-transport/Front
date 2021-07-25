@@ -173,7 +173,7 @@ li.estacion:hover {
   cursor: pointer;
 }
 
-h1,h2,h3,h4,h5 {
+h1,h2,h3,h4,h5,h6 {
   font-family: "Montserrat", sans-serif;
   color: white;
 }
@@ -182,6 +182,7 @@ li,ul {
   list-style: none;
   color: white;
 }
+
 
 .body {
   height: 100vh;  
