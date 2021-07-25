@@ -115,6 +115,25 @@
                 />
               </div>
 
+              <p>
+                Por favor indique la hora en que recogera la bicicleta
+              </p>
+
+              <div class="form-group input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-hourglass-end"></i>
+                  </span>
+                </div>
+                <input 	 
+                  name=""
+                  class="form-control"
+                  placeholder="¿hora de inicio?"
+                  type="time"
+                  v-model="serviceStart"
+                />
+              </div>
+
               <!-- hacer pedido -->
               <div class="form-group">
                 <button
@@ -152,7 +171,6 @@
 <script>
 import HeaderUser from "@/components/HeaderUser";
 import axios from "axios";
-
 import { getAuthenticationToken } from "@/dataStorage";
 
 export default {
@@ -186,6 +204,8 @@ export default {
       //ORDER
       valueHour: 10000,
       hours: 1,
+      serviceStart: "",
+      serviceFinish: "",
       status: "Pendiente de Pago",
 
       //STATION
@@ -243,24 +263,41 @@ export default {
         date.getFullYear() +"/"+ date.getMonth() +"/"+ date.getDay() +" "+
         date.getHours() +":"+ date.getMinutes() +":"+ date.getSeconds();
 
+      if((parseInt(this.serviceStart.substring(0,2), 10)+ parseInt(this.hours))>=24){
+        var hourAux = (parseInt(this.serviceStart.substring(0,2), 10) + parseInt(this.hours))-24;
+        
+        if(hourAux<10){
+          this.serviceFinish = "0" + hourAux + ":" + this.serviceStart.substring(3,5);
+        }else{
+          this.serviceFinish = hourAux + ":" + this.serviceStart.substring(3,5);
+        }
+      }else{
+        var hourAux = parseInt(this.serviceStart.substring(0,2), 10) + parseInt(this.hours);        
+        if(hourAux<10){
+          this.serviceFinish = "0" + hourAux + ":" + this.serviceStart.substring(3,5);
+        }else{
+          this.serviceFinish = hourAux + ":" + this.serviceStart.substring(3,5);
+        }
+      }
+
+      
       let json = {
         orderDate: dateString,
         orderStatus: this.status,
-        hours: this.hours,
-        price: this.hours * this.valueHour,
+        hours: parseInt(this.hours),
+        price: parseInt(this.hours) * parseInt(this.valueHour),
         serialBicycle: this.toSentSerialBike,
         paymentID: 1, //always this will be 1 = efectivo
         stationID: this.idStation,
-        userId: this.idClient
+        userId: this.idClient,
+        serviceStart: this.serviceStart,
+        serviceFinish: this.serviceFinish,
       };
-      
-      
-
-      axios.post("http://localhost:8080/order/save", json).then(r => {        
-        this.updateValuesBikes();
-        this.updateValuesStation();        
+      this.updateValuesBikes();
+      this.updateValuesStation(); 
+      axios.post("http://localhost:8080/order/save", json).then(r => {               
         this.$router.push("/cliente-solicitudes");
-      });
+      }); 
 
       
     }
