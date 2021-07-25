@@ -1,6 +1,8 @@
 <template>
   <div id="app">
+    <link rel="shortcut icon" href="../logo.png" />
     <router-view />
+    
   </div>
 </template>
 

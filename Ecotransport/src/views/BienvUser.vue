@@ -87,7 +87,8 @@ export default {
 
 <style scoped>
 .body {
-  height: 100vh;
+  height: 100vh;  
+  overflow: auto;   /* Arregla problema de imagen salida */
   background-color: rgb(0, 0, 0, 0.8);
   background-size: cover;
   font-family: "Montserrat", sans-serif;

@@ -290,10 +290,14 @@ export default {
 
 /* agrega */
 .body {
-  height: auto;
-  background-color: rgb(0, 0, 0, 0.5);
+  height: 100vh;  
+  overflow: auto;   /* Arregla problema de imagen salida */
   background-size: cover;
   font-family: "Montserrat", sans-serif;
+  background-color: #222222;
+  opacity: 0.9;
+  background: radial-gradient(circle, transparent 20%, #222222 20%, #222222 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #222222 20%, #222222 80%, transparent 80%, transparent) 27.5px 27.5px, linear-gradient(#000000 2.2px, transparent 2.2px) 0 -1.1px, linear-gradient(90deg, #000000 2.2px, #222222 2.2px) -1.1px 0;
+  background-size: 55px 55px, 55px 55px, 27.5px 27.5px, 27.5px 27.5px;
 }
 
 .control-label {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <HeaderUser />
     <br /><br />
     <link
@@ -17,7 +17,7 @@
       </div>
 
       <div class="col">
-        <div class="card bg-light">
+        <div class="card bg-ligth">
           <article class="card-body mx-auto" style="max-width: 400px">
             <h4 class="card-title mt-3 text-center">Alquilar cicla</h4>
             <p class="divider-text">
@@ -25,12 +25,16 @@
             </p>
 
             <form action="" class="form-horizontal">
+                              <p>Nombre</p>
+
               <div class="form-group input-group">
+                
                 <div class="input-group-prepend">
                   <span class="input-group-text">
                     <i class="fa fa-user"></i>
                   </span>
                 </div>
+                
                 <input
                   disabled
                   name="nombre"
@@ -41,7 +45,7 @@
                   v-model="client"
                 />
               </div>
-
+              <p>ID</p>
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -57,7 +61,7 @@
                   v-model="cedula"
                 />
               </div>
-
+              <p>Serial cicla</p>
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -74,6 +78,7 @@
                 />
               </div>
 
+              <p>Ubicación</p>
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -309,16 +314,29 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Padauk:wght@700&display=swap");
 
-h1 {
-  font-family: "Pacifico", cursive;
+
+.card{
+  background-color:rgb(white, white, white,0.5);
 }
+
+.body {
+  height: 100vh;  
+  overflow: auto;   /* Arregla problema de imagen salida */
+  background-size: cover;
+  font-family: "Montserrat", sans-serif;
+  background-color: #222222;
+  opacity: 0.9;
+  background: radial-gradient(circle, transparent 20%, #222222 20%, #222222 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #222222 20%, #222222 80%, transparent 80%, transparent) 27.5px 27.5px, linear-gradient(#000000 2.2px, transparent 2.2px) 0 -1.1px, linear-gradient(90deg, #000000 2.2px, #222222 2.2px) -1.1px 0;
+  background-size: 55px 55px, 55px 55px, 27.5px 27.5px, 27.5px 27.5px;
+}
+
+h1,
 h2,
 h3,
-h4,
 h5 {
   font-family: "Montserrat", sans-serif;
+  color: white;
 }
 .divider-text {
   position: relative;
@@ -340,5 +358,10 @@ h5 {
   top: 55%;
   left: 0;
   z-index: 1;
+}
+p{
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
 }
 </style>
