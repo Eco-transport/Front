@@ -355,6 +355,11 @@ export default {
 
 .card{
   background-color:rgb(white, white, white,0.5);
+  margin-right: 10%;
+  margin-bottom: 10%;
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.7);
+
+
 }
 
 .body {
@@ -362,10 +367,10 @@ export default {
   overflow: auto;   /* Arregla problema de imagen salida */
   background-size: cover;
   font-family: "Montserrat", sans-serif;
-  background-color: #222222;
-  opacity: 0.9;
-  background: radial-gradient(circle, transparent 20%, #222222 20%, #222222 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #222222 20%, #222222 80%, transparent 80%, transparent) 27.5px 27.5px, linear-gradient(#000000 2.2px, transparent 2.2px) 0 -1.1px, linear-gradient(90deg, #000000 2.2px, #222222 2.2px) -1.1px 0;
-  background-size: 55px 55px, 55px 55px, 27.5px 27.5px, 27.5px 27.5px;
+  background-color: #0e0f1c;
+  opacity: 1;
+  background: radial-gradient(circle, transparent 20%, #0e0f1c 20%, #0e0f1c 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #0e0f1c 20%, #0e0f1c 80%, transparent 80%, transparent) 27.5px 27.5px, linear-gradient(#00425e 2.2px, transparent 2.2px) 0 -1.1px, linear-gradient(90deg, #00425e 2.2px, #0e0f1c 2.2px) -1.1px 0;
+  background-size: 55px 55px, 55px 55px, 27.5px 27.5px, 27.5px 27.5px;  
 }
 
 h1,

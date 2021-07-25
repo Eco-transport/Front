@@ -141,6 +141,8 @@ html {
 body {
   font-family: "Poppins", sans-serif;
   height: 100vh;
+    overflow: auto;   /* Arregla problema de imagen salida */
+
 }
 
 a {

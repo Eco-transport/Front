@@ -308,7 +308,7 @@ form {
   width: 40%;
   font-size: 20px;
 }
-#estacion, #status, #fecha, #idPedido {
+#estacion, #status, #fecha, #idPedido, #bicicleta {
   background-color: rgba(255, 255, 255, 0.2);
   border: solid 1px rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(4px);

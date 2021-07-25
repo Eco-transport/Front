@@ -56,7 +56,7 @@
 
 <script>
 import HeaderUser from "../components/HeaderUser.vue";
-import Footer from "@/components/Footer";
+import Footer from "@/components/Footer.vue";
 import UnlogHeader from "../components/UnlogHeader.vue";
 export default {
   name: "terminos",
@@ -71,6 +71,7 @@ export default {
 <style scoped>
 .body {
   height: 100vh;
+  overflow: auto;   /* Arregla problema de imagen salida */
   background-color: rgb(0, 0, 0, 0.8);
   background-size: cover;
   font-family: "Montserrat", sans-serif;

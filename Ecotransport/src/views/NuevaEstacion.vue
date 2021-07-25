@@ -1,9 +1,7 @@
 <template>
 <div>
     <div
-    class="body"
-    style="background-image: url('https://images.pexels.com/photos/1545505/pexels-photo-1545505.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');"
-  >
+    class="body">
     <HeaderAdmin />
     <div class="container ">
       <div class="row justify-content-center">
@@ -207,6 +205,16 @@ export default {
 };
 </script>
 <style scoped>
+
+.body {
+  height: 100vh;  
+  overflow: auto;   /* Arregla problema de imagen salida */
+  background-size: cover;
+  font-family: "Montserrat", sans-serif;
+  background-color: #10100d;
+  opacity: 1;
+  background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #10100d 11px ), repeating-linear-gradient( #322d0855, #322d08 );
+}
 .left {
   text-align: left;
 }

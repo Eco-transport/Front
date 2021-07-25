@@ -220,10 +220,10 @@
 
           <button
             type="button"
-            class="btn btn-dark"
+            class="btn btn-info"
             v-on:click="calcularSobreCosto()"
           >
-            Calcular Sobrecosto
+            Sobrecosto
           </button>
 
           <button
@@ -231,7 +231,7 @@
             class="btn btn-success"
             v-on:click="finalizarPedido()"
           >
-            Finalizar Pedido
+            Finalizar
           </button>
 
           <button
@@ -365,11 +365,15 @@ export default {
   margin-right: 15px;
 }
 .body {
-  height: auto;
-  background-color: rgb(0, 0, 0, 0.5);
+  height: 100vh;  
+  overflow: auto;   /* Arregla problema de imagen salida */
   background-size: cover;
   font-family: "Montserrat", sans-serif;
+  background-color: #10100d;
+  opacity: 1;
+  background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #10100d 11px ), repeating-linear-gradient( #322d0855, #322d08 );
 }
+
 
 .control-label {
   color: white;
