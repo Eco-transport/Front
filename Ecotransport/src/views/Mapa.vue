@@ -39,12 +39,15 @@
 
 
 
-      <!-- Derecha -->
+      
+
+
+      <!-- IZQUIERDA -->
       <div class="col">
         <h2>Puntos:</h2>
         <br />
         <ul
-          v-for="estacion in ListaEstaciones"
+          v-for="estacion in lista1"
           :key="estacion.id"
           style="list-style: none"
         >
@@ -88,6 +91,113 @@
         </ul>
         <!-- <a type="button" class="btn btn-success" href="/editar-estacion">Editar</a> -->
       </div>
+
+      <!-- CENTRO -->
+      <div class="col">
+        <h2>Puntos:</h2>
+        <br />
+        <ul
+          v-for="estacion in lista2"
+          :key="estacion.id"
+          style="list-style: none"
+        >
+          <div v-if="estacion.available > 0">
+            <li class="estacion">
+              <h2 v-on:click="alquilar(estacion.id)">
+                📍 {{ estacion.stationName }}
+              </h2>
+            </li>
+          </div>
+          <strike v-else>
+            <h2>📍 {{ estacion.stationName }}</h2>
+          </strike>
+
+          <li>
+            <h6>{{ estacion.address }}</h6>
+          </li>
+          <li>
+            <h6>📞 {{ estacion.phone }}</h6>
+          </li>
+
+          <li>
+            <h6>Apertura: {{ estacion.openTime }}</h6>
+          </li>
+          <li>
+            <h6>Cierre: {{ estacion.closeTime }}</h6>
+          </li>
+
+          <li>
+            <div v-if="estacion.available > 0">
+              <h6>🟢 Disponibles: {{ estacion.available }}</h6>
+            </div>
+            <div v-else>
+              <h6>🔴 Disponibles: {{ estacion.available }}</h6>
+            </div>
+          </li>
+          <li>
+            <h6>Ciudad: {{ estacion.city }}</h6>
+          </li>
+          <br /><br />
+        </ul>
+        <!-- <a type="button" class="btn btn-success" href="/editar-estacion">Editar</a> -->
+      </div>
+
+
+
+      <!-- DERECHA -->
+      <div class="col">
+        <h2>Puntos:</h2>
+        <br />
+        <ul
+          v-for="estacion in lista3"
+          :key="estacion.id"
+          style="list-style: none"
+        >
+          <div v-if="estacion.available > 0">
+            <li class="estacion">
+              <h2 v-on:click="alquilar(estacion.id)">
+                📍 {{ estacion.stationName }}
+              </h2>
+            </li>
+          </div>
+          <strike v-else>
+            <h2>📍 {{ estacion.stationName }}</h2>
+          </strike>
+
+          <li>
+            <h6>{{ estacion.address }}</h6>
+          </li>
+          <li>
+            <h6>📞 {{ estacion.phone }}</h6>
+          </li>
+
+          <li>
+            <h6>Apertura: {{ estacion.openTime }}</h6>
+          </li>
+          <li>
+            <h6>Cierre: {{ estacion.closeTime }}</h6>
+          </li>
+
+          <li>
+            <div v-if="estacion.available > 0">
+              <h6>🟢 Disponibles: {{ estacion.available }}</h6>
+            </div>
+            <div v-else>
+              <h6>🔴 Disponibles: {{ estacion.available }}</h6>
+            </div>
+          </li>
+          <li>
+            <h6>Ciudad: {{ estacion.city }}</h6>
+          </li>
+          <br /><br />
+        </ul>
+        <!-- <a type="button" class="btn btn-success" href="/editar-estacion">Editar</a> -->
+      </div>
+
+
+
+
+
     </div>
 
 
@@ -133,6 +243,9 @@ export default {
   data() {
     return {
       ListaEstaciones: [],  
+      lista1:[],
+      lista2:[],
+      lista3:[],
       nombre_user: ""    
     };
   },
@@ -149,8 +262,37 @@ export default {
       if (getAuthenticationToken()) {
         axios.get("http://localhost:8080/station")
         .then(data => {
-          this.ListaEstaciones = data.data;  
-          //console.log(data.data);
+          this.ListaEstaciones = data.data; 
+
+          let tmp1 = this.ListaEstaciones; 
+          let tmp2 = this.ListaEstaciones; 
+          let tmp3 = this.ListaEstaciones; 
+          var numAux = this.ListaEstaciones.length; 
+          var stationPerColumn = Math.floor(numAux / 3);
+          var excedent = numAux - (stationPerColumn * 3);
+          console.log(numAux)
+          console.log(stationPerColumn);
+          console.log(excedent);
+          if(excedent==1){
+            var firtColumn = stationPerColumn + 1;
+            var secondColumn = stationPerColumn;
+            var thirdColumn = stationPerColumn;
+          }else if(excedent==2){
+            var firtColumn = stationPerColumn + 1;
+            var secondColumn = stationPerColumn + 1;
+            var thirdColumn = stationPerColumn;
+          }else if(excedent==0){
+            var firtColumn = stationPerColumn;
+            var secondColumn = stationPerColumn;
+            var thirdColumn = stationPerColumn;
+          }
+          for(let i = 0; i<firtColumn; i++){this.lista1.push(tmp1.pop());}          
+          for(let i = 0; i<secondColumn; i++){this.lista2.push(tmp2.pop());}          
+          for(let i = 0; i<thirdColumn; i++){this.lista3.push(tmp3.pop());}
+
+          console.log(this.lista1, this.lista2,this.lista3);
+          
+          
         });  
         axios.get( "http://localhost:8080/user/getNames", { params: { access_token: getAuthenticationToken( ) } } )
         .then( response => {
@@ -173,7 +315,7 @@ li.estacion:hover {
   cursor: pointer;
 }
 
-h1,h2,h3,h4,h5,h6 {
+h1,h2,h3,h4,h5 {
   font-family: "Montserrat", sans-serif;
   color: white;
 }
@@ -181,8 +323,14 @@ h1,h2,h3,h4,h5,h6 {
 li,ul {
   list-style: none;
   color: white;
+
 }
 
+ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .body {
   height: 100vh;  
