@@ -9,7 +9,7 @@
 
         <div class="container izquierda">
             <button class="btn btn-success" v-on:click="nuevo()">
-                Agregar Bicicleta
+                Agregar bicicleta
             </button>
             <br /><br />
 
@@ -18,8 +18,8 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">SERIAL</th>
-                    <th scope="col">STATUS</th>
-                    <th scope="col">ID  DE ESTACIÓN</th>
+                    <th scope="col">ESTADO</th>
+                    <th scope="col">ID DE ESTACIÓN</th>
                     <th scope="col">VENDEDOR</th>
                 </tr>
               </thead>
@@ -30,17 +30,17 @@
                     <td>{{ bicicleta.bicycleStatus }}</td>
                     <td>{{ bicicleta.stationId }}</td>
                     <td>{{ bicicleta.vendor }}</td>
-                    
+
                 </tr>
 
               </tbody>
             </table>
 
         </div>
-        
-    </div> 
+
+    </div>
     <Footer />
-  </div>   
+  </div>
 </template>
 
 <script>
@@ -85,7 +85,7 @@ export default {
 }
 
 .body {
-  height: 100vh;  
+  height: 100vh;
   overflow: auto;   /* Arregla problema de imagen salida */
   background-size: cover;
   font-family: "Montserrat", sans-serif;
@@ -97,7 +97,7 @@ background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #101
 h1{
   color: white;
 }
-.table{  
+.table{
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(4px);
   color:white;

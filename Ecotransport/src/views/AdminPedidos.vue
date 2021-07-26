@@ -2,7 +2,7 @@
   <div>
       <!-- style="background-image: url('https://images.pexels.com/photos/1545505/pexels-photo-1545505.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');" -->
     <div
-      class="body"      
+      class="body"
     >
       <HeaderAdmin />
       <br /><br />
@@ -17,11 +17,11 @@
             <tr>
               <th scope="col">ID</th>
               <th scope="col">FECHA</th>
-              <th scope="col">STATUS</th>
+              <th scope="col">ESTADO</th>
               <th scope="col">TIEMPO</th>
               <th scope="col">PRECIO</th>
               <th scope="col">BICICLETA</th>
-              <th scope="col">ESTACION</th>
+              <th scope="col">ESTACIÓN</th>
               <th scope="col">USUARIO</th>
               <th scope="col">HORA RECOGIDA</th>
               <th scope="col">HORA ENTREGA</th>
@@ -94,7 +94,7 @@ export default {
 }
 
 .body {
-  height: 100vh;  
+  height: 100vh;
   overflow: auto;   /* Arregla problema de imagen salida */
   background-size: cover;
   font-family: "Montserrat", sans-serif;

@@ -8,18 +8,18 @@
     />
     <div class="row">
       <div class="col">
-        <h1>¡Increibles modelos y gran comodidad!</h1>
+        <h1>¡Increíbles modelos y gran comodidad!</h1>
         <br />
 
         <!-- CARRUSEL COMIENZO -->
-        
+
         <!-- CARRUSEL TERMINA -->
       </div>
 
       <div class="col">
         <div class="card bg-ligth">
           <article class="card-body mx-auto" style="max-width: 400px">
-            <h4 class="card-title mt-3 text-center">Alquilar cicla</h4>
+            <h4 class="card-title mt-3 text-center">Alquilar bicicleta</h4>
             <p class="divider-text">
               <span class="bg-light"> Revisa los campos a continuación </span>
             </p>
@@ -28,13 +28,13 @@
                               <p>Nombre</p>
 
               <div class="form-group input-group">
-                
+
                 <div class="input-group-prepend">
                   <span class="input-group-text">
                     <i class="fa fa-user"></i>
                   </span>
                 </div>
-                
+
                 <input
                   disabled
                   name="nombre"
@@ -61,7 +61,7 @@
                   v-model="cedula"
                 />
               </div>
-              <p>Serial cicla</p>
+              <p>Serial bicicleta</p>
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">
@@ -116,7 +116,7 @@
               </div>
 
               <p>
-                Por favor indique la hora en que recogera la bicicleta
+                Por favor indique la hora en que recogerá la bicicleta
               </p>
 
               <div class="form-group input-group">
@@ -125,7 +125,7 @@
                     <i class="fa fa-hourglass-end"></i>
                   </span>
                 </div>
-                <input 	 
+                <input
                   name=""
                   class="form-control"
                   placeholder="¿hora de inicio?"
@@ -195,12 +195,12 @@ export default {
       cedula: "",
 
       //BIKE
-      idBike: 0,      
-      bikeBrand: "",      
+      idBike: 0,
+      bikeBrand: "",
       serialBike: "",
       toSentSerialBike: "",
       toSentVendorBike: "",
-      
+
       //ORDER
       valueHour: 10000,
       hours: 1,
@@ -256,7 +256,7 @@ export default {
       };
       axios.post("http://localhost:8080/station/save", json)
       .then(() => {});
-    },    
+    },
     hacerPedido() {
       var date = new Date();
       var dateString =
@@ -265,14 +265,14 @@ export default {
 
       if((parseInt(this.serviceStart.substring(0,2), 10)+ parseInt(this.hours))>=24){
         var hourAux = (parseInt(this.serviceStart.substring(0,2), 10) + parseInt(this.hours))-24;
-        
+
         if(hourAux<10){
           this.serviceFinish = "0" + hourAux + ":" + this.serviceStart.substring(3,5);
         }else{
           this.serviceFinish = hourAux + ":" + this.serviceStart.substring(3,5);
         }
       }else{
-        var hourAux = parseInt(this.serviceStart.substring(0,2), 10) + parseInt(this.hours);        
+        var hourAux = parseInt(this.serviceStart.substring(0,2), 10) + parseInt(this.hours);
         if(hourAux<10){
           this.serviceFinish = "0" + hourAux + ":" + this.serviceStart.substring(3,5);
         }else{
@@ -280,7 +280,7 @@ export default {
         }
       }
 
-      
+
       let json = {
         orderDate: dateString,
         orderStatus: this.status,
@@ -294,12 +294,12 @@ export default {
         serviceFinish: this.serviceFinish,
       };
       this.updateValuesBikes();
-      this.updateValuesStation(); 
-      axios.post("http://localhost:8080/order/save", json).then(r => {               
+      this.updateValuesStation();
+      axios.post("http://localhost:8080/order/save", json).then(r => {
         this.$router.push("/cliente-solicitudes");
-      }); 
+      });
 
-      
+
     }
   },
   mounted: function() {
@@ -308,16 +308,16 @@ export default {
       .get("http://localhost:8080/user/getUser", {
         params: { access_token: getAuthenticationToken() }
       })
-      .then(userData => {        
-        this.idClient = userData.data.id; 
+      .then(userData => {
+        this.idClient = userData.data.id;
         this.client = "Cliente: " + userData.data.names;
         this.cedula = "ID: " + userData.data.identityNumber;
       });
-    
+
     /* Obteniendo  Station Data  = OK */
     axios
       .get("http://localhost:8080/station/" + this.idStation)
-      .then(stationData => {        
+      .then(stationData => {
         this.idStation = stationData.data.id;
         this.stationName = stationData.data.stationName;
         this.stationAddress = stationData.data.address;
@@ -332,7 +332,7 @@ export default {
     /* Obteniendo  BikeData = OK*/
     axios
       .get("http://localhost:8080/bicycle/" + this.idStation)
-      .then(bicycleData => {        
+      .then(bicycleData => {
         this.toSentSerialBike = bicycleData.data.bicycleSerial;
         this.toSentVendorBike = bicycleData.data.vendor;
         this.bikeBrand = this.toSentVendorBike;
@@ -345,7 +345,7 @@ export default {
     //localStorage.clear();
     //localStorage.setItem('stationID', this.idStation);
     //this.$session.set('stationID', this.idStation);
-    
+
   }
 };
 </script>
@@ -354,7 +354,7 @@ export default {
 
 
 .card{
-  background-color:rgb(white, white, white,0.5);
+  background-color:rgb(255, 255, 255);
   margin-right: 10%;
   margin-bottom: 10%;
     box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.7);
@@ -363,14 +363,14 @@ export default {
 }
 
 .body {
-  height: 100vh;  
+  height: 100vh;
   overflow: auto;   /* Arregla problema de imagen salida */
   background-size: cover;
   font-family: "Montserrat", sans-serif;
   background-color: #0e0f1c;
   opacity: 1;
   background: radial-gradient(circle, transparent 20%, #0e0f1c 20%, #0e0f1c 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #0e0f1c 20%, #0e0f1c 80%, transparent 80%, transparent) 27.5px 27.5px, linear-gradient(#00425e 2.2px, transparent 2.2px) 0 -1.1px, linear-gradient(90deg, #00425e 2.2px, #0e0f1c 2.2px) -1.1px 0;
-  background-size: 55px 55px, 55px 55px, 27.5px 27.5px, 27.5px 27.5px;  
+  background-size: 55px 55px, 55px 55px, 27.5px 27.5px, 27.5px 27.5px;
 }
 
 h1,

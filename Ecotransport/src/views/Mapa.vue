@@ -1,16 +1,16 @@
 <template>
     <!-- style="background-image: url('https://images.pexels.com/photos/409701/pexels-photo-409701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');" -->
     <div
-      class="body"      
-      
+      class="body"
+
     >
     <HeaderUser></HeaderUser>
 
     <br /><br />
-    
+
     <div class="col md-8">
       <h1 class="h12">Encuentre la estación mas cercana</h1>
-      <h2 class="h12">¡Bienvenidos! {{ nombre_user }}</h2>
+      <h2 class="h12">¡Bienvenido {{ nombre_user }}!</h2>
     </div>
 
     <br /><br />
@@ -39,7 +39,7 @@
 
 
 
-      
+
 
 
       <!-- IZQUIERDA -->
@@ -217,7 +217,7 @@
 
     <div class="row justify-content-center">
       <div class="container">
-        <h6>¡Escribenos a whatsapp!</h6>
+        <h6>¡Escríbenos a WhatsApp!</h6>
       </div>
     </div>
     <br />
@@ -242,11 +242,11 @@ export default {
   },
   data() {
     return {
-      ListaEstaciones: [],  
+      ListaEstaciones: [],
       lista1:[],
       lista2:[],
       lista3:[],
-      nombre_user: ""    
+      nombre_user: ""
     };
   },
   components: {
@@ -258,16 +258,16 @@ export default {
     }
   },
   mounted: function() {
-    
+
       if (getAuthenticationToken()) {
         axios.get("http://localhost:8080/station")
         .then(data => {
-          this.ListaEstaciones = data.data; 
+          this.ListaEstaciones = data.data;
 
-          let tmp1 = this.ListaEstaciones; 
-          let tmp2 = this.ListaEstaciones; 
-          let tmp3 = this.ListaEstaciones; 
-          var numAux = this.ListaEstaciones.length; 
+          let tmp1 = this.ListaEstaciones;
+          let tmp2 = this.ListaEstaciones;
+          let tmp3 = this.ListaEstaciones;
+          var numAux = this.ListaEstaciones.length;
           var stationPerColumn = Math.floor(numAux / 3);
           var excedent = numAux - (stationPerColumn * 3);
           console.log(numAux)
@@ -286,23 +286,23 @@ export default {
             var secondColumn = stationPerColumn;
             var thirdColumn = stationPerColumn;
           }
-          for(let i = 0; i<firtColumn; i++){this.lista1.push(tmp1.pop());}          
-          for(let i = 0; i<secondColumn; i++){this.lista2.push(tmp2.pop());}          
+          for(let i = 0; i<firtColumn; i++){this.lista1.push(tmp1.pop());}
+          for(let i = 0; i<secondColumn; i++){this.lista2.push(tmp2.pop());}
           for(let i = 0; i<thirdColumn; i++){this.lista3.push(tmp3.pop());}
 
           console.log(this.lista1, this.lista2,this.lista3);
-          
-          
-        });  
+
+
+        });
         axios.get( "http://localhost:8080/user/getNames", { params: { access_token: getAuthenticationToken( ) } } )
         .then( response => {
           this.nombre_user = response.data
           } );
-        
+
       }
 
-      
-    
+
+
   }
 };
 </script>
@@ -333,14 +333,14 @@ ul {
 }
 
 .body {
-  height: 100vh;  
+  height: 100vh;
   overflow: auto;   /* Arregla problema de imagen salida */
   background-size: cover;
   font-family: "Montserrat", sans-serif;
   background-color: #0e0f1c;
   opacity: 1;
   background: radial-gradient(circle, transparent 20%, #0e0f1c 20%, #0e0f1c 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #0e0f1c 20%, #0e0f1c 80%, transparent 80%, transparent) 27.5px 27.5px, linear-gradient(#00425e 2.2px, transparent 2.2px) 0 -1.1px, linear-gradient(90deg, #00425e 2.2px, #0e0f1c 2.2px) -1.1px 0;
-  background-size: 55px 55px, 55px 55px, 27.5px 27.5px, 27.5px 27.5px;  
+  background-size: 55px 55px, 55px 55px, 27.5px 27.5px, 27.5px 27.5px;
 }
 
 .Map{

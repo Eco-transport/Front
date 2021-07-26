@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="form-group left">
-          <label for="" class="control-label col-sm-2">Status</label>
+          <label for="" class="control-label col-sm-2">Estado</label>
           <div class="col-sm-10">
             <input
               type="text"
@@ -175,7 +175,7 @@ export default {
   margin-right: 15px;
 }
 .body {
-  height: 100vh;  
+  height: 100vh;
   overflow: auto;   /* Arregla problema de imagen salida */
   background-size: cover;
   font-family: "Montserrat", sans-serif;

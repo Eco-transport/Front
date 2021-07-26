@@ -3,7 +3,7 @@
     <!-- style="background-image: url('https://images.pexels.com/photos/1545505/pexels-photo-1545505.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');" -->
     <div
       class="body"
-      
+
     >
       <HeaderAdmin />
       <br /><br />
@@ -12,7 +12,7 @@
 
       <div class="container izquierda">
         <button class="btn btn-success" v-on:click="nuevo()">
-          Agregar Estación
+          Agregar estación
         </button>
         <br /><br />
 
@@ -22,7 +22,7 @@
               <th scope="col">ID</th>
               <th scope="col">NOMBRE</th>
               <th scope="col">DIRECCIÓN</th>
-              <th scope="col">TELEFONO</th>
+              <th scope="col">TELÉFONO</th>
               <th scope="col">APERTURA</th>
               <th scope="col">CIERRE</th>
               <th scope="col">DISPONIBLES</th>
@@ -98,7 +98,7 @@ export default {
   text-align: left;
 }
 .body {
-  height: 100vh;  
+  height: 100vh;
   overflow: auto;   /* Arregla problema de imagen salida */
   background-size: cover;
   font-family: "Montserrat", sans-serif;

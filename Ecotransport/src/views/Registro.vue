@@ -68,7 +68,7 @@
               <input
                 name=""
                 class="form-control"
-                placeholder="Cedula"
+                placeholder="Número de identificación"
                 type="number"
                 v-model="identity_number"
               />
@@ -116,7 +116,7 @@
               <select class="form-control" v-model="security_question">
                 <option hidden selected="">Pregunta de seguridad</option>
                 <option>¿Nombre de su madre?</option>
-                <option>¿Primer vehiculo que compró?</option>
+                <option>¿Primer vehículo que compró?</option>
                 <option>¿Raza de su primera mascota?</option>
               </select>
             </div>
@@ -215,7 +215,7 @@ export default {
       security_answer: "",
       user_state: "INACTIVO",
       error: false,
-      
+
     };
   },
   methods: {
@@ -224,8 +224,8 @@ export default {
         this.error = true;
         console.log("Estan diferentes!");
       } else {
-        
-        this.user_state = "ACTIVO"; 
+
+        this.user_state = "ACTIVO";
         this.registro();
       }
     },
@@ -278,14 +278,14 @@ export default {
 }
 
 .body {
-  height: 100vh;  
+  height: 100vh;
   overflow: auto;   /* Arregla problema de imagen salida */
   background-size: cover;
   font-family: "Montserrat", sans-serif;
   background-color: #0e0f1c;
   opacity: 1;
   background: radial-gradient(circle, transparent 20%, #0e0f1c 20%, #0e0f1c 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #0e0f1c 20%, #0e0f1c 80%, transparent 80%, transparent) 27.5px 27.5px, linear-gradient(#00425e 2.2px, transparent 2.2px) 0 -1.1px, linear-gradient(90deg, #00425e 2.2px, #0e0f1c 2.2px) -1.1px 0;
-  background-size: 55px 55px, 55px 55px, 27.5px 27.5px, 27.5px 27.5px;  
+  background-size: 55px 55px, 55px 55px, 27.5px 27.5px, 27.5px 27.5px;
 }
 
 .card{

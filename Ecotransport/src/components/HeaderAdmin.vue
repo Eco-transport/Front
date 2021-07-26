@@ -25,7 +25,7 @@
             <a class="nav-link" href="/admin-estaciones">Estaciones</a>
           </li>
            <li class="nav-item">
-            <a class="nav-link" href="/admin-ciclas">Ciclas</a>
+            <a class="nav-link" href="/admin-ciclas">Bicicletas</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin-pedidos">Pedidos</a>
@@ -34,7 +34,7 @@
           <li class="nav-item">
             <a class="nav-link" v-on:click="cerrarSesion" href="/">Cerrar sesión</a>
           </li>
-          
+
         </ul>
       </div>
     </nav>
@@ -66,12 +66,12 @@ a{
     color: white
 }
 
-.navbar{    
+.navbar{
   background-color: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(4px);
 }
 
-.nav-link{        
+.nav-link{
   text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.8);
 }
 </style>
