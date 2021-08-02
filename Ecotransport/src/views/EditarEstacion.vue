@@ -6,7 +6,7 @@
     <div class="container" v-on:submit.prevent="obteniendoData">
       <form action="" class="form-horizontal">
         <div class="form-group left">
-          <label for="" class="control-label col-sm-2">ID</label>
+          <label class="control-label col-sm-2">ID</label>
           <div class="col-sm-10">
             <input
               disabled
@@ -20,7 +20,7 @@
         </div>
 
         <div class="form-group left">
-          <label for="" class="control-label col-sm-2">Nombre</label>
+          <label class="control-label col-sm-2">Nombre</label>
           <div class="col-sm-10">
             <input
               type="text"
@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="form-group left">
-          <label for="" class="control-label col-sm-2">Dirección</label>
+          <label class="control-label col-sm-2">Dirección</label>
           <div class="col-sm-10">
             <input
               type="text"
@@ -45,7 +45,7 @@
         </div>
         <div class="form-group left row">
           <div class="col">
-            <label for="" class="control-label col-sm-3">Teléfono</label>
+            <label class="control-label col-sm-3">Teléfono</label>
             <div class="col-sm-7">
               <input
                 type="text"
@@ -60,7 +60,7 @@
 
         <div class="form-group left row">
           <div class="col">
-            <label for="" class="control-label col-sm-3">Apertura</label>
+            <label class="control-label col-sm-3">Apertura</label>
             <div class="col-sm-7">
               <input
                 type="text"
@@ -75,7 +75,7 @@
 
         <div class="form-group left row">
           <div class="col">
-            <label for="" class="control-label col-sm-3">Cierre</label>
+            <label class="control-label col-sm-3">Cierre</label>
             <div class="col-sm-7">
               <input
                 type="text"
@@ -90,9 +90,10 @@
 
         <div class="form-group left row">
           <div class="col">
-            <label for="" class="control-label col-sm-3">Inventario</label>
+            <label class="control-label col-sm-3">Inventario</label>
             <div class="col-sm-7">
               <input
+                disabled
                 type="text"
                 class="form-control"
                 name="inventario"
@@ -105,9 +106,10 @@
 
         <div class="form-group left row">
           <div class="col">
-            <label for="" class="control-label col-sm-3">Disponibles</label>
+            <label class="control-label col-sm-3">Disponibles</label>
             <div class="col-sm-7">
               <input
+                disabled
                 type="text"
                 class="form-control"
                 name="dispnibles"
@@ -120,7 +122,7 @@
 
         <div class="form-group left row">
           <div class="col">
-            <label for="" class="control-label col-sm-3">Ciudad</label>
+            <label class="control-label col-sm-3">Ciudad</label>
             <div class="col-sm-7">
               <input
                 type="text"
@@ -139,22 +141,19 @@
             href="/admin-estaciones"
             class="btn btn-primary"
             v-on:click="editar()"
-            >Editar</a
-          >
+            >Editar</a>
 
           <button
             type="button"
             class="btn btn-danger margen"
-            v-on:click="eliminar()"
-          >
+            v-on:click="eliminar()">
             Eliminar
           </button>
 
           <button
             type="button"
             class="btn btn-dark margen"
-            v-on:click="salir()"
-          >
+            v-on:click="salir()">
             Salir
           </button>
         </div>
@@ -164,6 +163,7 @@
     <br />
   </div>
 </template>
+
 <script>
 import HeaderAdmin from "@/components/HeaderAdmin.vue";
 
@@ -215,7 +215,6 @@ export default {
       axios
         .delete("http://localhost:8080/station/" + this.form.idEstacion)
         .then(datos => {
-          console.log(datos);
           this.$router.push("/admin-estaciones");
         });
     }
@@ -234,49 +233,49 @@ export default {
         this.form.totalVehiculos = datos.data.inventory;
         this.form.disponibles = datos.data.available;
         this.form.ciudad = datos.data.city;
-
-        console.log(this.form);
       });
   }
 };
 </script>
 
 <style scoped>
-.left {
-  text-align: left;
-}
-.margen {
-  margin-left: 15px;
-  margin-right: 15px;
-}
-.body {
-  height: 100vh;
-  overflow: auto;   /* Arregla problema de imagen salida */
-  background-size: cover;
-  font-family: "Montserrat", sans-serif;
-  background-color: #10100d;
-  opacity: 1;
-  background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #10100d 11px ), repeating-linear-gradient( #322d0855, #322d08 );
-}
+  .left {
+    text-align: left;
+  }
+  .margen {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  .body {
+    height: 100vh;
+    overflow: auto;   /* Arregla problema de imagen salida */
+    background-size: cover;
+    font-family: "Montserrat", sans-serif;
+    background-color: #10100d;
+    opacity: 1;
+    background-image: repeating-radial-gradient( circle at 0 0, transparent 0, #10100d 11px ), repeating-linear-gradient( #322d0855, #322d08 );
+  }
 
-.control-label {
-  color: white;
-}
+  .control-label {
+    color: white;
+  }
 
-form {
-  width: 40%;
-  font-size: 20px;
-}
-#idEstacion {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: solid 1px rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(4px);
-  color: white;
-}
-input {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: solid 1px rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(4px);
-  color: white;
-}
+  form {
+    width: 40%;
+    font-size: 20px;
+  }
+
+  #idEstacion, #inventario, #disponibles {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: solid 1px rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(4px);
+    color: white;
+  }
+
+  input {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: solid 1px rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(4px);
+    color: white;
+  }
 </style>

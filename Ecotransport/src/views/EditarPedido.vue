@@ -1,15 +1,11 @@
 <template>
-  <!-- style="background-image: url('https://images.pexels.com/photos/409701/pexels-photo-409701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');" -->
-  <div
-    class="body"
-    
-  >
+  <div class="body">
     <HeaderUser />
     <br /><br />
     <div class="container" v-on:submit.prevent="obteniendoData">
       <form action="" class="form-horizontal">
         <div class="form-group left">
-          <label for="" class="control-label col-sm-2">ID</label>
+          <label class="control-label col-sm-2">ID</label>
           <div class="col-sm-10">
             <input
               disabled
@@ -23,7 +19,7 @@
         </div>
 
         <div class="form-group left">
-          <label for="" class="control-label col-sm-2">Fecha</label>
+          <label class="control-label col-sm-2">Fecha</label>
           <div class="col-sm-10">
             <input
               disabled
@@ -35,8 +31,9 @@
             />
           </div>
         </div>
+
         <div class="form-group left">
-          <label for="" class="control-label col-sm-2">status</label>
+          <label class="control-label col-sm-2">Estado</label>
           <div class="col-sm-10">
             <input
                 disabled
@@ -48,9 +45,10 @@
             />
           </div>
         </div>
+
         <div class="form-group left row">
           <div class="col">
-            <label for="" class="control-label col-sm-3">Estacion</label>
+            <label class="control-label col-sm-3">Estación</label>
             <div class="col-sm-7">
               <input
                 disabled
@@ -66,7 +64,7 @@
 
         <div class="form-group left row">
           <div class="col">
-            <label for="" class="control-label col-sm-3">Bicicleta</label>
+            <label class="control-label col-sm-3">Bicicleta</label>
             <div class="col-sm-7">
               <input
                 disabled
@@ -82,9 +80,10 @@
 
         <div class="form-group left row">
           <div class="col">
-            <label for="" class="control-label col-sm-3">Horas</label>
+            <label class="control-label col-sm-3">Horas</label>
             <div class="col-sm-7">
               <input
+                disabled
                 type="number"
                 class="form-control"
                 name="horas"
@@ -97,26 +96,23 @@
 
         <div><br /><br /><br /></div>
         <div class="form-group">
-          <a
+          <!--<a
             href="/cliente-solicitudes"
             class="btn btn-primary"
             v-on:click="editar()"
-            >Editar</a
-          >
+            >Editar</a>-->
 
           <button
             type="button"
             class="btn btn-danger margen"
-            v-on:click="eliminar()"
-          >
+            v-on:click="eliminar()">
             Eliminar
           </button>
 
           <button
             type="button"
             class="btn btn-dark margen"
-            v-on:click="salir()"
-          >
+            v-on:click="salir()">
             Salir
           </button>
         </div>
@@ -131,7 +127,7 @@ import axios from "axios";
 
 
 export default {
-  name: "EditarPedido", 
+  name: "EditarPedido",
 
   components: {
     HeaderUser
@@ -143,12 +139,12 @@ export default {
       fecha: "",
       status: "",
       hours: 0,
-      valueHour: 10000, 
-      bicycle: "", //string     
+      valueHour: 10000,
+      bicycle: "", //string
       station: "", //integer
       user: "",
-      
-      //BICYCLE DATA 
+
+      //BICYCLE DATA
       idBicycle:"-1", //integer
       vendor:"-1",
       bicycleSerial:"-1",
@@ -164,13 +160,11 @@ export default {
       available:"",
       openTime:"",
       closeTime:"",
-      
-    
     };
   },
   methods: {
     wildcardLoadData(){
-      
+
       axios
       .get("http://localhost:8080/bicycle/serial/" + this.bicycle)
       .then(r => {
@@ -194,7 +188,7 @@ export default {
         this.closeTime = r.data.closeTime;
       });
     },
-    updateBikesAfterDelete(){ 
+    updateBikesAfterDelete(){
       let json = {
         id: this.idBicycle,
         vendor: this.vendor,
@@ -209,17 +203,6 @@ export default {
     },
 
     updateStationsAfterDelete(){
-
-      /* console.log("STATION:", this.station, this.stationName,
-      this.address,
-      this.phone,
-      this.city,
-      this.inventory,
-      this.available,
-      this.openTime,
-      this.closeTime
-      ) */
-      
       let json = {
         id: this.station,
         stationName: this.stationName,
@@ -229,14 +212,14 @@ export default {
         inventory: this.inventory,
         available: this.available + 1,//this is the update
         openTime: this.openTime,
-        closeTime: this.closeTime 
+        closeTime: this.closeTime
       }
       axios
       .post("http://localhost:8080/station/save/", json)
       .then(()=>{/* console.log(r.data) */});
 
     },
-    editar() {
+    /*editar() {
       let json = {
         id: this.id,
         orderDate: this.fecha,
@@ -249,7 +232,7 @@ export default {
         userId: this.user
       };
       axios.post("http://localhost:8080/order/save/", json).then(() => {});
-    },
+    },*/
     salir() {
       this.$router.push("/cliente-solicitudes");
     },
@@ -258,23 +241,23 @@ export default {
         .delete("http://localhost:8080/order/" + this.id)
         .then(() => {
           this.wildcardLoadData();
-          setTimeout(()=>{this.updateBikesAfterDelete();},30);//minimum 30ms    
-          setTimeout(()=>{this.updateStationsAfterDelete();},50);//minimum 50ms    
+          setTimeout(()=>{this.updateBikesAfterDelete();},30);//minimum 30ms
+          setTimeout(()=>{this.updateStationsAfterDelete();},50);//minimum 50ms
           this.$router.push("/cliente-solicitudes");
         });
     }
   },
 
-  created() {    
+  created() {
     axios.get("http://localhost:8080/order/" + this.id)
-    .then(datos => {      
+    .then(datos => {
       this.fecha = datos.data.orderDate;
       this.status = datos.data.orderStatus;
       this.hours = datos.data.hours;
-      this.bicycle = datos.data.serialBicycle;      
+      this.bicycle = datos.data.serialBicycle;
       this.station = datos.data.stationID;
       this.user = datos.data.userId;
-    });    
+    });
   }
 };
 </script>
@@ -286,18 +269,19 @@ export default {
 .margen {
   margin-left: 15px;
   margin-right: 15px;
+  display: flow;
 }
 
 /* agrega */
 .body {
-  height: 100vh;  
+  height: 100vh;
   overflow: auto;   /* Arregla problema de imagen salida */
   background-size: cover;
   font-family: "Montserrat", sans-serif;
   background-color: #0e0f1c;
   opacity: 1;
   background: radial-gradient(circle, transparent 20%, #0e0f1c 20%, #0e0f1c 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #0e0f1c 20%, #0e0f1c 80%, transparent 80%, transparent) 27.5px 27.5px, linear-gradient(#00425e 2.2px, transparent 2.2px) 0 -1.1px, linear-gradient(90deg, #00425e 2.2px, #0e0f1c 2.2px) -1.1px 0;
-  background-size: 55px 55px, 55px 55px, 27.5px 27.5px, 27.5px 27.5px;  
+  background-size: 55px 55px, 55px 55px, 27.5px 27.5px, 27.5px 27.5px;
 }
 
 .control-label {
@@ -308,12 +292,14 @@ form {
   width: 40%;
   font-size: 20px;
 }
-#estacion, #status, #fecha, #idPedido, #bicicleta {
+
+#estacion, #status, #fecha, #idPedido, #bicicleta, #horas {
   background-color: rgba(255, 255, 255, 0.2);
   border: solid 1px rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(4px);
   color: white;
 }
+
 input {
   background-color: rgba(255, 255, 255, 0.2);
   border: solid 1px rgba(255, 255, 255, 0.3);

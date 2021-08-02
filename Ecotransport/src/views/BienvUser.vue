@@ -7,7 +7,7 @@
     <HeaderUser />
     <div class="container">
       <div class="row justify-content-center">
-        <h1>Bienvenid@ {{ nombre_user }}</h1>
+        <h1>Bienvenid@, {{ nombre_user }}</h1>
       </div>
     </div>
     <div class="container">
@@ -23,11 +23,10 @@
             <h3>Alquilar</h3>
             <center>
               Encuentra tu estación mas cercana y alquila por horas una de
-              nuestras ciclas ecológicas
+              nuestras bicicletas ecológicas
             </center>
             <a class="btn btn-outline-success" href="/mapa" role="button"
-              >Iniciar</a
-            >
+              >Iniciar</a>
           </div>
           <div class="col-lg">
             <h3>Mis pedidos</h3>
@@ -79,7 +78,6 @@ export default {
         .then(response => {
           this.nombre_user = response.data;
         });
-
     }
   }
 };
@@ -87,9 +85,9 @@ export default {
 
 <style scoped>
 .body {
-  height: 100vh;  
+  height: 100vh;
   overflow: auto;   /* Arregla problema de imagen salida */
-  background-color: rgb(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
   background-size: cover;
   font-family: "Montserrat", sans-serif;
 }
@@ -104,6 +102,7 @@ h1 {
   color: #ffffff;
   text-shadow: 3px 4px 5px rgba(0, 0, 0, 0.54);
 }
+
 h3 {
   margin-top: 2px;
   font-family: Montserrat;
@@ -111,11 +110,10 @@ h3 {
   font-weight: normal;
   font-size: 24px;
   line-height: 29px;
-
   color: #ffffff;
-
   text-shadow: 3px 4px 5px rgba(0, 0, 0, 0.7);
 }
+
 .cajas {
   margin-top: 4%;
   width: 80%;
@@ -141,13 +139,13 @@ h3 {
 
 .col-lg h3 {
   margin-top: 5%;
-  text-shadow: 3px 4px 5px rgba(255, 255, 255, 0, 8);
+  text-shadow: 3px 4px 5px rgba(255, 255, 255, 0);
   color: #ffffff;
 }
 
 center {
   color: rgb(255, 255, 255);
-  text-shadow: 3px 4px 5px rgba(255, 255, 255, 0, 8);
+  text-shadow: 3px 4px 5px rgba(255, 255, 255, 0);
   margin: 10px;
   margin-left: 30px;
   margin-right: 30px;
@@ -159,7 +157,7 @@ a {
 
   position: absolute;
   left: 35%;
-  right: 40%;
+  right: 35%;
   top: 73%;
   bottom: 10%;
 
