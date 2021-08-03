@@ -261,27 +261,44 @@ export default {
       .then(() => {});
     },
     hacerPedido() {
-      if((this.serviceStart!="")&&(this.hours>0)){
-        this.validarAlquiler = false;
-        var date = new Date();
-        var dateString =
-          date.getFullYear() +"/"+ date.getMonth() +"/"+ date.getDay() +" "+
-          date.getHours() +":"+ date.getMinutes() +":"+ date.getSeconds();
+      var date = new Date();
+      var dateString =
+        date.getFullYear() +"/"+ date.getMonth() +"/"+ date.getDay() +" "+
+        date.getHours() +":"+ date.getMinutes() +":"+ date.getSeconds();
 
-        if((parseInt(this.serviceStart.substring(0,2), 10)+ parseInt(this.hours))>=24){
-          var hourAux = (parseInt(this.serviceStart.substring(0,2), 10) + parseInt(this.hours))-24;
+      var validarTemporalidad = false;
+      var hh = date.getHours();
+      var mm = date.getMinutes();
+      var hhOrder = parseInt(this.serviceStart.substring(0,2));
+      var mmOrder = parseInt(this.serviceStart.substring(3,5));
+
+      if(hh < hhOrder){
+        validarTemporalidad = true;
+      }else{
+        if(hh == hhOrder){
+          if(mm <= mmOrder){
+            validarTemporalidad = true;
+          }
+        }
+      }
+
+      if((this.serviceStart!="")&&(this.hours>0)&&(validarTemporalidad)){
+        this.validarAlquiler = false;
+
+        if((hhOrder + parseInt(this.hours))>=24){
+          var hourAux = (hhOrder + parseInt(this.hours))-24;
 
           if(hourAux<10){
-            this.serviceFinish = "0" + hourAux + ":" + this.serviceStart.substring(3,5);
+            this.serviceFinish = "0" + hourAux + ":" + mmOrder;
           }else{
-            this.serviceFinish = hourAux + ":" + this.serviceStart.substring(3,5);
+            this.serviceFinish = hourAux + ":" + mmOrder;
           }
         }else{
-          var hourAux = parseInt(this.serviceStart.substring(0,2), 10) + parseInt(this.hours);
+          var hourAux = hhOrder + parseInt(this.hours);
           if(hourAux<10){
-            this.serviceFinish = "0" + hourAux + ":" + this.serviceStart.substring(3,5);
+            this.serviceFinish = "0" + hourAux + ":" + mmOrder;
           }else{
-            this.serviceFinish = hourAux + ":" + this.serviceStart.substring(3,5);
+            this.serviceFinish = hourAux + ":" + mmOrder;
           }
         }
 
