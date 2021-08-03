@@ -133,7 +133,7 @@
                 />
               </div>
               <p v-show="validarAlquiler">
-                Por favor diligencie bien los campos solicitados
+                Por favor verifique que los datos ingresados son válidos
               </p>
               <!-- hacer pedido -->
               <div class="form-group">
@@ -261,7 +261,7 @@ export default {
       .then(() => {});
     },
     hacerPedido() {
-      if(this.serviceStart!=""){
+      if((this.serviceStart!="")&&(this.hours>0)){
         this.validarAlquiler = false;
         var date = new Date();
         var dateString =

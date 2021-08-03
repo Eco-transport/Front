@@ -351,7 +351,6 @@ export default {
       axios.post("http://localhost:8080/order/save/", json)
             .then(() => {/* console.log(data); */});
       this.wildcardLoadData(); 
-      console.log("Empezar"); 
       this.$router.push("/admin-pedidos"); 
     },
     wildcardLoadData(){
