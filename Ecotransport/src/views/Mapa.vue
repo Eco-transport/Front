@@ -21,7 +21,8 @@
     <div class="row">
       <!-- IZQUIERDA -->
       <div class="col">
-        <h2>Puntos:</h2>
+        <h2></h2>
+        <br><br />
         <br />
         <ul
           v-for="estacion in lista1"
@@ -70,7 +71,8 @@
 
       <!-- CENTRO -->
       <div class="col">
-        <h2>Puntos:</h2>
+        <h2>Puntos</h2>
+        <br><br />
         <br />
         <ul
           v-for="estacion in lista2"
@@ -121,7 +123,8 @@
 
       <!-- DERECHA -->
       <div class="col">
-        <h2>Puntos:</h2>
+        <h2></h2>
+        <br><br />
         <br />
         <ul
           v-for="estacion in lista3"

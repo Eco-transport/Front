@@ -6,7 +6,7 @@
   >
     <HeaderUser></HeaderUser>
     <br /><br />
-    <h1>¡Bienvenid@, {{ nombre_user }}!</h1>
+    <h1>¡Bienvenid@, {{ nombreUser }}!</h1>
     <h1>Consulta tu historial de préstamos</h1>
     <br />
 
@@ -76,6 +76,7 @@
         idClient: 0,
         user: this.$session.get('usuario'),
         stationList: null,
+        nombreUser: "",
       };
     },
 
@@ -112,7 +113,7 @@
 
         axios.get( "http://localhost:8080/user/getNames", { params: { access_token: getAuthenticationToken( ) } } )
           .then( response => {
-            this.nombre_user = response.data
+            this.nombreUser = response.data
           } );
         axios.get("http://localhost:8080/user/getUser", {
            params: { access_token: getAuthenticationToken() }
