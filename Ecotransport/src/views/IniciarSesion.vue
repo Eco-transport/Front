@@ -104,7 +104,7 @@ export default {
               }
             }
         ).then( response => {
-            if( response.status !== 200 ){
+            if( (response.status !== 200) ){
               this.error = true;
               this.error_msg = "Error en la autenticación";
             }else{

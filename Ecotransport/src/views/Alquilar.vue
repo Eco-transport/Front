@@ -7,8 +7,9 @@
       href="https://use.fontawesome.com/releases/v5.0.8/css/all.css"
     />
     <div class="row">
-      <div class="col">
+      <div class="col caja caja9" >
         <h1>¡Increíbles modelos y gran comodidad!</h1>
+        <img src="../assets/bicicletaElectrica.png" id="icon" alt="Ecotransport" />
         <br />
 
         <!-- CARRUSEL COMIENZO -->
@@ -173,6 +174,25 @@
 </template>
 
 <script>
+var imagenes=new Array(
+  ['../assets/bicicletaElectrica.png'],
+  ['../assets/MapEco.png']
+);
+var contador=0;
+function rotarImagenes()
+    {
+        // cambiamos la imagen y la url
+        contador++
+        document.getElementById("imagen").src=imagenes[contador%imagenes.length][0];
+    }
+    onload=function()
+    {
+        // Cargamos una imagen aleatoria
+        rotarImagenes();
+ 
+        // Indicamos que cada 5 segundos cambie la imagen
+        setInterval(rotarImagenes,5000);
+    }
 import HeaderUser from "@/components/HeaderUser";
 import axios from "axios";
 import { getAuthenticationToken } from "@/dataStorage";
@@ -443,5 +463,44 @@ p{
   margin: 0px;
   padding: 0px;
   border: 0px;
+}
+.container{
+    position: relative;
+}
+.caja{
+  width: 180px;
+  height: 180px;
+  background-color: #30B037;
+  color: #FFF;
+  text-align: center;
+  line-height: 180px;
+  margin: 15px;
+  float: left;
+  font-size: 18px;
+  font-family: Arial;
+}
+/* .caja1{
+  background-color: #C0392B;
+  -webkit-transition: background-color 1s linear;
+  transition: background-color 1s linear;
+}
+.caja1:hover{
+  background-color: #3F51B5;
+} */
+.caja9{
+  -webkit-transition: 1s linear;
+  transition: 1s linear;
+  background-color: #2C3E50;
+}
+.caja9:hover{
+  margin: 80px;
+}
+.caja10{
+  -webkit-transition: 1s linear;
+  transition: 1s linear;
+  background-color: rgb(252, 250, 250);
+}
+.caja10:hover{
+  padding: 30px;
 }
 </style>
