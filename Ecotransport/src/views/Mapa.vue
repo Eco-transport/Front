@@ -237,9 +237,6 @@ export default {
           var numAux = this.ListaEstaciones.length;
           var stationPerColumn = Math.floor(numAux / 3);
           var excedent = numAux - (stationPerColumn * 3);
-          console.log(numAux)
-          console.log(stationPerColumn);
-          console.log(excedent);
           if(excedent == 1) {
             var firtColumn = stationPerColumn + 1;
             var secondColumn = stationPerColumn;

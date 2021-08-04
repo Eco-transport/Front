@@ -313,7 +313,7 @@ export default {
         var hhOrderFinish = parseInt(this.serviceFinish.substring(0,2));
 
 
-        if((hhOrderInit<hhStationOpen)||(hhOrderFinish>hhStationClose)){
+        if((hhOrderInit<hhStationOpen)||(hhOrderFinish>hhStationClose)||(hhOrderFinish<hhStationOpen)){
           this.alquilerInvalidoPorHorario = true;
         }  
         if(!this.alquilerInvalidoPorHorario){
