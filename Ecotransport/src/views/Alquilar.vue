@@ -132,8 +132,11 @@
                   v-model="serviceStart"
                 />
               </div>
-              <p v-show="validarAlquiler">
-                Por favor verifique que los datos ingresados son válidos
+              <p v-show="alquilerInvalidoPorHoras">
+                Por favor verifique que los datos ingresados sean correctos
+              </p>
+              <p v-show="alquilerInvalidoPorHorario">
+                No es posible realizar el alquiler ya que el horario de alquiler solicitado no está dentro del horario de atención de la estación
               </p>
               <!-- hacer pedido -->
               <div class="form-group">
@@ -190,7 +193,8 @@ export default {
   data: function() {
     return {
 
-      validarAlquiler: false,
+      alquilerInvalidoPorHoras: false,
+      alquilerInvalidoPorHorario: false,
 
       //CUSTOMER
       idClient: 0,
@@ -261,6 +265,8 @@ export default {
       .then(() => {});
     },
     hacerPedido() {
+      this.alquilerInvalidoPorHoras = false;
+      this.alquilerInvalidoPorHorario = false;
       var date = new Date();
       var dateString =
         date.getFullYear() +"/"+ date.getMonth() +"/"+ date.getDay() +" "+
@@ -269,58 +275,68 @@ export default {
       var validarTemporalidad = false;
       var hh = date.getHours();
       var mm = date.getMinutes();
-      var hhOrder = parseInt(this.serviceStart.substring(0,2));
-      var mmOrder = parseInt(this.serviceStart.substring(3,5));
+      var hhOrderInit = parseInt(this.serviceStart.substring(0,2));
+      var mmOrderInit = parseInt(this.serviceStart.substring(3,5));
+      var hhStationOpen = parseInt(this.stationOpen.substring(0,2));
+      var hhStationClose = parseInt(this.stationClose.substring(0,2));
 
-      if(hh < hhOrder){
+      if(hh < hhOrderInit){
         validarTemporalidad = true;
       }else{
-        if(hh == hhOrder){
-          if(mm <= mmOrder){
+        if(hh == hhOrderInit){
+          if(mm <= mmOrderInit){
             validarTemporalidad = true;
           }
         }
-      }
+      } 
 
       if((this.serviceStart!="")&&(this.hours>0)&&(validarTemporalidad)){
-        this.validarAlquiler = false;
+        this.alquilerInvalidoPorHoras = false;
 
-        if((hhOrder + parseInt(this.hours))>=24){
-          var hourAux = (hhOrder + parseInt(this.hours))-24;
+        if((hhOrderInit + parseInt(this.hours))>=24){
+          var hourAux = (hhOrderInit + parseInt(this.hours))-24;
 
           if(hourAux<10){
-            this.serviceFinish = "0" + hourAux + ":" + mmOrder;
+            this.serviceFinish = "0" + hourAux + ":" + mmOrderInit;
           }else{
-            this.serviceFinish = hourAux + ":" + mmOrder;
+            this.serviceFinish = hourAux + ":" + mmOrderInit;
           }
         }else{
-          var hourAux = hhOrder + parseInt(this.hours);
+          var hourAux = hhOrderInit + parseInt(this.hours);
           if(hourAux<10){
-            this.serviceFinish = "0" + hourAux + ":" + mmOrder;
+            this.serviceFinish = "0" + hourAux + ":" + mmOrderInit;
           }else{
-            this.serviceFinish = hourAux + ":" + mmOrder;
+            this.serviceFinish = hourAux + ":" + mmOrderInit;
           }
         }
 
-        let json = {
-          orderDate: dateString,
-          orderStatus: this.status,
-          hours: parseInt(this.hours),
-          price: parseInt(this.hours) * parseInt(this.valueHour),
-          serialBicycle: this.toSentSerialBike,
-          paymentID: 1, //always this will be 1 = efectivo
-          stationID: this.idStation,
-          userId: this.idClient,
-          serviceStart: this.serviceStart,
-          serviceFinish: this.serviceFinish,
-        };
-        this.updateValuesBikes();
-        this.updateValuesStation();
-        axios.post("http://localhost:8080/order/save", json).then(r => {
-           this.$router.push("/cliente-solicitudes"); 
-        });
+        var hhOrderFinish = parseInt(this.serviceFinish.substring(0,2));
+
+
+        if((hhOrderInit<hhStationOpen)||(hhOrderFinish>hhStationClose)){
+          this.alquilerInvalidoPorHorario = true;
+        }  
+        if(!this.alquilerInvalidoPorHorario){
+          let json = {
+            orderDate: dateString,
+            orderStatus: this.status,
+            hours: parseInt(this.hours),
+            price: parseInt(this.hours) * parseInt(this.valueHour),
+            serialBicycle: this.toSentSerialBike,
+            paymentID: 1, //always this will be 1 = efectivo
+            stationID: this.idStation,
+            userId: this.idClient,
+            serviceStart: this.serviceStart,
+            serviceFinish: this.serviceFinish,
+          };
+          this.updateValuesBikes();
+          this.updateValuesStation();
+          axios.post("http://localhost:8080/order/save", json).then(r => {
+            this.$router.push("/cliente-solicitudes"); 
+          });
+        }
       }else{
-        this.validarAlquiler = true;
+        this.alquilerInvalidoPorHoras = true;
       }
     }
   },
