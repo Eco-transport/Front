@@ -173,7 +173,12 @@
       {
           // cambiamos la imagen y la url
           contador++
+        try {
           document.getElementById("imagen").src=imagenes[contador%imagenes.length][0];
+        } catch (error) {
+            // Para eliminar el error de la propiedad de null.
+        }
+
       }
       onload=function()
       {

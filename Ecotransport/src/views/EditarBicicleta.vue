@@ -142,7 +142,6 @@
         axios
           .delete("http://localhost:8080/bicycle/" + this.form.idBicicleta)
           .then(datos => {
-            console.log(datos);
             this.$router.push("/admin-ciclas");
           });
       }
@@ -157,8 +156,6 @@
           this.form.status = datos.data.bicycleStatus;
           this.form.idEstacion = datos.data.stationId;
           this.form.vendedor = datos.data.vendor;
-
-          console.log(this.form);
         });
     }
   };

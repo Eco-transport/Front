@@ -84,7 +84,6 @@
         .then(stationData => {
           this.ListaBicicletas = stationData.data;
           this.ListaBicicletas.forEach(function(bicycle) {
-            console.log(bicycle);
             axios.get("http://localhost:8080/station/" + bicycle.stationId)
               .then(tmp => {bicycle.stationId = tmp.data.stationName;});
           });
