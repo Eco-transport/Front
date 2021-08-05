@@ -52,9 +52,11 @@
         this.$router.push({ name: "IniciarSesion" });
       }
     },
-    data() {
+
+    data: function() {
       return {
-        ListaBicicletas: []
+        ListaBicicletas: null,
+        stationList: null
       };
     },
 
@@ -66,15 +68,27 @@
       editar(id) {
         this.$router.push("/editar-bicicleta/" + id);
       },
+
       nuevo() {
         this.$router.push("/nueva-bicicleta");
       }
     },
 
     mounted: function() {
-      axios.get("http://localhost:8080/bicycle").then(data => {
+      /*axios.get("http://localhost:8080/bicycle").then(data => {
         this.ListaBicicletas = data.data;
-      });
+      });*/
+
+      axios
+        .get("http://localhost:8080/bicycle")
+        .then(stationData => {
+          this.ListaBicicletas = stationData.data;
+          this.ListaBicicletas.forEach(function(bicycle) {
+            console.log(bicycle);
+            axios.get("http://localhost:8080/station/" + bicycle.stationId)
+              .then(tmp => {bicycle.stationId = tmp.data.stationName;});
+          });
+        });
     }
   };
 </script>
@@ -97,11 +111,13 @@
   h1{
     color: white;
   }
+
   .table{
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(4px);
     color:white;
   }
+
   table tbody :hover{
     background-color: rgba(255, 255, 255, 0.7);
     color: black

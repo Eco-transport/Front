@@ -9,11 +9,12 @@
 </template>
 
 <script>
-import Header from "@/components/Header";
-export default {
-  name: "error",
-  components: {
-    Header,
-  },
-};
+  import Header from "@/components/Header";
+
+  export default {
+    name: "error",
+    components: {
+      Header,
+    },
+  };
 </script>

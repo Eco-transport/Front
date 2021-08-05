@@ -84,86 +84,86 @@ export default {
 </script>
 
 <style scoped>
-.body {
-  height: 100vh;
-  overflow: auto;   /* Arregla problema de imagen salida */
-  background-color: rgba(0, 0, 0, 0.8);
-  background-size: cover;
-  font-family: "Montserrat", sans-serif;
-}
+  .body {
+    height: 100vh;
+    overflow: auto;   /* Arregla problema de imagen salida */
+    background-color: rgba(0, 0, 0, 0.8);
+    background-size: cover;
+    font-family: "Montserrat", sans-serif;
+  }
 
-h1 {
-  margin-top: 10%;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 48px;
-  line-height: 59px;
-  color: #ffffff;
-  text-shadow: 3px 4px 5px rgba(0, 0, 0, 0.54);
-}
+  h1 {
+    margin-top: 10%;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 48px;
+    line-height: 59px;
+    color: #ffffff;
+    text-shadow: 3px 4px 5px rgba(0, 0, 0, 0.54);
+  }
 
-h3 {
-  margin-top: 2px;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 24px;
-  line-height: 29px;
-  color: #ffffff;
-  text-shadow: 3px 4px 5px rgba(0, 0, 0, 0.7);
-}
+  h3 {
+    margin-top: 2px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 29px;
+    color: #ffffff;
+    text-shadow: 3px 4px 5px rgba(0, 0, 0, 0.7);
+  }
 
-.cajas {
-  margin-top: 4%;
-  width: 80%;
-  margin-left: 10%;
-}
+  .cajas {
+    margin-top: 4%;
+    width: 80%;
+    margin-left: 10%;
+  }
 
-/* Transparencia */
-.col-lg {
-  height: 200px;
-  margin: 5%;
-  margin-top: 2%;
-  border: 0px;
-  padding: 0%;
-  background-color: rgba(255, 255, 255, 0.3);
-  border: solid 1px rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(4px);
-  border-radius: 10px;
-}
+  /* Transparencia */
+  .col-lg {
+    height: 200px;
+    margin: 5%;
+    margin-top: 2%;
+    border: 0px;
+    padding: 0%;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: solid 1px rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
+    border-radius: 10px;
+  }
 
-#casilla :hover {
-  background-color: rgba(255, 255, 255, 0.5);
-}
+  #casilla :hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
 
-.col-lg h3 {
-  margin-top: 5%;
-  text-shadow: 3px 4px 5px rgba(255, 255, 255, 0);
-  color: #ffffff;
-}
+  .col-lg h3 {
+    margin-top: 5%;
+    text-shadow: 3px 4px 5px rgba(255, 255, 255, 0);
+    color: #ffffff;
+  }
 
-center {
-  color: rgb(255, 255, 255);
-  text-shadow: 3px 4px 5px rgba(255, 255, 255, 0);
-  margin: 10px;
-  margin-left: 30px;
-  margin-right: 30px;
-}
-a {
-  text-align: center;
-  flex-direction: row;
-  padding: 5px 20px;
+  center {
+    color: rgb(255, 255, 255);
+    text-shadow: 3px 4px 5px rgba(255, 255, 255, 0);
+    margin: 10px;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+  a {
+    text-align: center;
+    flex-direction: row;
+    padding: 5px 20px;
 
-  position: absolute;
-  left: 35%;
-  right: 35%;
-  top: 73%;
-  bottom: 10%;
+    position: absolute;
+    left: 35%;
+    right: 35%;
+    top: 73%;
+    bottom: 10%;
 
-  background: #005609;
-  color: #ffffff;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-}
+    background: #005609;
+    color: #ffffff;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+  }
 </style>

@@ -1,9 +1,6 @@
 <template>
   <div>
-      <!-- style="background-image: url('https://images.pexels.com/photos/1545505/pexels-photo-1545505.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');" -->
-    <div
-      class="body"
-    >
+    <div class="body">
       <HeaderAdmin />
       <br /><br />
       <h1>Edite la información de algún pedido</h1>
@@ -55,65 +52,66 @@
 </template>
 
 <script>
-import HeaderAdmin from "@/components/HeaderAdmin.vue";
-import Footer from "@/components/Footer.vue";
-import axios from "axios";
-import { getAuthenticationToken } from "@/dataStorage";
+  import HeaderAdmin from "@/components/HeaderAdmin.vue";
+  import Footer from "@/components/Footer.vue";
+  import axios from "axios";
+  import { getAuthenticationToken } from "@/dataStorage";
 
-export default {
-  name: "AdminPedidos",
-  beforeCreate() {
-    if (!getAuthenticationToken()) {
-      this.$router.push({ name: "IniciarSesion" });
+  export default {
+    name: "AdminPedidos",
+    beforeCreate() {
+      if (!getAuthenticationToken()) {
+        this.$router.push({ name: "IniciarSesion" });
+      }
+    },
+    data() {
+      return {
+        OrderList: null
+      };
+    },
+    components: {
+      HeaderAdmin,
+      Footer
+    },
+    methods: {
+      editar(id) {
+        this.$router.push("/editar-pedido-admin/" + id);
+      }
+    },
+    mounted: function() {
+      axios.get("http://localhost:8080/order/")
+      .then(data => {this.OrderList = data.data;});
     }
-  },
-  data() {
-    return {
-      OrderList: null
-    };
-  },
-  components: {
-    HeaderAdmin,
-    Footer
-  },
-  methods: {
-    editar(id) {
-      this.$router.push("/editar-pedido-admin/" + id);
-    }
-  },
-  mounted: function() {
-    axios.get("http://localhost:8080/order/")
-    .then(data => {this.OrderList = data.data;});
-  }
-};
+  };
 </script>
 
 <style scoped>
-.izquierda {
-  text-align: left;
-}
+  .izquierda {
+    text-align: left;
+  }
 
-.body {
-  height: 100vh;
-  overflow: auto;   /* Arregla problema de imagen salida */
-  background-size: cover;
-  font-family: "Montserrat", sans-serif;
-  background-color: #10100d;
-  opacity: 1;
-  background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #10100d 11px ), repeating-linear-gradient( #322d0855, #322d08 );
-}
+  .body {
+    height: 100vh;
+    overflow: auto;   /* Arregla problema de imagen salida */
+    background-size: cover;
+    font-family: "Montserrat", sans-serif;
+    background-color: #10100d;
+    opacity: 1;
+    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #10100d 11px ), repeating-linear-gradient( #322d0855, #322d08 );
+  }
 
+  h1 {
+    color: white;
+  }
 
-h1 {
-  color: white;
-}
-.table {
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(4px);
-  color: white;
-}
-table tbody :hover {
-  background-color: rgba(255, 255, 255, 0.7);
-  color: black;
-}
+  .table {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    color: white;
+  }
+
+  table tbody :hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: black;
+  }
 </style>

@@ -1,10 +1,7 @@
 <template>
   <div>
-    <!-- style="background-image: url('https://images.pexels.com/photos/1545505/pexels-photo-1545505.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');" -->
     <div
-      class="body"
-
-    >
+      class="body">
       <HeaderAdmin />
       <br /><br />
       <h1>Edite la información de una estación</h1>
@@ -33,8 +30,7 @@
             <tr
               v-for="estacion in ListaEstaciones"
               :key="estacion.id"
-              v-on:click="editar(estacion.id)"
-            >
+              v-on:click="editar(estacion.id)">
               <th scope="row">{{ estacion.id }}</th>
               <td>{{ estacion.stationName }}</td>
               <td>{{ estacion.address }}</td>
@@ -54,69 +50,72 @@
 </template>
 
 <script>
-import HeaderAdmin from "@/components/HeaderAdmin.vue";
-import Footer from "@/components/Footer.vue";
-import axios from "axios";
-import { getAuthenticationToken } from "@/dataStorage";
+  import HeaderAdmin from "@/components/HeaderAdmin.vue";
+  import Footer from "@/components/Footer.vue";
+  import axios from "axios";
+  import { getAuthenticationToken } from "@/dataStorage";
 
-export default {
-  name: "EditarEstaciones",
-  beforeCreate() {
-    if (!getAuthenticationToken()) {
-      this.$router.push({ name: "IniciarSesion" });
-    }
-  },
-  data() {
-    return {
-      ListaEstaciones: null
-      //pagina: 1
-    };
-  },
-  components: {
-    HeaderAdmin,
-    Footer
-  },
-  methods: {
-    editar(id) {
-      this.$router.push("/editar-estacion/" + id);
+  export default {
+    name: "EditarEstaciones",
+    beforeCreate() {
+      if (!getAuthenticationToken()) {
+        this.$router.push({ name: "IniciarSesion" });
+      }
     },
-    nuevo() {
-      this.$router.push("/nueva-estacion");
+    data() {
+      return {
+        ListaEstaciones: null
+        //pagina: 1
+      };
+    },
+    components: {
+      HeaderAdmin,
+      Footer
+    },
+    methods: {
+      editar(id) {
+        this.$router.push("/editar-estacion/" + id);
+      },
+      nuevo() {
+        this.$router.push("/nueva-estacion");
+      }
+    },
+    mounted: function() {
+      let direccion = "http://localhost:8080/station/";
+      axios.get(direccion).then(data => {
+        this.ListaEstaciones = data.data;
+      });
     }
-  },
-  mounted: function() {
-    let direccion = "http://localhost:8080/station/";
-    axios.get(direccion).then(data => {
-      this.ListaEstaciones = data.data;
-    });
-  }
-};
+  };
 </script>
 
 <style scoped>
-.izquierda {
-  text-align: left;
-}
-.body {
-  height: 100vh;
-  overflow: auto;   /* Arregla problema de imagen salida */
-  background-size: cover;
-  font-family: "Montserrat", sans-serif;
-background-color: #10100d;
-opacity: 1;
-background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #10100d 11px ), repeating-linear-gradient( #322d0855, #322d08 );
-}
+  .izquierda {
+    text-align: left;
+  }
 
-h1 {
-  color: white;
-}
-.table {
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(4px);
-  color: white;
-}
-table tbody :hover {
-  background-color: rgba(255, 255, 255, 0.7);
-  color: black;
-}
+  .body {
+    height: 100vh;
+    overflow: auto;   /* Arregla problema de imagen salida */
+    background-size: cover;
+    font-family: "Montserrat", sans-serif;
+  background-color: #10100d;
+  opacity: 1;
+  background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #10100d 11px ), repeating-linear-gradient( #322d0855, #322d08 );
+  }
+
+  h1 {
+    color: white;
+  }
+
+  .table {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    color: white;
+  }
+
+  table tbody :hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: black;
+  }
 </style>

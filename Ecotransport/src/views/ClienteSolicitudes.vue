@@ -1,13 +1,11 @@
 <template>
   <!-- style="background-image: url('https://images.pexels.com/photos/409701/pexels-photo-409701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');"   -->
-  <div
-    class="body"
-
-  >
+  <div class="body">
     <HeaderUser></HeaderUser>
     <br /><br />
     <h1>¡Bienvenid@, {{ nombreUser }}!</h1>
     <h1>Consulta tu historial de préstamos</h1>
+
     <br />
 
     <div class="container izquierda">
@@ -32,7 +30,6 @@
             <th scope="col">MÉTODO DE PAGO</th>
           </tr>
         </thead>
-
         <tbody>
           <tr
             v-for="prestamo in OrderList"

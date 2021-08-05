@@ -6,60 +6,60 @@
     <div class="container ">
       <div class="row justify-content-center">
         <form action="" class="form-horizontal">
-<!-- 
+<!--
           <div class="row">
           <div class="col-lg">
           </div></div> -->
         <div class="form-group left">
-          <label for="" class="control-label col-sm-2">Serial</label>
+          <label class="control-label col-sm-2">Serial</label>
           <div class="col-sm-10">
             <input
               type="text"
               class="form-control"
               name="serial"
               id="serial"
-              v-model="form.serial"
-            />
+              v-model="form.serial"/>
           </div>
         </div>
         <div class="form-group left">
-          <label for="" class="control-label col-sm-2">Estación de la bicicleta [ID]</label>
+          <label class="control-label col-sm-2">Estación de la bicicleta [ID]</label>
           <div class="col-sm-10">
             <input
               type="text"
               class="form-control"
               name="idEstacion"
               id="idEstacion"
-              v-model="form.idEstacion"
-            />
+              v-model="form.idEstacion"/>
           </div>
         </div>
-        
+
         <div class="form-group left">
-          <label for="" class="control-label col-sm-2">Vendedor</label>
+          <label class="control-label col-sm-2">Referencia</label>
           <div class="col-sm-10">
             <input
               type="text"
               class="form-control"
               name="vendedor"
               id="vendedor"
-              v-model="form.vendedor"
-            />
+              v-model="form.vendedor"/>
           </div>
         </div>
 
-        <div class="form-group left">
-          <label for="" class="control-label col-sm-2">Status</label>
+<!--        <div class="form-group left">
+          <label class="control-label col-sm-2">Estado</label>
           <div class="col-sm-10">
-            <input
-              type="text"
+            <select id="status" name="status" v-mode="form.status">
+              <b-select-option value="volvo">{{status}}</b-select-option>
+              <b-select-option value="volvo">Disponible</b-select-option>
+              <b-select-option value="volvo">Ocupada</b-select-option>
+            </select>
+              &lt;!&ndash;type="text"
               class="form-control"
               name="status"
               id="status"
-              v-model="form.status"
-            />
+              v-model="form.status"/>&ndash;&gt;
           </div>
-        </div>
+        </div>-->
 
         <!-- Aquí debería ir un div para justificar a la derecha -->
 
@@ -100,11 +100,11 @@ export default {
 
   data: function() {
     return {
-      form: {        
+      form: {
         serial: "",
         idEstacion: "",
         vendedor: "",
-        status: ""      
+        status: "Disponible"
       },
       form: {
         idEstacion: "",
@@ -121,12 +121,12 @@ export default {
   },
   methods: {
     guardar() {
-      let json = {                
+      let json = {
         "vendor": this.form.vendedor,
         "bicycleSerial": this.form.serial,
         "bicycleStatus": this.form.status,
         "stationId": this.form.idEstacion
-      };     
+      };
 
       axios
         .post("http://localhost:8080/bicycle/save", json)
@@ -138,7 +138,7 @@ export default {
           this.makeToast("Error", "Error al guardar", "error");
         });
 
-        this.editarEstacion(this.form.idEstacion); 
+        this.editarEstacion(this.form.idEstacion);
     },
      editarEstacion(idEstacionInt) {
       axios
@@ -155,7 +155,7 @@ export default {
 
           console.log(this.form);
         });
-    }, 
+    },
     salir() {
       this.$router.push("/admin-ciclas");
     },
@@ -175,7 +175,7 @@ export default {
 <style scoped>
 
 .body {
-  height: 100vh;  
+  height: 100vh;
   overflow: auto;   /* Arregla problema de imagen salida */
   background-size: cover;
   font-family: "Montserrat", sans-serif;
