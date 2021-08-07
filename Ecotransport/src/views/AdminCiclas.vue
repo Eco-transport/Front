@@ -56,7 +56,6 @@
     data: function() {
       return {
         ListaBicicletas: null,
-        stationList: null
       };
     },
 

@@ -29,8 +29,7 @@
             <tr
               v-for="item in OrderList"
               :key="item.id"
-              v-on:click="editar(item.id)"
-            >
+              v-on:click="editar(item.id)">
               <th scope="row">{{ item.id }}</th>
               <td>{{ item.orderDate }}</td>
               <td>{{ item.orderStatus }}</td>
@@ -41,7 +40,7 @@
               <td>{{ item.userId }}</td>
               <td>{{ item.serviceStart }}</td>
               <td>{{ item.serviceFinish }}</td>
-              <td>{{ item.paymentID }}</td>
+              <td>Efectivo</td>
             </tr>
           </tbody>
         </table>
@@ -66,7 +65,8 @@
     },
     data() {
       return {
-        OrderList: null
+        OrderList: null,
+        stationList: null
       };
     },
     components: {
@@ -79,8 +79,19 @@
       }
     },
     mounted: function() {
+      let stationList;
       axios.get("http://localhost:8080/order/")
-      .then(data => {this.OrderList = data.data;});
+        .then(data => {
+          this.OrderList = data.data;
+          this.OrderList.forEach(function (order) {
+            axios.get("http://localhost:8080/station/" + order.stationID)
+              .then(stationData => {order.stationID = stationData.data.stationName;
+              });
+            axios.get("http://localhost:8080/user/getIdsAndUsernames")
+              .then(userData => {order.userId = userData.data[order.userId];
+              });
+          });
+        });
     }
   };
 </script>
