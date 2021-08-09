@@ -182,6 +182,9 @@ export default {
       showButtonFinalizarServicio: false,
       showButtonSobrecosto: false,
 
+      localSg: "",
+      idStationFinish: "",
+
       //ORDER DATA
       orderID: "",
       date: "",
@@ -250,22 +253,21 @@ export default {
     },
     iniciarServicio(){
       let json = {
-        id: this.orderID,
+        id:  this.orderID,
         orderDate: this.date,
         orderStatus: "EN SERVICIO",
         hours: this.hours,
         price: this.price,
         serialBicycle: this.serial,
-        paymentID: this.payment,
+        paymentID: 1,
         stationID: this.station,
         userId: this.user,
         serviceStart: this.serviceStart,
         serviceFinish: this.serviceFinish
       };
-      //console.log(json);
+      console.log(json);
       axios.post("http://localhost:8080/order/save/", json)
-            .then(() => {/* console.log(data); */});
-      this.$router.push("/admin-pedidos");  
+            .then(() => {this.$router.push("/admin-pedidos");  });
     },
     finalizarServicio(){   
       let json = {
@@ -275,7 +277,7 @@ export default {
         hours: this.hours,
         price: this.price + this.extraPayment,
         serialBicycle: this.serial,
-        paymentID: this.payment,
+        paymentID: 1,
         stationID: this.station,
         userId: this.user,
         serviceStart: this.serviceStart,
@@ -283,9 +285,10 @@ export default {
       };
       //console.log(json);
       axios.post("http://localhost:8080/order/save/", json)
-            .then(() => {/* console.log(data); */});
-      this.wildcardLoadData(); 
-      this.$router.push("/admin-pedidos");  
+            .then(() => {
+              this.wildcardLoadData(); 
+              this.$router.push("/admin-pedidos");
+              });  
     },
     wildcardLoadData(){
       axios
@@ -296,17 +299,17 @@ export default {
           vendor: r.data.vendor,
           bicycleSerial: r.data.bicycleSerial,
           bicycleStatus: "Disponible",
-          stationId: r.data.stationId,
+          stationId: this.idStationFinish,
         }
         axios
         .post("http://localhost:8080/bicycle/save/", json)
         .then(()=>{/* console.log(r.data) */});
       });
       axios
-      .get("http://localhost:8080/station/" + this.station)
+      .get("http://localhost:8080/station/" + this.idStationFinish)
       .then(r => {
         let json = {
-          id: this.station,
+          id: this.idStationFinish,
           stationName: r.data.stationName,
           address: r.data.address,
           phone: r.data.phone,
@@ -346,6 +349,12 @@ export default {
       if(this.payment==1){
         this.payment = "EFECTIVO";
       }
+    });
+    this.localSg = localStorage.nameStation;
+    console.log("localSg", this.localSg);
+    axios.get("http://localhost:8080/station/testing/" + this.localSg).then(data => {
+      this.idStationFinish = data.data.id;
+      console.log(this.idStationFinish);
     });
   }
 };

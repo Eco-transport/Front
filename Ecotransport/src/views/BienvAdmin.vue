@@ -11,7 +11,11 @@
     </div>
     <div class="container">
       <div class="row justify-content-center">
-        <h3>¿Qué desea administrar?</h3>
+        <h3>¿Qué estación desea administrar?&nbsp;</h3>
+        <select class="btn btn-outline-success" id="selectStation" name="selectStation" v-model="nameStation" v-on:click="validate()">
+          <option value="selectstation">--- Por favor seleccione ---</option>
+          <option v-for="station in stationList" :key="station.stationName">{{station.stationName}}</option>
+        </select>
       </div>
     </div>
 
@@ -25,7 +29,7 @@
               Administra puntos de alquiler, unidades disponibles, horarios
               disponibles, crea o eliminalas
             </center>
-            <a class="btn btn-outline-success" href="/admin-estaciones" role="button">Editar</a>
+            <a v-show="estacionGuardada" class="btn btn-outline-success" href="/admin-estaciones" role="button">Editar</a>
           </div>
 
           <div class="col-lg">
@@ -34,7 +38,7 @@
               Administra unidades, estado de las ciclas, estaciones que las possen
               y gestionalas facilmente
             </center>
-            <a class="btn btn-outline-success" href="/admin-ciclas" role="button">Editar</a>
+            <a v-show="estacionGuardada" class="btn btn-outline-success" href="/admin-ciclas" role="button">Editar</a>
           </div>
 
           <div class="col-lg">
@@ -43,7 +47,7 @@
               Administra los pedidos reslizados por los clientes, cancela pedidos,
               cambia su estado
             </center>
-            <a class="btn btn-outline-success" href="/admin-pedidos" role="button">Editar</a>
+            <a v-show="estacionGuardada" class="btn btn-outline-success" href="/admin-pedidos" role="button">Editar</a>
           </div>
         </div>
       </div>
@@ -73,8 +77,23 @@
     },
     data() {
       return {
-        nombre_user: ""
+        nombre_user: "",
+        nameStation: "",
+        estacionGuardada: false,
+        stationList: null
       };
+    },
+    methods: {
+      validate(){
+        var ddl = document.getElementById("selectStation");
+        var selectedValue = ddl.options[ddl.selectedIndex].value;
+        if (selectedValue == "selectstation"){
+          this.estacionGuardada = false;
+        }else{
+          this.estacionGuardada = true;
+          localStorage.nameStation = this.nameStation;
+        }
+      }
     },
     mounted: function() {
       if (getAuthenticationToken()) {
@@ -83,6 +102,9 @@
           this.nombre_user = response.data
           } );
       }
+      axios
+        .get("http://localhost:8080/station")
+        .then(allStationsPet => {this.stationList = allStationsPet.data;});
     }
   };
 </script>
