@@ -230,7 +230,7 @@
         hours: 1,
         serviceStart: "",
         serviceFinish: "",
-        status: "Pendiente de Pago",
+        status: "PENDIENTE DE PAGO",
 
         //STATION
         idStation: this.$route.params.id,
