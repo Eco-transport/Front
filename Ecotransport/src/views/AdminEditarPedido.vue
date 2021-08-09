@@ -328,6 +328,7 @@ export default {
   mounted: function() {
     this.orderID = this.$route.params.id;
     axios.get("http://localhost:8080/order/" + this.orderID).then(data => {
+      this.orderID = data.data.id
       this.date = data.data.orderDate;
       this.status = data.data.orderStatus;
       this.hours = data.data.hours;

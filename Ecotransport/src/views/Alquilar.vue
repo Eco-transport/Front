@@ -163,30 +163,6 @@
 </template>
 
 <script>
-  var imagenes=new Array(
-    ['../assets/bicicletaElectrica.png'],
-    ['../assets/MapEco.png']
-  );
-
-  var contador=0;
-  function rotarImagenes() {
-          // cambiamos la imagen y la url
-          contador++
-        try {
-          document.getElementById("imagen").src=imagenes[contador%imagenes.length][0];
-        } catch (error) {
-            // Para eliminar el error de la propiedad de null.
-        }
-
-      }
-
-      onload=function() {
-          // Cargamos una imagen aleatoria
-          rotarImagenes();
-
-          // Indicamos que cada 5 segundos cambie la imagen
-          setInterval(rotarImagenes,5000);
-      }
 
   import HeaderUser from "@/components/HeaderUser";
   import axios from "axios";
@@ -297,75 +273,67 @@
         var validarTemporalidad = false;
         var hh = date.getHours();
         var mm = date.getMinutes();
-        var hhOrderInit = parseInt(this.serviceStart.substring(0, 2));
-        var mmOrderInit = parseInt(this.serviceStart.substring(3, 5));
-        var hhStationOpen = parseInt(this.stationOpen.substring(0, 2));
-
-        /* Convertir la hora de cierre de la estación de am/pm a formato 24 h para hacer la validación */
-        var hhStationClose = parseInt(this.stationClose.substring(0, 2));
-        let pm = this.stationClose.substring(5, 7).trim();
-        if((hhStationClose != 12) && (pm == "p")) {
-          hhStationClose = parseInt(this.stationClose.substring(0, 2)) + 12;
-        }
+        var hhOrderInit = parseInt(this.serviceStart.substring(0,2));
+        var mmOrderInit = parseInt(this.serviceStart.substring(3,5));
+        var hhStationOpen = parseInt(this.stationOpen.substring(0,2));
+        var hhStationClose = parseInt(this.stationClose.substring(0,2));
 
         if(hh < hhOrderInit){
           validarTemporalidad = true;
-        } else {
+        }else{
           if(hh == hhOrderInit){
             if(mm <= mmOrderInit){
               validarTemporalidad = true;
             }
           }
-        }
+        } 
 
-        if((this.serviceStart != "") && (this.hours > 0) && (validarTemporalidad)){
+        if((this.serviceStart!="")&&(this.hours>0)&&(validarTemporalidad)){
           this.alquilerInvalidoPorHoras = false;
 
-          if((hhOrderInit + parseInt(this.hours)) >= 24){
-            var hourAux = (hhOrderInit + parseInt(this.hours)) - 24;
+          if((hhOrderInit + parseInt(this.hours))>=24){
+            var hourAux = (hhOrderInit + parseInt(this.hours))-24;
 
-            if(hourAux < 10){
-              this.serviceFinish = "0" + hourAux + ":" + mmOrderInit;
-            } else {
-              this.serviceFinish = hourAux + ":" + mmOrderInit;
-            }
-          } else {
-            var hourAux = hhOrderInit + parseInt(this.hours);
-            if(hourAux < 10){
-              this.serviceFinish = "0" + hourAux + ":" + mmOrderInit;
+            if(hourAux<10){
+              this.serviceFinish = "0" + hourAux + ":" + this.serviceStart.substring(3,5);
             }else{
-              this.serviceFinish = hourAux + ":" + mmOrderInit;
+              this.serviceFinish = hourAux + ":" + this.serviceStart.substring(3,5);
+            }
+          }else{
+            var hourAux = hhOrderInit + parseInt(this.hours);
+            if(hourAux<10){
+              this.serviceFinish = "0" + hourAux + ":" + this.serviceStart.substring(3,5);
+            }else{
+              this.serviceFinish = hourAux + ":" + this.serviceStart.substring(3,5);
             }
           }
 
-          var hhOrderFinish = parseInt(this.serviceFinish.substring(0, 2));
+          var hhOrderFinish = parseInt(this.serviceFinish.substring(0,2));
 
-          if((hhOrderInit < hhStationOpen) || (hhOrderFinish > hhStationClose) || (hhOrderFinish < hhStationOpen)){
+
+          if((hhOrderInit<hhStationOpen)||(hhOrderFinish>hhStationClose)||(hhOrderFinish<hhStationOpen)){
             this.alquilerInvalidoPorHorario = true;
-          }
-
-          if(!this.alquilerInvalidoPorHorario) {
+          }  
+          if(!this.alquilerInvalidoPorHorario){
             let json = {
               orderDate: dateString,
               orderStatus: this.status,
               hours: parseInt(this.hours),
               price: parseInt(this.hours) * parseInt(this.valueHour),
               serialBicycle: this.toSentSerialBike,
-              paymentID: 1, // Siempre será 1: Efectivo
+              paymentID: 1, //always this will be 1 = efectivo
               stationID: this.idStation,
               userId: this.idClient,
               serviceStart: this.serviceStart,
               serviceFinish: this.serviceFinish,
             };
-
             this.updateValuesBikes();
             this.updateValuesStation();
-
             axios.post("http://localhost:8080/order/save", json).then(r => {
-              this.$router.push("/cliente-solicitudes");
+              this.$router.push("/cliente-solicitudes"); 
             });
           }
-        } else {
+        }else{
           this.alquilerInvalidoPorHoras = true;
         }
       }
